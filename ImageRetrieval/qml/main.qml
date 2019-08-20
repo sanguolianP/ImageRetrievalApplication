@@ -32,6 +32,18 @@ Window {
         color: "#1c0f4e"
     }
 
+    MyMenuBar
+    {
+        id: menuBar_mainWin;
+
+        anchors.top: parent.top;
+        anchors.topMargin: 88;
+
+        width: parent.width;
+        height: 65;
+
+        color: "#352e57"
+    }
 
 
 
