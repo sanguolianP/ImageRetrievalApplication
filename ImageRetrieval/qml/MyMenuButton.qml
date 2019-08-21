@@ -17,30 +17,41 @@ Rectangle {
 
     signal menuButtonIndexBack(var nIndex);
 
-
-    Image
+    Row
     {
-        id: menuButtonImage;
-        anchors.fill: parent;
-        source: sNormalImage;
+        id: menubuttonRowInner;
+//        anchors.fill: parent;
+        anchors.verticalCenter: parent.verticalCenter;
+        anchors.horizontalCenter: parent.horizontalCenter;
+        spacing: 10;
+
+        Text {
+            id: menuButtonText;
+            anchors.verticalCenter: parent.verticalCenter;
+//            width: parent.width;
+//            height: parent.height;
+            horizontalAlignment: Text.AlignHCenter;
+            verticalAlignment: Text.AlignVCenter;
+            wrapMode: Text.WordWrap;
+            color: "#ffffff";
+            font.family: "微软雅黑";
+            font.pixelSize: nTextSize;
+            font.letterSpacing: 1;
+    //        font.bold: true;
+            text: sTextText;
+        }
+        Image
+        {
+            id: menuButtonImage;
+            anchors.verticalCenter: parent.verticalCenter;
+            source: sNormalImage;
+        }
     }
 
 
-    Text {
-        id: menuButtonText;x: 0;
-        y: 0;
-        width: parent.width;
-        height: parent.height;
-        horizontalAlignment: Text.AlignHCenter;
-        verticalAlignment: Text.AlignVCenter;
-        wrapMode: Text.WordWrap;
-        color: "#eeeeee";
-        font.family: "微软雅黑";
-        font.pixelSize: nTextSize;
-        font.letterSpacing: 1;
-//        font.bold: true;
-        text: sTextText;
-    }
+
+
+
 
     MouseArea
     {
@@ -82,6 +93,7 @@ Rectangle {
                 rect_MenuDb.visible = false;
                 rect_MenuHelp.visible = false;
             }
+            menu_Button.state = "normal";
 
         }
         onEntered:
@@ -89,14 +101,14 @@ Rectangle {
             if(menu_Button.state === "normal")
                 menu_Button.state = "hover";
             console.log("enter->menuButton");
-            menu_Button.color = "#666666";
+            menu_Button.color = "#1c0f4e";
         }
         onExited:
         {
             if(menu_Button.state === "hover")
                 menu_Button.state = "normal";
             console.log("exit->menuButton");
-            menu_Button.color = "#474747";
+            menu_Button.color = "#352e57";
         }
         onClicked:
         {

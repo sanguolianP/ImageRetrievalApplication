@@ -28,8 +28,11 @@ Rectangle {
             id:fileButton_Menu;
             width: 120;
             height: 62;
-            nTextSize: 25;
+            nTextSize: 26;
             sTextText: "文件"
+            sPressedImage: "images/MenuBar/fileHover.png";
+            sNormalImage: "images/MenuBar/file.png";
+            sHoverImage: "images/MenuBar/fileHover.png";
             state: "normal";
             nIndex: 0;
 
@@ -37,9 +40,9 @@ Rectangle {
         MyMenuButton
         {
             id:dbButton_Menu;
-            width: 120;
+            width: 160;
             height: 62;
-            nTextSize: 25;
+            nTextSize: 26;
             sTextText: "数据库"
             state: "normal";
             nIndex: 1;
@@ -49,7 +52,7 @@ Rectangle {
             id:helpButton_Menu;
             width: 120;
             height: 62;
-            nTextSize: 25;
+            nTextSize: 26;
             sTextText: "帮助"
             state: "normal";
             nIndex: 2;

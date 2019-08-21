@@ -1,0 +1,47 @@
+<RCC>
+    <qresource prefix="/">
+        <file>bin/debug/qrc_qml.cpp</file>
+        <file>qml/images/MainInterface/left/image.png</file>
+        <file>qml/images/MainInterface/left/paint.png</file>
+        <file>qml/images/MainInterface/left/rectChoose.png</file>
+        <file>qml/images/MainInterface/left/rotate.png</file>
+        <file>qml/images/MainInterface/left/zoomIn.png</file>
+        <file>qml/images/MainInterface/left/zoomOut.png</file>
+        <file>qml/images/MainInterface/right/border.png</file>
+        <file>qml/images/MainInterface/right/go.png</file>
+        <file>qml/images/MainInterface/right/goDisable.png</file>
+        <file>qml/images/MainInterface/right/jumpInput.png</file>
+        <file>qml/images/MainInterface/right/kuang.png</file>
+        <file>qml/images/MainInterface/right/leftDrag.png</file>
+        <file>qml/images/MainInterface/right/patternBig.png</file>
+        <file>qml/images/MainInterface/right/pick.png</file>
+        <file>qml/images/MainInterface/right/rightDrag.png</file>
+        <file>qml/images/MainInterface/right/shouqi.png</file>
+        <file>qml/images/MainInterface/right/zhankai.png</file>
+        <file>qml/images/MenuBar/aboutus.png</file>
+        <file>qml/images/MenuBar/aboutusHover.png</file>
+        <file>qml/images/MenuBar/connectdb.png</file>
+        <file>qml/images/MenuBar/connectdbHover.png</file>
+        <file>qml/images/MenuBar/db.png</file>
+        <file>qml/images/MenuBar/dbHover.png</file>
+        <file>qml/images/MenuBar/file.png</file>
+        <file>qml/images/MenuBar/fileHover.png</file>
+        <file>qml/images/MenuBar/help.png</file>
+        <file>qml/images/MenuBar/helpHover.png</file>
+        <file>qml/images/MenuBar/localdb.png</file>
+        <file>qml/images/MenuBar/localdbHover.png</file>
+        <file>qml/images/MenuBar/manual.png</file>
+        <file>qml/images/MenuBar/manualHover.png</file>
+        <file>qml/images/MenuBar/open.png</file>
+        <file>qml/images/MenuBar/openHover.png</file>
+        <file>qml/images/MenuBar/quit.png</file>
+        <file>qml/images/MenuBar/quitHover.png</file>
+        <file>qml/images/TitleBar/close.png</file>
+        <file>qml/images/TitleBar/closeHover.png</file>
+        <file>qml/images/TitleBar/max.png</file>
+        <file>qml/images/TitleBar/maxHover.png</file>
+        <file>qml/images/TitleBar/min.png</file>
+        <file>qml/images/TitleBar/minHover.png</file>
+        <file>qml/images/TitleBar/pattern.png</file>
+    </qresource>
+</RCC>

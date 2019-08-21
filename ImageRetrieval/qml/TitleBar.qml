@@ -5,11 +5,18 @@ Rectangle
 {
     id: rect_titleBar;
 
+    Image
+    {
+        id: image_titleBar;
+
+        anchors.left: parent.left;
+        source: "images/TitleBar/pattern.png";
+    }
     Text {
         id: text_titleBar;
 
         anchors.left: parent.left;
-        anchors.leftMargin: 46;
+        anchors.leftMargin: 45;
         height: parent.height;
         horizontalAlignment: Text.AlignLeft;
         verticalAlignment: Text.AlignVCenter;
@@ -18,7 +25,7 @@ Rectangle
         font.family: "微软雅黑";
         font.pixelSize: 30;
         font.letterSpacing: 1;
-        font.bold: true;
+//        font.bold: true;
 
         text: "图像检索";
     }
@@ -28,24 +35,23 @@ Rectangle
         id: row_titleBarButtonList;
 
         anchors.right: parent.right;
-        anchors.rightMargin: 40;
+        anchors.rightMargin: 30;
         anchors.verticalCenter: parent.verticalCenter;
         height: parent.height;
 
 
-        spacing: 30;
+        spacing: 40;
 
         TitleButton
         {
             id: min;
-            width: 30;
-            height: 30;
+            width: 50;
+            height: 50;
             anchors.verticalCenter: parent.verticalCenter;
-            sPressedImage: "images/Titlebar/MinOn.png";
-            sNormalImage: "images/Titlebar/Min.png";
-            sHoverImage: "images/Titlebar/MinOn.png";
-            nTextSize: 25;
-            sTextText: "-";
+            sPressedImage: "images/TitleBar/minHover.png";
+            sNormalImage: "images/TitleBar/min.png";
+            sHoverImage: "images/TitleBar/minHover.png";
+
             state: "normal";
             nIndex: 0;
         }
@@ -53,14 +59,13 @@ Rectangle
         TitleButton
         {
             id: max;
-            width: 30;
-            height: 30;
+            width: 50;
+            height: 50;
             anchors.verticalCenter: parent.verticalCenter;
-            sPressedImage: "images/Titlebar/MaxOn.png";
-            sNormalImage: "images/Titlebar/Max.png";
-            sHoverImage: "images/Titlebar/MaxOn.png";
-            nTextSize: 15;
-            sTextText: "口";
+            sPressedImage: "images/TitleBar/maxHover.png";
+            sNormalImage: "images/TitleBar/max.png";
+            sHoverImage: "images/TitleBar/maxHover.png";
+
             state: "normal";
             nIndex: 1;
         }
@@ -68,14 +73,13 @@ Rectangle
         TitleButton
         {
             id: close;
-            width: 30;
-            height: 30;
+            width: 50;
+            height: 50;
             anchors.verticalCenter: parent.verticalCenter;
-            sPressedImage: "images/Titlebar/CloseOn.png";
-            sNormalImage: "images/Titlebar/Close.png";
-            sHoverImage: "images/Titlebar/CloseOn.png";
-            nTextSize: 20;
-            sTextText: "X";
+            sPressedImage: "images/TitleBar/closeHover.png";
+            sNormalImage: "images/TitleBar/close.png";
+            sHoverImage: "images/TitleBar/closeHover.png";
+
             state: "normal";
             nIndex: 2;
 
