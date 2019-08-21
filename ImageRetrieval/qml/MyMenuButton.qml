@@ -23,7 +23,7 @@ Rectangle {
 //        anchors.fill: parent;
         anchors.verticalCenter: parent.verticalCenter;
         anchors.horizontalCenter: parent.horizontalCenter;
-        spacing: 10;
+        spacing: 15;
 
         Text {
             id: menuButtonText;
@@ -63,7 +63,7 @@ Rectangle {
         onPressed:
         {
             menu_Button.state = "pressed";
-            menuAllMouseArea.visible = true;
+
             if(nIndex == 0)
             {
                 rect_MenuFile.visible = true;
@@ -82,6 +82,7 @@ Rectangle {
                 rect_MenuFile.visible = false;
                 rect_MenuDb.visible = false;
             }
+            menuAllMouseArea.visible = true;
         }
         onReleased:
         {
@@ -93,7 +94,7 @@ Rectangle {
                 rect_MenuDb.visible = false;
                 rect_MenuHelp.visible = false;
             }
-            menu_Button.state = "normal";
+            menu_Button.state = "hover";
 
         }
         onEntered:
@@ -112,27 +113,12 @@ Rectangle {
         }
         onClicked:
         {
-//            if(nIndex==4)
-//            {
-////                fileDialog.selectExisting = false;
 
-//                fileDialog.open();
-//            }
         }
 
     }
 
-//    FileDialog {
-//        id: fileDialog;
-//        folder: shortcuts.desktop;
-//        nameFilters: ["Text files (*.txt)", "HTML files (*.html, *.htm)"]
-//        onAccepted: {
-//            if (fileDialog.selectExisting)
-//                document.fileUrl = fileUrl;
-//            else
-//                document.saveAs(fileUrl, selectedNameFilter);
-//        }
-//    }
+
 
     states: [
         State {

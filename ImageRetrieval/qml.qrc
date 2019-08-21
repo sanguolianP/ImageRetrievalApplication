@@ -5,5 +5,8 @@
         <file>qml/main.qml</file>
         <file>qml/MyMenuButton.qml</file>
         <file>qml/MyMenuBar.qml</file>
+        <file>qml/StatusBar.qml</file>
+        <file>qml/LeftArea.qml</file>
+        <file>qml/RightArea.qml</file>
     </qresource>
 </RCC>

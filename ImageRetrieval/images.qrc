@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>bin/debug/qrc_qml.cpp</file>
         <file>qml/images/MainInterface/left/image.png</file>
         <file>qml/images/MainInterface/left/paint.png</file>
         <file>qml/images/MainInterface/left/rectChoose.png</file>
