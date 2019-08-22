@@ -4,12 +4,12 @@ Rectangle {
 
     id: rect_MenuBar;
     z: 0.6;
-    Image
-    {
-        id: imageBG_menuBar;
-        anchors.fill: parent;
-        source: "images/Toolbar/ToolbarBG.png";
-    }
+//    Image
+//    {
+//        id: imageBG_menuBar;
+//        anchors.fill: parent;
+//        source: "images/Toolbar/ToolbarBG.png";
+//    }
 
 
     Row

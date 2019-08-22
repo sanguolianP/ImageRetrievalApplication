@@ -42,5 +42,6 @@
         <file>qml/images/TitleBar/min.png</file>
         <file>qml/images/TitleBar/minHover.png</file>
         <file>qml/images/TitleBar/pattern.png</file>
+        <file>qml/images/MainInterface/left/slider.png</file>
     </qresource>
 </RCC>

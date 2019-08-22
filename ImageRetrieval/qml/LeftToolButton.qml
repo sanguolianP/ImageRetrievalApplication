@@ -4,7 +4,7 @@ import QtQuick 2.0
 Rectangle{
     id: lefttool_Button;
 
-    color: "#eeeeee";
+    color: "transparent";
 
     //------------------------------------------------------------//
 
@@ -53,7 +53,7 @@ Rectangle{
             {
                 lefttool_Button.state = "hover";
             }
-
+            lefttool_Button.color = "#352e57";
             /* state === "normal" ? state = "hover" : state = "pressed"; */
         }
         onExited:
@@ -62,7 +62,7 @@ Rectangle{
             {
                 lefttool_Button.state = "normal";
             }
-
+            lefttool_Button.color = "transparent";
             /* state === "hover" ? state = "normal" : state = "pressed"; */
         }
 
