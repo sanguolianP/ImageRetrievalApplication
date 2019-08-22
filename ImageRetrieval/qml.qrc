@@ -9,5 +9,6 @@
         <file>qml/LeftArea.qml</file>
         <file>qml/RightArea.qml</file>
         <file>qml/LeftToolButton.qml</file>
+        <file>qml/RetrievalButton.qml</file>
     </qresource>
 </RCC>

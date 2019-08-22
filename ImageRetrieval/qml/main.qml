@@ -9,8 +9,8 @@ Window {
 //    width: Screen.desktopAvailableWidth * 2/3;
 //    height: Screen.desktopAvailableHeight * 2/3;
 
-    width: 1280;
-    height: 720;
+    width: 1600;
+    height: 900;
 
 //    width: 1920;
 //    height: 1080;

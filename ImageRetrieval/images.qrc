@@ -43,5 +43,8 @@
         <file>qml/images/TitleBar/minHover.png</file>
         <file>qml/images/TitleBar/pattern.png</file>
         <file>qml/images/MainInterface/left/slider.png</file>
+        <file>qml/images/MainInterface/left/sliderDrag.png</file>
+        <file>qml/images/MainInterface/left/retrieval.png</file>
+        <file>qml/images/MainInterface/left/retrievalOn.png</file>
     </qresource>
 </RCC>
