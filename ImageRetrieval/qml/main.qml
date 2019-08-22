@@ -78,6 +78,7 @@ Window {
             border.color: "#f18e31";
 
         }
+
         RightArea
         {
             id: rightarea_mainWin;
@@ -89,7 +90,9 @@ Window {
             border.color: "#f18e31";
         }
 
+
     }
+
 
 
     StatusBar
@@ -118,7 +121,65 @@ Window {
         color: "#352e57";
     }
 
+    MouseArea
+    {
+        z:-0.9;
+        id: dragCenterArea;
+        acceptedButtons: Qt.LeftButton;
+        hoverEnabled: true;
+        anchors.fill: parent;
 
+        property int resizing: 0
+
+        function getMousePosition(mouseX, mouseY)
+        {
+            if(mouseY > 150 && mouseY < mainW.height - 56
+                    && mouseX > (leftMarg+leftAreaWidth-2)
+                    && mouseX < (leftMarg+leftAreaWidth+6))
+            {
+                return 1;
+            }else{return 0;}
+        }
+
+        function getCursorShape(mouseX, mouseY)
+        {
+            if(getMousePosition(mouseX, mouseY))
+            {
+                return Qt.SizeHorCursor;
+            }else
+            {
+                return Qt.ArrowCursor;
+            }
+        }
+
+        function resizeWin(mouseX, mouseY)
+        {
+            leftAreaWidth = mouseX - leftMarg;
+            if(leftAreaWidth < 400)
+                leftAreaWidth = 400;
+            if(leftAreaWidth > 1000)
+                leftAreaWidth = 1000;
+        }
+        onPositionChanged:
+        {
+            if (resizing == 0)
+            {
+                cursorShape = getCursorShape(mouse.x, mouse.y);
+            }else
+            {
+                resizeWin(mouse.x, mouse.y)
+            }
+        }
+        onPressed:
+        {
+            resizing = getMousePosition(mouseX, mouseY);
+        }
+        onReleased:
+        {
+            resizing = 0;
+        }
+
+    }
 
 
 }

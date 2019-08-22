@@ -8,5 +8,6 @@
         <file>qml/StatusBar.qml</file>
         <file>qml/LeftArea.qml</file>
         <file>qml/RightArea.qml</file>
+        <file>qml/LeftToolButton.qml</file>
     </qresource>
 </RCC>
