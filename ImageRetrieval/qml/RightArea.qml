@@ -8,12 +8,25 @@ Rectangle {
 
     color: "#413d5b";
 
+    PageNavigation
+    {
+        id: pagenavi;
+        anchors.bottom: parent.bottom;
+        anchors.bottomMargin: 20;
+        anchors.horizontalCenter: parent.horizontalCenter;
+        nCout: 23
+        nCurPage: 1
+        nPageSize: 5
+        onSCurPage: {
+            txtPage.text = qsTr("第") + curPage + qsTr("页");
+        }
+    }
+
     Rectangle
     {
         anchors.fill: gridArea;
         color: "#aaaaaa";
     }
-
     GridLayout
     {
         id: gridArea;
