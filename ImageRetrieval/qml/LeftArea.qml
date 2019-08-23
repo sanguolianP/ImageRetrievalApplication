@@ -119,7 +119,7 @@ Rectangle {
     Column
     {
         anchors.bottom: parent.bottom;
-        anchors.bottomMargin: 100;
+        anchors.bottomMargin: 80;
         anchors.horizontalCenter: parent.horizontalCenter;
         width: 300;
         height: 200;

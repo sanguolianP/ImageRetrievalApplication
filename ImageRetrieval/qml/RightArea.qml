@@ -8,45 +8,169 @@ Rectangle {
 
     color: "#413d5b";
 
+    Rectangle
+    {
+        anchors.fill: gridArea;
+        color: "#aaaaaa";
+    }
+
     GridLayout
     {
+        id: gridArea;
         anchors.top: parent.top;
         anchors.topMargin: 100;
+//        anchors.bottom: parent.bottom;
+//        anchors.bottomMargin: 100;
+//        anchors.left: parent.left;
+//        anchors.leftMargin: 100;
+//        anchors.right: parent.right;
+//        anchors.rightMargin: 100;
+
+//        anchors.fill: parent;
+//        anchors.margins: 100;
+
+        width: 800;
+        height: 600;
         anchors.horizontalCenter: parent.horizontalCenter;
 
-        width: 700;
-        height: 700;
-        rows: 10;
+
+//        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter;
+//        Layout.alignment: ;
+        flow: GridLayout.LeftToRight;
+        rows: 3;
         columns: 3;
 
-        rowSpacing: 20;
-        columnSpacing: 20;
+        rowSpacing: 50;
+        columnSpacing: 50;
 
-        Button
+
+//        Layout.alignment: Qt.AlignVCenter;
+
+        Rectangle
         {
-            width: 170;
-            height: 170;
+//            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter;
+//            width: 100;
+//            height: 100;
+            Layout.fillWidth: true;
+            Layout.fillHeight: true;
+            color: "#eeeeee";
         }
-        Button
+
+        Rectangle
         {
-            width: 170;
-            height: 170;
+            Layout.fillWidth: true;
+            Layout.fillHeight: true;
+            color: "#eeeeee";
+            Rectangle
+            {
+                width: 170;
+                height: 160;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                anchors.verticalCenter: parent.verticalCenter;
+                color: "#0000ff";
+            }
         }
-        Button
+        Rectangle
         {
-            width: 170;
-            height: 170;
+            Layout.fillWidth: true;
+            Layout.fillHeight: true;
+            color: "#eeeeee";
+            Rectangle
+            {
+                width: 170;
+                height: 160;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                anchors.verticalCenter: parent.verticalCenter;
+                color: "#0000ff";
+            }
         }
-        Button
+        Rectangle
         {
-            width: 170;
-            height: 170;
+            Layout.fillWidth: true;
+            Layout.fillHeight: true;
+            color: "#eeeeee";
+            Rectangle
+            {
+                width: 170;
+                height: 160;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                anchors.verticalCenter: parent.verticalCenter;
+                color: "#0000ff";
+            }
         }
-        Button
+        Rectangle
         {
-            width: 170;
-            height: 170;
+            Layout.fillWidth: true;
+            Layout.fillHeight: true;
+            color: "#eeeeee";
+            Rectangle
+            {
+                width: 170;
+                height: 160;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                anchors.verticalCenter: parent.verticalCenter;
+                color: "#0000ff";
+            }
         }
+        Rectangle
+        {
+            Layout.fillWidth: true;
+            Layout.fillHeight: true;
+            color: "#eeeeee";
+            Rectangle
+            {
+                width: 170;
+                height: 160;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                anchors.verticalCenter: parent.verticalCenter;
+                color: "#0000ff";
+            }
+        }
+        Rectangle
+        {
+            Layout.fillWidth: true;
+            Layout.fillHeight: true;
+            color: "#eeeeee";
+            Rectangle
+            {
+                width: 170;
+                height: 160;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                anchors.verticalCenter: parent.verticalCenter;
+                color: "#0000ff";
+            }
+        }
+        Rectangle
+        {
+            Layout.fillWidth: true;
+            Layout.fillHeight: true;
+            color: "#eeeeee";
+            Rectangle
+            {
+                width: 170;
+                height: 160;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                anchors.verticalCenter: parent.verticalCenter;
+                color: "#0000ff";
+            }
+        }
+        Rectangle
+        {
+            Layout.fillWidth: true;
+            Layout.fillHeight: true;
+            color: "#eeeeee";
+            Rectangle
+            {
+                width: 170;
+                height: 160;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                anchors.verticalCenter: parent.verticalCenter;
+                color: "#0000ff";
+            }
+        }
+
+
+
 
 
 
