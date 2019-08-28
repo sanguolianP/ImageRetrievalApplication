@@ -13,21 +13,15 @@ Row{
         id: prevPage
         height: 24
         width: 60
-        color: "#EEEEEE"
-        border.color: "#AAAAAA"
+        color: "transparent"
+        border.color: "#f18e31"
         border.width: 1
         Row{
             anchors.centerIn: parent
-            Image{
-                height: 16
-                width: 16
-                anchors.verticalCenter: parent.verticalCenter
-                source: "qrc:/arrow.png"
-                rotation: -180
-            }
             Text {
                 font.family: "microsoft yahei"
                 font.pixelSize: 12
+                color: "#ffffff";
                 anchors.verticalCenter: parent.verticalCenter
                 text: qsTr("上一页")
             }
@@ -43,18 +37,24 @@ Row{
     Repeater{
         id: repeater
         model: pageNavigation.nPageSize
+
+
+
         delegate: Rectangle{
             property int nCurIndex: (pageNavigation.nCurPage-1)*pageNavigation.nPageSize + index + 1
             property bool hasPage: nCurIndex <= pageNavigation.nCout
 
             height: 24
             width: 24
-            color: hasPage ? "#EEEEEE" : "transparent"
-            border.color: "#AAAAAA"
+            color: "transparent"
+            border.color: "#f18e31"
             border.width: hasPage ? 1 : 0
+
             Text {
-                font.family: "microsoft yahei"
-                font.pixelSize: 12
+                id: deleColor;
+                font.family: "arial"
+                font.pixelSize: 17
+                color: "#707070";
                 anchors.centerIn: parent
                 text: nCurIndex
                 visible: hasPage ? true : false
@@ -63,10 +63,10 @@ Row{
                 anchors.fill: parent
                 hoverEnabled: hasPage
                 onEntered: {
-                    parent.color = "#148014"
+                    deleColor.color = "#ffffff";
                 }
                 onExited: {
-                    parent.color = "#EEEEEE"
+                    deleColor.color = "#707070";
                 }
                 onPressed: {
                     emit: sCurPage(nCurIndex);
@@ -79,22 +79,17 @@ Row{
         id: nextPage
         height: 24
         width: 60
-        color: "#EEEEEE"
-        border.color: "#AAAAAA"
+        color: "transparent"
+        border.color: "#f18e31"
         border.width: 1
         Row{
             anchors.centerIn: parent
             Text {
                 font.family: "microsoft yahei"
                 font.pixelSize: 12
+                color: "#ffffff";
                 anchors.verticalCenter: parent.verticalCenter
                 text: qsTr("下一页")
-            }
-            Image{
-                height: 16
-                width: 16
-                anchors.verticalCenter: parent.verticalCenter
-                source: "qrc:/arrow.png"
             }
         }
         MouseArea{

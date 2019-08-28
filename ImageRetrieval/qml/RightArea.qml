@@ -1,5 +1,6 @@
 import QtQuick 2.0
-import QtQuick.Controls 2.4
+import QtQuick.Controls 1.2
+import QtQuick.Controls.Styles 1.2
 import QtQuick.Layouts 1.1
 
 Rectangle {
@@ -8,11 +9,48 @@ Rectangle {
 
     color: "#413d5b";
 
+    GroupBox
+    {
+        width: 100;
+        height: 40;
+        title: "定制风格";
+        ComboBox
+        {
+            anchors.top: parent.top;
+            anchors.topMargin: 8;
+            width: parent.width;
+
+            model: {"小", "中", "大"}
+            style:ComboBoxStyle
+            {
+                dropDownButtonWidth:20;
+                background:Rectangle
+                {
+                    implicitHeight: 24;
+                    color: "#ffffff";
+                }
+            }
+
+        }
+    }
+
+
+
+    Text {
+        id: txtPage
+        anchors.bottom: parent.bottom;
+        anchors.bottomMargin: 80;
+        anchors.horizontalCenter: parent.horizontalCenter;
+        font.family: "microsoft yahei";
+        font.pixelSize: 20;
+        color: "#ffffff";
+        text: qsTr("第1页");
+    }
     PageNavigation
     {
         id: pagenavi;
         anchors.bottom: parent.bottom;
-        anchors.bottomMargin: 20;
+        anchors.bottomMargin: 40;
         anchors.horizontalCenter: parent.horizontalCenter;
         nCout: 23
         nCurPage: 1
