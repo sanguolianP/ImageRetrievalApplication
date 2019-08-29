@@ -9,31 +9,27 @@ Rectangle {
 
     color: "#413d5b";
 
-    GroupBox
+
+    ComboBox
     {
-        width: 100;
+        anchors.top: parent.top;
+        anchors.topMargin: 20;
+        anchors.right: parent.right;
+        anchors.rightMargin: 20;
+        width: 120;
         height: 40;
-        title: "定制风格";
-        ComboBox
+
+        model: ["小", "中", "大"];
+        style:ComboBoxStyle
         {
-            anchors.top: parent.top;
-            anchors.topMargin: 8;
-            width: parent.width;
-
-            model: {"小", "中", "大"}
-            style:ComboBoxStyle
+            dropDownButtonWidth:20;
+            background:Rectangle
             {
-                dropDownButtonWidth:20;
-                background:Rectangle
-                {
-                    implicitHeight: 24;
-                    color: "#ffffff";
-                }
+                implicitHeight: 24;
+                color: "#ffffff";
             }
-
         }
     }
-
 
 
     Text {
