@@ -93,6 +93,11 @@ Window {
 
     }
 
+    PaintPanel
+    {
+        id:paintPanel_mainWin;
+        visible: false;
+    }
 
 
     StatusBar

@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
+import Imagepro 1.1
 
 Rectangle {
 
@@ -8,6 +9,42 @@ Rectangle {
 
     color: "#413d5b";
 //    property int sliderValue:
+//    property int mainImageWidth:100;
+//    property int mainImageHeight:100;
+    // 定义缩放比例系数变量,范围在(-10,10)之间
+    property double scaleValue: 1.1;
+    property int scaleLevel: 0;
+    property int rotationAngle: 0;
+
+    function zoomIn(x,y){
+        var beforeWidth  = imageMain.width;
+        var beforeHeight = imageMain.height;
+        imageMain.width = imageMain.width   * scaleValue;
+        imageMain.height = imageMain.height * scaleValue;
+        showImgMouseArea.width = imageMain.width;
+        showImgMouseArea.height = imageMain.height;
+
+        imageMain.x = imageMain.x + x - imageMain.width  * x / beforeWidth;
+        imageMain.y = imageMain.y + y - imageMain.height * y / beforeHeight;
+        scaleLevel++;
+    }
+
+    function zoomOut(x,y){
+        var beforeWidth  = imageMain.width;
+        var beforeHeight = imageMain.height;
+        imageMain.width = imageMain.width   / scaleValue;
+        imageMain.height = imageMain.height / scaleValue;
+        showImgMouseArea.width = imageMain.width;
+        showImgMouseArea.height = imageMain.height;
+        imageMain.x = imageMain.x + x - imageMain.width  * x / beforeWidth;
+        imageMain.y = imageMain.y + y - imageMain.height * y / beforeHeight;
+        scaleLevel--;
+    }
+
+    ImageProItem
+    {
+        id: imageItem;
+    }
 
     Row
     {
@@ -36,6 +73,10 @@ Rectangle {
 
             state: "normal";
             nIndex: 0;
+            onBack:
+            {
+                paintPanel_mainWin.visible = true;
+            }
         }
         LeftToolButton
         {
@@ -78,6 +119,15 @@ Rectangle {
 
             state: "normal";
             nIndex: 3;
+
+            onBack:
+            {
+                console.log("1111111111111");
+                rotationAnimation.start();
+                rotationAngle += 90;
+                console.log(rotationAngle);
+            }
+
         }
         LeftToolButton
         {
@@ -99,6 +149,7 @@ Rectangle {
     Rectangle
     {
         id:imageArea;
+//        z: 0.2;
         width: (mainW.leftAreaWidth-200) > 300 ? (mainW.leftAreaWidth-200) : 300;
         height: (imageArea.width *3/4) < 450 ? (imageArea.width *3/4) : 450;
 //        height:400;
@@ -108,13 +159,97 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter;
         color: "#aaaaaa";
 
-        Image {
+
+
+
+        Image
+        {
             id: imageMain;
+//            z: 0.1;
             anchors.horizontalCenter: parent.horizontalCenter;
             anchors.verticalCenter: parent.verticalCenter;
-            source: "images/MainInterface/left/image.png";
+
+            rotation: rotationAngle;
+            width: imageArea.width;
+            height: imageArea.width * imageItem.getGlobalHeight()/imageItem.getGlobalWidth();
+
+//            width: 200;
+//            height: 200;
+
+            cache: false;
+//            source: "images/MainInterface/left/image.png";
+            source: "image://imgProvider/hello";
+
+            MouseArea
+            {
+                id: showImgMouseArea;
+                anchors.fill: imageMain;
+                //设置鼠标悬停以及鼠标响应
+                hoverEnabled: true;
+
+                //设置拖拽对象以及拖拽区域
+                drag.target: imageMain;
+                drag.axis: Drag.XAndYAxis;
+                // 鼠标滚轮处理函数
+                onWheel:
+                {
+                    if(wheel.angleDelta.y>0 && scaleLevel<=10){//图像放大处理
+                        imageMain.transformOriginPoint.x = wheel.x;
+                        imageMain.transformOriginPoint.y = wheel.y;
+                        zoomIn(wheel.x,wheel.y);
+                    }
+                    else if(wheel.angleDelta.y<0 && scaleLevel>=-10){//图像缩小处理
+                        imageMain.transformOriginPoint.x = wheel.x;
+                        imageMain.transformOriginPoint.y = wheel.y;
+                        zoomOut(wheel.x,wheel.y);
+                    }
+                }
+            }
+
+            RotationAnimation
+            {
+                id:rotationAnimation
+                target: imageMain
+                to:rotationAngle + 90
+                direction: RotationAnimation.clockwise;
+                duration: 500
+            }
+
+//            NumberAnimation
+//            {
+//                running: imageMain.visible;
+//                loops: Animation.Infinite;
+//                target: imageMain;
+//                from: 0;
+//                to: 90;
+//                property: "rotation";
+//                duration: 1000;
+//            }
+
+
         }
+
+
+        Timer
+        {
+            interval: 100;
+            running: true;
+            repeat: true;
+            onTriggered:
+            {
+                imageMain.source = "";
+                imageMain.source = "image://imgProvider/hello"
+                console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<Fresh");
+                imageItem.processImage();
+                console.log("---------------------------Fresh");
+                console.log(imageMain.width +" "+ imageMain.height);
+            }
+        }
+
     }
+
+
+
 
     Column
     {

@@ -11,5 +11,7 @@
         <file>qml/LeftToolButton.qml</file>
         <file>qml/RetrievalButton.qml</file>
         <file>qml/PageNavigation.qml</file>
+        <file>qml/PaintPanel.qml</file>
+        <file>qml/ColorSquare.qml</file>
     </qresource>
 </RCC>

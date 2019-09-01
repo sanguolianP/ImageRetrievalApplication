@@ -1,0 +1,51 @@
+#include "imageprocess.h"
+#include "externalvar.h"
+
+ImageProcess::ImageProcess()
+{
+//    imageRes = QImage("C:/Users/SanguolianP/Desktop/imageTestqml4/qml/images/maininterface.jpg");
+}
+
+ImageProcess::~ImageProcess()
+{
+
+}
+
+QImage ImageProcess::openImage()
+{
+    qDebug("open");
+    QString fileName = QFileDialog::getOpenFileName(
+                   NULL, "open image file",
+                    ".",
+                    "Image files (*.bmp *.jpg *.pbm *.pgm *.png *.ppm *.xbm *.xpm);;All files (*.*)");
+        if(fileName != "")
+        {
+            if(!QImage(fileName).isNull())
+            {
+                qDebug()<<fileName;
+                imageRes = QImage(fileName);
+                imageGlobal = imageRes;
+                qDebug()<<imageRes;
+
+                return imageRes;
+            }
+        }
+}
+
+QImage ImageProcess::processImage()
+{
+
+    qDebug()<<"imageResimageResimageResimageRes+++++++++++++++"<<imageRes;
+    qDebug("processed");
+    return imageRes;
+}
+
+int ImageProcess::getGlobalWidth()
+{
+    return imageGlobal.width();
+}
+
+int ImageProcess::getGlobalHeight()
+{
+    return imageGlobal.height();
+}

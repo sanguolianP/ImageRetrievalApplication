@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import Imagepro 1.1
 
 Rectangle {
 
@@ -10,7 +11,10 @@ Rectangle {
 //        anchors.fill: parent;
 //        source: "images/Toolbar/ToolbarBG.png";
 //    }
-
+    ImageProItem
+    {
+        id: imageItem;
+    }
 
     Row
     {
@@ -94,6 +98,13 @@ Rectangle {
                 sHoverImage: "images/MenuBar/openHover.png";
                 state: "normal";
                 nIndex: 3;
+                onMenuButtonIndexBack:
+                {
+                    if(nIndex === 3)
+                    {
+                        imageItem.openImage();
+                    }
+                }
             }
             MyMenuButton
             {
