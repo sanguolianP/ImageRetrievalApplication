@@ -46,5 +46,7 @@
         <file>qml/images/MainInterface/left/sliderDrag.png</file>
         <file>qml/images/MainInterface/left/retrieval.png</file>
         <file>qml/images/MainInterface/left/retrievalOn.png</file>
+        <file>qml/images/PaintPanel/erase.png</file>
+        <file>qml/images/PaintPanel/pen.png</file>
     </qresource>
 </RCC>

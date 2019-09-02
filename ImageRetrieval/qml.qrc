@@ -13,5 +13,6 @@
         <file>qml/PageNavigation.qml</file>
         <file>qml/PaintPanel.qml</file>
         <file>qml/ColorSquare.qml</file>
+        <file>qml/ChooseRect.qml</file>
     </qresource>
 </RCC>

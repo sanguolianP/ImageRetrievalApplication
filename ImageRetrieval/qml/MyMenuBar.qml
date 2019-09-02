@@ -4,7 +4,7 @@ import Imagepro 1.1
 Rectangle {
 
     id: rect_MenuBar;
-    z: 0.6;
+
 //    Image
 //    {
 //        id: imageBG_menuBar;
@@ -103,6 +103,7 @@ Rectangle {
                     if(nIndex === 3)
                     {
                         imageItem.openImage();
+                        rect_MenuFile.visible = false;
                     }
                 }
             }

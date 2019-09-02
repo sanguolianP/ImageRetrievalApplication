@@ -9,8 +9,8 @@ Rectangle {
 
     color: "#413d5b";
 //    property int sliderValue:
-//    property int mainImageWidth:100;
-//    property int mainImageHeight:100;
+    property int mainImageWidth:120;
+    property int mainImageHeight:100;
     // 定义缩放比例系数变量,范围在(-10,10)之间
     property double scaleValue: 1.1;
     property int scaleLevel: 0;
@@ -49,7 +49,7 @@ Rectangle {
     Row
     {
         id: lefttoolbuttonList;
-
+        z: 0.4;
         anchors.right: parent.right;
         anchors.rightMargin: 90;
         anchors.top: parent.top;
@@ -142,6 +142,10 @@ Rectangle {
 
             state: "normal";
             nIndex: 4;
+            onBack:
+            {
+                chooserectr_mainWin.visible = true;
+            }
         }
     }
 
@@ -149,7 +153,7 @@ Rectangle {
     Rectangle
     {
         id:imageArea;
-//        z: 0.2;
+        z: 0.1;
         width: (mainW.leftAreaWidth-200) > 300 ? (mainW.leftAreaWidth-200) : 300;
         height: (imageArea.width *3/4) < 450 ? (imageArea.width *3/4) : 450;
 //        height:400;
@@ -158,20 +162,25 @@ Rectangle {
         anchors.topMargin: 100;
         anchors.horizontalCenter: parent.horizontalCenter;
         color: "#aaaaaa";
-
-
-
+//        color: "transparent";
+        clip: true;
 
         Image
         {
             id: imageMain;
-//            z: 0.1;
-            anchors.horizontalCenter: parent.horizontalCenter;
-            anchors.verticalCenter: parent.verticalCenter;
+            z: 0.2;
+//            anchors.horizontalCenter: parent.horizontalCenter;
+//            anchors.verticalCenter: parent.verticalCenter;
 
             rotation: rotationAngle;
+
+            asynchronous: true;
+
+//            anchors.fill: parent;
+            fillMode: Image.PreserveAspectFit;
+
             width: imageArea.width;
-            height: imageArea.width * imageItem.getGlobalHeight()/imageItem.getGlobalWidth();
+            height: imageArea.width * mainImageHeight/mainImageWidth;
 
 //            width: 200;
 //            height: 200;
@@ -189,7 +198,12 @@ Rectangle {
 
                 //设置拖拽对象以及拖拽区域
                 drag.target: imageMain;
-                drag.axis: Drag.XAndYAxis;
+                drag.axis: "XAndYAxis";
+                drag.minimumX: - imageMain.width + 50;
+                drag.minimumY: - imageMain.height + 50;
+                drag.maximumX: imageArea.width - 50;
+                drag.maximumY: imageArea.height - 50;
+
                 // 鼠标滚轮处理函数
                 onWheel:
                 {
@@ -211,24 +225,11 @@ Rectangle {
                 id:rotationAnimation
                 target: imageMain
                 to:rotationAngle + 90
-                direction: RotationAnimation.clockwise;
+                direction: RotationAnimation.Clockwise;
                 duration: 500
             }
 
-//            NumberAnimation
-//            {
-//                running: imageMain.visible;
-//                loops: Animation.Infinite;
-//                target: imageMain;
-//                from: 0;
-//                to: 90;
-//                property: "rotation";
-//                duration: 1000;
-//            }
-
-
         }
-
 
         Timer
         {
@@ -243,6 +244,12 @@ Rectangle {
                 imageItem.processImage();
                 console.log("---------------------------Fresh");
                 console.log(imageMain.width +" "+ imageMain.height);
+                if(imageItem.getGlobalWidth()!==0)
+                {
+                    mainImageWidth = imageItem.getGlobalWidth();
+                    mainImageHeight = imageItem.getGlobalHeight();
+                }
+
             }
         }
 
@@ -250,9 +257,9 @@ Rectangle {
 
 
 
-
     Column
     {
+        z: 0.4;
         anchors.bottom: parent.bottom;
         anchors.bottomMargin: 80;
         anchors.horizontalCenter: parent.horizontalCenter;

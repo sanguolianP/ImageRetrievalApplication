@@ -29,7 +29,7 @@ Window {
     TitleBar
     {
         id: titleBar_mainWin;
-
+        z: 0.6;
         anchors.top: parent.top;
 
         width: parent.width;
@@ -41,7 +41,7 @@ Window {
     MyMenuBar
     {
         id: menuBar_mainWin;
-
+        z: 0.6;
         anchors.top: parent.top;
         anchors.topMargin: 88;
 
@@ -70,7 +70,7 @@ Window {
         LeftArea
         {
             id: leftarea_mainWin;
-
+            z: 0.2;
             width: leftAreaWidth;
             height: parent.height;
 
@@ -82,7 +82,7 @@ Window {
         RightArea
         {
             id: rightarea_mainWin;
-
+            z: 0.6;
             width: parent.width - leftAreaWidth;
             height: parent.height;
 
@@ -99,11 +99,16 @@ Window {
         visible: false;
     }
 
+    ChooseRect
+    {
+        id: chooserectr_mainWin;
+        visible: false;
+    }
 
     StatusBar
     {
         id: statusBar_mainWin;
-
+        z: 0.6;
 //        anchors.left: parent.left;
 //        anchors.leftMargin: 15;
         anchors.bottom: parent.bottom;
