@@ -27,5 +27,4 @@ Window
             chooserectImage.source = "image://imgProvider/hello"
         }
     }
-
 }

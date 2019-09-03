@@ -21,7 +21,7 @@ Window{
         width: 400;
         anchors.horizontalCenter: parent.horizontalCenter;
         anchors.verticalCenter: parent.verticalCenter;
-        border.color: "#666"
+        border.color: "#666666"
         border.width: 4;
 
         Canvas{
@@ -115,31 +115,31 @@ Window{
             anchors.verticalCenter: parent.verticalCenter;
 
         }
-        //       Button_Image{
-        //           anchors.right: parent.right;
-        //           anchors.rightMargin: 10;
-        //           anchors.top: parent.top;
-        //          // anchors.topMargin: 10;
-        //           width: 70;
-        //           height: 50;
-        //           sPressedImage: "image/surePress.png";
-        //           sHoverImage: "image/surePress.png";
-        //           sNormalImage: "image/sure.png";
-        //           state: "normal";
-        //           onBack: {
-        //             //  canvas.
-        //               canvas.save("123.png","png");
-        //            //   vPaint.close();
-        //           }
-        //       }
+        RetrievalButton
+        {
+            anchors.right: parent.right;
+            anchors.rightMargin: 10;
+            anchors.top: parent.top;
+            // anchors.topMargin: 10;
+            width: 70;
+            height: 50;
+            sPressedImage: "image/surePress.png";
+            sHoverImage: "image/surePress.png";
+            sNormalImage: "image/sure.png";
+            state: "normal";
+            onRetrievalButtonIndexBack: {
+                //  canvas.
+                canvas.save("123.png","png");
+                //   vPaint.close();
+            }
+        }
 
-        //       MouseArea{
-        //           anchors.fill:parent;
-        //           drag.target: vpaintcanvas;
-        //           drag.axis:"XAndYAxis";
+        MouseArea{
+            anchors.fill:parent;
+            drag.target: vpaintcanvas;
+            drag.axis:"XAndYAxis";
 
-        //       }
-        //   }
+        }
     }
 }//Window
 

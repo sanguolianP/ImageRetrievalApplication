@@ -6,6 +6,9 @@
 #include "myimageprovider.h"
 #include "imageprocess.h"
 
+#include "opencv2/opencv.hpp"
+using namespace cv;
+
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -20,6 +23,9 @@ int main(int argc, char *argv[])
     engine.addImageProvider(QLatin1String("imgProvider"), new MyImageProvider);
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
+
+//    Mat img = cv::imread("C:/Users/sjxy/Desktop/sgjt.jpg");
+//    imshow("Image", img);
 
     if (engine.rootObjects().isEmpty())
         return -1;

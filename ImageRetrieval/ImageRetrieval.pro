@@ -23,6 +23,15 @@ SOURCES += \
 RESOURCES += qml.qrc \
     images.qrc
 
+/*引入opencv路径和库**************************************************************/
+INCLUDEPATH +=  $$PWD\OpenCV-MinGW-Build-OpenCV-4.1.0-x64\include\
+                $$PWD\OpenCV-MinGW-Build-OpenCV-4.1.0-x64\include\opencv2
+                $$PWD\OpenCV-MinGW-Build-OpenCV-4.1.0-x64\include\opencv
+
+LIBS += -L $$PWD\OpenCV-MinGW-Build-OpenCV-4.1.0-x64\x64\mingw\lib\libopencv_*.a
+
+/*******************************************************************************/
+
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
 
