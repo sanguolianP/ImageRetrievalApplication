@@ -24,8 +24,8 @@ int main(int argc, char *argv[])
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 
-    Mat img = cv::imread("C:/Users/SanguolianP/Desktop/imageTestqml4/qml/images/w.jpg");
-    imshow("Image", img);
+//    Mat img = cv::imread("C:/Users/whjsdh/Desktop/lzc.bmp");
+//    imshow("Image", img);
 
     if (engine.rootObjects().isEmpty())
         return -1;
