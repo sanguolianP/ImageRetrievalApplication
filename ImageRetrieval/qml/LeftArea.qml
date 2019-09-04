@@ -240,10 +240,10 @@ Rectangle {
             {
                 imageMain.source = "";
                 imageMain.source = "image://imgProvider/hello"
-                console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<Fresh");
+//                console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<Fresh");
                 imageItem.processImage();
-                console.log("---------------------------Fresh");
-                console.log(imageMain.width +" "+ imageMain.height);
+//                console.log("---------------------------Fresh");
+//                console.log(imageMain.width +" "+ imageMain.height);
                 if(imageItem.getGlobalWidth()!==0)
                 {
                     mainImageWidth = imageItem.getGlobalWidth();

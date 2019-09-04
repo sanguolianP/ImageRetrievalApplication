@@ -24,8 +24,39 @@ int main(int argc, char *argv[])
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 
-//    Mat img = cv::imread("C:/Users/whjsdh/Desktop/lzc.bmp");
+//    Mat img = imread("E:/proj/Github/ImageRetrievalApplication/ImageRetrieval/xl.jpg");
+////    Mat img = imread("‪C:/Users/SanguolianP/Desktop/xl.jpg");
+//    qDebug("edqwrdwer");
 //    imshow("Image", img);
+//    qDebug("222222222");
+
+
+
+    ImageProcess *ip;
+
+    ip = new ImageProcess();
+
+    qDebug()<<ip->hisWidth;
+
+    imageGlobal = QImage("C:/Users/SanguolianP/Desktop/bp.png");
+
+    Mat img = ip->qImage2cvMat(imageGlobal);
+
+    imshow("qImage2cvMat", img);
+
+    ip->splitChannels(img);
+    ip->getHistogram();
+    ip->displayHistogram();
+
+    qDebug("DONE!");
+
+
+
+
+
+
+
+
 
     if (engine.rootObjects().isEmpty())
         return -1;

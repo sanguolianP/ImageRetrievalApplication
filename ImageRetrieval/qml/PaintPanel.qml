@@ -134,12 +134,11 @@ Window{
             }
         }
 
-        MouseArea{
-            anchors.fill:parent;
-            drag.target: vpaintcanvas;
-            drag.axis:"XAndYAxis";
-
-        }
+//        MouseArea{
+//            anchors.fill:parent;
+//            drag.target: vpaintcanvas;
+//            drag.axis:"XAndYAxis";
+//        }
     }
 }//Window
 
