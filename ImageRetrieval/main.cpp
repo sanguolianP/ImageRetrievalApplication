@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 
     qDebug()<<ip->hisWidth;
 
-    imageGlobal = QImage("C:/Users/SanguolianP/Desktop/bp.png");
+    imageGlobal = QImage("C:/Users/SanguolianP/Desktop/lena.jpg");
 
     Mat img = ip->qImage2cvMat(imageGlobal);
 
