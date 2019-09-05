@@ -1,5 +1,6 @@
 QT += quick
 QT += widgets
+QT += core
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
@@ -24,11 +25,11 @@ RESOURCES += qml.qrc \
     images.qrc
 
 /*引入opencv路径和库**************************************************************/
-INCLUDEPATH +=  $$PWD\OpenCV-MinGW-Build-OpenCV-4.1.0-x64\include\
-                $$PWD\OpenCV-MinGW-Build-OpenCV-4.1.0-x64\include\opencv2
-                $$PWD\OpenCV-MinGW-Build-OpenCV-4.1.0-x64\include\opencv
+INCLUDEPATH +=  $$PWD/OpenCV-MinGW-Build-OpenCV-4.1.0-x64/include\
+                $$PWD/OpenCV-MinGW-Build-OpenCV-4.1.0-x64/include\opencv2\
+                $$PWD/OpenCV-MinGW-Build-OpenCV-4.1.0-x64/include\opencv
 
-LIBS += -L $$PWD\OpenCV-MinGW-Build-OpenCV-4.1.0-x64\x64\mingw\lib\libopencv_*.a
+LIBS += -L $$PWD/OpenCV-MinGW-Build-OpenCV-4.1.0-x64/x64/mingw/lib/libopencv_*.a
 
 /*******************************************************************************/
 

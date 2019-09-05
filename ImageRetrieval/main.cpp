@@ -38,7 +38,8 @@ int main(int argc, char *argv[])
 
     qDebug()<<ip->hisWidth;
 
-    imageGlobal = QImage("C:/Users/SanguolianP/Desktop/lena.jpg");
+    imageGlobal = QImage("../lena.jpg");
+    //相对路径是相对于.exe来说的，所以图片应该放在bin目录下，../表示上一级目录
 
     Mat img = ip->qImage2cvMat(imageGlobal);
 
