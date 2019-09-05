@@ -11,6 +11,8 @@ ImageProcess::ImageProcess()
     range[1] = 255.0;
     ranges = &range[0];
 
+    grayLevel = 16;
+
 }
 
 ImageProcess::~ImageProcess()
@@ -145,7 +147,7 @@ QImage ImageProcess::cvMat2qImage(Mat img)
 
 }
 
-
+/***颜色直方图***********************************************/
 //分离RGB通道
 void ImageProcess::splitChannels(Mat image)
 {
@@ -196,17 +198,159 @@ void ImageProcess::displayHistogram()
     imshow("B", rgbHist[2]);
 }
 
+/***灰度共生矩阵**********************************************/
+//初始化共生矩阵
+void ImageProcess::initGLCM(VecGLCM &vecGLCM, int size)
+{
+    if(size==grayLevel)
+    {
+        vecGLCM.resize(size);
+        for(int i=0; i<size; i++)
+        {
+            vecGLCM[i].resize(size);
+        }
+        for(int i=0; i<size; i++)
+        {
+            for(int j=0; j<size; j++)
+            {
+                vecGLCM[i][j] = 0;
+            }
+        }
+    }else{qDebug("size need equre graylevel!");}
+}
 
+//得到不同角度的共生矩阵
+void ImageProcess::getHorizontalGLCM(VecGLCM &src, VecGLCM &dst, int imgWidth, int imgHeight)
+{
+    int width = imgWidth;
+    int height= imgHeight;
+    for(int i=0; i<height; i++)
+    {
+        for(int j=0; j<width-1; j++)
+        {
+            int rows = src[i][j];
+            int cols = src[i][j+1];
+            dst[rows][cols]++;
+        }
+    }
+}
 
+void ImageProcess::getVerticalGLCM(VecGLCM &src, VecGLCM &dst, int imgWidth, int imgHeight)
+{
+    int width = imgWidth;
+    int height= imgHeight;
+    for(int i=0; i<height-1; i++)
+    {
+        for(int j=0; j<width; j++)
+        {
+            int rows = src[i][j];
+            int cols = src[i+1][j];
+            dst[rows][cols]++;
+        }
+    }
+}
 
+void ImageProcess::get45GLCM(VecGLCM &src, VecGLCM &dst, int imgWidth, int imgHeight)
+{
+    int width = imgWidth;
+    int height= imgHeight;
+    for(int i=0; i<height-1; i++)
+    {
+        for(int j=0; j<width-1; j++)
+        {
+            int rows = src[i][j];
+            int cols = src[i+1][j+1];
+            dst[rows][cols]++;
+        }
+    }
+}
 
+void ImageProcess::get135GLCM(VecGLCM &src, VecGLCM &dst, int imgWidth, int imgHeight)
+{
+    int width = imgWidth;
+    int height= imgHeight;
+    for(int i=0; i<height-1; i++)
+    {
+        for(int j=0; j<width; j++)
+        {
+            int rows = src[i][j];
+            int cols = src[i+1][j-1];
+            dst[rows][cols]++;
+        }
+    }
+}
 
+void ImageProcess::calGLCM(Mat inputImage, VecGLCM &vecGLCM, int angle)
+{
+    if(inputImage.channels()==1)
+    {
+        Mat src = Mat(inputImage.rows, inputImage.cols, inputImage.channels());
 
+        int height = src.rows;
+        int width  = src.cols;
+        int maxGrayLevel =  0;
 
+        for(int i=0; i<height; i++)
+        {
+            for(int j=0; j<width; j++)
+            {
+                int grayVal = src.at<int>(i,j);
+                if(grayVal > maxGrayLevel)
+                {
+                    maxGrayLevel = grayVal;
+                }
+            }
+        }
 
+        maxGrayLevel++;
+        VecGLCM tempVec;
 
+        tempVec.resize(height);
+        for(int i=0; i<height; i++)
+        {tempVec[i].resize(height);}
 
+        if(maxGrayLevel > 16)
+        {
+            for(int i=0; i<height; i++)
+            {
+                for(int j=0; j<width; j++)
+                {
+                    int tempVal = src.at<int>(i,j);
+                    tempVal /= grayLevel;
+                    tempVec[i][j] = tempVal;
+                }
+            }
+            if(angle == GLCM_HORIZONTAL)
+                getHorizontalGLCM(tempVec, vecGLCM, width, height);
+            if(angle == GLCM_VERTICAL)
+                getVerticalGLCM(tempVec, vecGLCM, width, height);
+            if(angle == GLCM_ANGLE_45)
+                get45GLCM(tempVec, vecGLCM, width, height);
+            if(angle == GLCM_ANGLE_135)
+                get135GLCM(tempVec, vecGLCM, width, height);
 
+        }else
+        {
+            for(int i=0; i<height; i++)
+            {
+                for(int j=0; j<width; j++)
+                {
+                    int tempVal = src.at<int>(i,j);
+                    tempVec[i][j] = tempVal;
+                }
+            }
+            if(angle == GLCM_HORIZONTAL)
+                getHorizontalGLCM(tempVec, vecGLCM, width, height);
+            if(angle == GLCM_VERTICAL)
+                getVerticalGLCM(tempVec, vecGLCM, width, height);
+            if(angle == GLCM_ANGLE_45)
+                get45GLCM(tempVec, vecGLCM, width, height);
+            if(angle == GLCM_ANGLE_135)
+                get135GLCM(tempVec, vecGLCM, width, height);
+        }
+
+    }else{qDebug("channel need be one!");}
+}
 
 
 

@@ -60,7 +60,7 @@ public:
     //灰度共生矩阵方向枚举
     enum
     {
-        GLCM_HORIZATION = 0,  //水平
+        GLCM_HORIZONTAL = 0,  //水平
         GLCM_VERTICAL   = 1, //垂直
         GLCM_ANGLE_45   = 2,  //45°
         GLCM_ANGLE_135  = 3   //135°
@@ -75,13 +75,33 @@ public:
     Mat qImage2cvMat(QImage img);
     QImage cvMat2qImage(Mat img);
 
-    //颜色直方图
+/***颜色直方图***********************************************/
     void splitChannels(Mat image);
     void getHistogram();
     void displayHistogram();
 
-    //灰度共生矩阵
-    void calGLCM();
+/***灰度共生矩阵**********************************************/
+    //计算灰度共生矩阵
+    void calGLCM(Mat inputImage, VecGLCM& vecGLCM, int angle);
+    //由灰度共生矩阵计算特征值
+    void getGLCMFeatures(VecGLCM& vecGLCM, GLCMFeatures& features);
+    //初始化共生矩阵
+    void initGLCM(VecGLCM& vecGLCM, int size);
+    //get、set共生矩阵灰度级
+    void setGrayLevel(int gl);
+    int getGrayLevel();
+
+    //计算水平灰度共生矩阵
+    void getHorizontalGLCM(VecGLCM& src, VecGLCM& dst, int imgWidth, int imgHeight);
+    //计算垂直灰度共生矩阵
+    void getVerticalGLCM(VecGLCM& src, VecGLCM& dst, int imgWidth, int imgHeight);
+    //计算45°灰度共生矩阵
+    void get45GLCM(VecGLCM& src, VecGLCM& dst, int imgWidth, int imgHeight);
+    //计算135°灰度共生矩阵
+    void get135GLCM(VecGLCM& src, VecGLCM& dst, int imgWidth, int imgHeight);
+
+private:
+    int grayLevel;//共生矩阵灰度级
 
 signals:
 
