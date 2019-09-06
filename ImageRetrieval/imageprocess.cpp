@@ -272,7 +272,7 @@ void ImageProcess::get135GLCM(VecGLCM &src, VecGLCM &dst, int imgWidth, int imgH
     int height= imgHeight;
     for(int i=0; i<height-1; i++)
     {
-        for(int j=0; j<width; j++)
+        for(int j=1; j<width; j++)
         {
             int rows = src[i][j];
             int cols = src[i+1][j-1];
@@ -291,8 +291,6 @@ void ImageProcess::calGLCM(Mat inputImage, VecGLCM &vecGLCM, int angle)
         int height = src.rows;
         int width  = src.cols;
         int maxGrayLevel =  0;
-
-        qDebug("44444444");
 
         for(int i=0; i<height; i++)
         {
@@ -325,7 +323,6 @@ void ImageProcess::calGLCM(Mat inputImage, VecGLCM &vecGLCM, int angle)
 //                    qDebug()<<tempVec[i][j]<<" ";
                 }
             }
-            qDebug("5555555");
             if(angle == GLCM_HORIZONTAL)
                 getHorizontalGLCM(tempVec, vecGLCM, width, height);
             if(angle == GLCM_VERTICAL)
@@ -335,6 +332,7 @@ void ImageProcess::calGLCM(Mat inputImage, VecGLCM &vecGLCM, int angle)
             if(angle == GLCM_ANGLE_135)
                 get135GLCM(tempVec, vecGLCM, width, height);
 
+            qDebug("Maxgraylevel > 16");
         }else
         {
             for(int i=0; i<height; i++)
@@ -353,6 +351,8 @@ void ImageProcess::calGLCM(Mat inputImage, VecGLCM &vecGLCM, int angle)
                 get45GLCM(tempVec, vecGLCM, width, height);
             if(angle == GLCM_ANGLE_135)
                 get135GLCM(tempVec, vecGLCM, width, height);
+
+            qDebug("Maxgraylevel < 16");
         }
 
     }else{qDebug("channel need be one!");}

@@ -100,6 +100,8 @@ public:
     //计算135°灰度共生矩阵
     void get135GLCM(VecGLCM& src, VecGLCM& dst, int imgWidth, int imgHeight);
 
+//    void debugFeatures();
+
 private:
     int grayLevel;//共生矩阵灰度级
 
