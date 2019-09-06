@@ -233,6 +233,7 @@ void ImageProcess::getHorizontalGLCM(VecGLCM &src, VecGLCM &dst, int imgWidth, i
             dst[rows][cols]++;
         }
     }
+    qDebug()<<dst;
 }
 
 void ImageProcess::getVerticalGLCM(VecGLCM &src, VecGLCM &dst, int imgWidth, int imgHeight)
@@ -280,6 +281,7 @@ void ImageProcess::get135GLCM(VecGLCM &src, VecGLCM &dst, int imgWidth, int imgH
     }
 }
 
+//计算灰度共生矩阵
 void ImageProcess::calGLCM(Mat inputImage, VecGLCM &vecGLCM, int angle)
 {
     if(inputImage.channels()==1)
@@ -290,11 +292,13 @@ void ImageProcess::calGLCM(Mat inputImage, VecGLCM &vecGLCM, int angle)
         int width  = src.cols;
         int maxGrayLevel =  0;
 
+        qDebug("44444444");
+
         for(int i=0; i<height; i++)
         {
             for(int j=0; j<width; j++)
             {
-                int grayVal = src.at<int>(i,j);
+                int grayVal = src.at<uchar>(i,j);
                 if(grayVal > maxGrayLevel)
                 {
                     maxGrayLevel = grayVal;
@@ -315,11 +319,13 @@ void ImageProcess::calGLCM(Mat inputImage, VecGLCM &vecGLCM, int angle)
             {
                 for(int j=0; j<width; j++)
                 {
-                    int tempVal = src.at<int>(i,j);
+                    int tempVal = src.at<uchar>(i,j);
                     tempVal /= grayLevel;
                     tempVec[i][j] = tempVal;
+//                    qDebug()<<tempVec[i][j]<<" ";
                 }
             }
+            qDebug("5555555");
             if(angle == GLCM_HORIZONTAL)
                 getHorizontalGLCM(tempVec, vecGLCM, width, height);
             if(angle == GLCM_VERTICAL)
@@ -335,7 +341,7 @@ void ImageProcess::calGLCM(Mat inputImage, VecGLCM &vecGLCM, int angle)
             {
                 for(int j=0; j<width; j++)
                 {
-                    int tempVal = src.at<int>(i,j);
+                    int tempVal = src.at<uchar>(i,j);
                     tempVec[i][j] = tempVal;
                 }
             }
@@ -352,7 +358,51 @@ void ImageProcess::calGLCM(Mat inputImage, VecGLCM &vecGLCM, int angle)
     }else{qDebug("channel need be one!");}
 }
 
+//由灰度共生矩阵得到特征
+void ImageProcess::getGLCMFeatures(VecGLCM &vecGLCM, GLCMFeatures &features)
+{
+    //求矩阵值的总和
+    int total = 0;
+    for(int i=0; i<grayLevel; i++)
+    {
+        for(int j=0; j<grayLevel; j++)
+        {
+            total += vecGLCM[i][j];
+        }
+    }
 
+    vector<vector<double> > temp;
+    temp.resize(grayLevel);
+    for(int i=0; i<grayLevel; i++)
+    {
+        temp[i].resize(grayLevel);
+    }
+
+    //归一化
+    for(int i=0; i<grayLevel; i++)
+    {
+        for(int j=0; j<grayLevel; j++)
+        {
+            temp[i][j] = (double)vecGLCM[i][j] / (double)total;
+        }
+    }
+
+    for(int i=0; i<grayLevel; i++)
+    {
+        for(int j=0; j<grayLevel; j++)
+        {
+            features.energy += temp[i][j] * temp[i][j];
+
+            if(temp[i][j]>0)
+            {features.entropy -= temp[i][j] * log(temp[i][j]);}
+
+            features.constrast += (double)(i - j)*(double)(i - j)*temp[i][j];
+
+            features.idMoment += temp[i][j] / (1 + (double)(i - j)*(double)(i - j));
+        }
+    }
+
+}
 
 
 

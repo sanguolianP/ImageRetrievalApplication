@@ -45,15 +45,48 @@ int main(int argc, char *argv[])
 
     imshow("qImage2cvMat", img);
 
-    ip->splitChannels(img);
-    ip->getHistogram();
-    ip->displayHistogram();
+//    ip->splitChannels(img);
+//    ip->getHistogram();
+//    ip->displayHistogram();
 
-    qDebug("DONE!");
+//    qDebug("Hist DONE!");
 
+    //
+    VecGLCM vec;
+    GLCMFeatures features;
+    ip->initGLCM(vec,16);
 
+    qDebug()<<vec;
+    qDebug("1111111111");
+    qDebug()<<img.channels();
 
+    cvtColor(img, img, COLOR_RGB2GRAY);
 
+    qDebug()<<img.channels();
+    qDebug("2222222222");
+    qDebug()<<img.rows<<"   "<<img.cols;
+    qDebug("3333333333");
+
+    imshow("oneChannel", img);
+
+//    for(int i=0; i<img.cols; i++)
+//    {
+//        for(int j=0; i<img.rows; j++)
+//        {
+//            qDebug()<<img.at<uchar>(i,j);
+//        }
+//    }
+
+    qDebug("66666666");
+
+    ip->calGLCM(img, vec, ImageProcess::GLCM_HORIZONTAL);
+    ip->getGLCMFeatures(vec, features);
+
+    qDebug()<<"energy"<<features.energy;
+    qDebug()<<"entropy"<<features.entropy;
+    qDebug()<<"constrast"<<features.constrast;
+    qDebug()<<"idMoment"<<features.idMoment;
+    qDebug("GLCM DONE!");
 
 
 
