@@ -45,6 +45,17 @@ Rectangle {
     {
         id: imageItem;
     }
+    Image {
+        id: vleftarrow;
+        source: "images/MainInterface/right/leftDrag";
+        width: 8;
+        height:10;
+
+        anchors.right: parent.right;
+        anchors.rightMargin: 3;
+        anchors.verticalCenter: parent.verticalCenter;
+
+    }
 
     Row
     {

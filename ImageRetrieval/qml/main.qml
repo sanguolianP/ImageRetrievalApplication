@@ -190,6 +190,11 @@ Window {
         }
 
     }
+    Link_data
+    {
+        id:vLinkWindow;
+        visible: false;
+    }
 
 
 }

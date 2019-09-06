@@ -167,6 +167,10 @@ Rectangle {
                 sHoverImage: "images/MenuBar/connectdbHover.png";
                 state: "normal";
                 nIndex: 6;
+                onMenuButtonIndexBack:
+                {
+                    vLinkWindow.visible=true;
+                }
             }
         }
     }
@@ -231,6 +235,7 @@ Rectangle {
             rect_MenuFile.visible = false;
             rect_MenuDb.visible = false;
             rect_MenuHelp.visible = false;
+            vLinkWindow.visible=false;
 
             menuAllMouseArea.visible = false;
             console.log("set success");

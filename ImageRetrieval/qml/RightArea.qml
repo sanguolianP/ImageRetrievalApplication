@@ -8,6 +8,27 @@ Rectangle {
     id: rect_rightArea;
 
     color: "#413d5b";
+    Image {
+        id: vrightarrow;
+        source: "images/MainInterface/right/rightDrag";
+        width: 8;
+        height:10;
+
+        anchors.left: parent.left;
+        anchors.leftMargin: 3;
+        anchors.verticalCenter: parent.verticalCenter;
+
+    }
+    Image {
+        id: vbackgroundimage;
+        source: "images/MainInterface/right/background.png";
+        width: 250;
+        height: 250;
+
+        anchors.right: parent.right;
+        anchors.bottom: parent.bottom;
+        anchors.bottomMargin: 5;
+    }
 
 
     ComboBox

@@ -48,5 +48,6 @@
         <file>qml/images/MainInterface/left/retrievalOn.png</file>
         <file>qml/images/PaintPanel/erase.png</file>
         <file>qml/images/PaintPanel/pen.png</file>
+        <file>qml/images/MainInterface/right/background.png</file>
     </qresource>
 </RCC>
