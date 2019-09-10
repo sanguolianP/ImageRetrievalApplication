@@ -59,104 +59,97 @@ int main(int argc, char *argv[])
     qDebug("Hist DONE!");
 
 /***GLCM****************************************************/
-    qDebug(">>>>GLCM START>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-    VecGLCM vec;
-    GLCMFeatures features;
-    ip->initGLCM(vec,16);
+//    qDebug(">>>>GLCM START>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+//    VecGLCM vec;
+//    GLCMFeatures features;
+//    ip->initGLCM(vec,16);
 
-    qDebug()<<vec;
-    qDebug("1111111111");
-    qDebug()<<img.channels();
+//    qDebug()<<vec;
+//    qDebug("1111111111");
+//    qDebug()<<img.channels();
 
-    cvtColor(img, img, COLOR_RGB2GRAY);
+//    cvtColor(img, img, COLOR_RGB2GRAY);
 
-    qDebug()<<img.channels();
-    qDebug("2222222222");
-    qDebug()<<img.rows<<"   "<<img.cols;
-    qDebug("3333333333");
+//    qDebug()<<img.channels();
+//    qDebug("2222222222");
+//    qDebug()<<img.rows<<"   "<<img.cols;
+//    qDebug("3333333333");
 
-    imshow("oneChannel", img);
+//    imshow("oneChannel", img);
 
-//    for(int i=0; i<img.cols; i++)
-//    {
-//        for(int j=0; i<img.rows; j++)
-//        {
-//            qDebug()<<img.at<uchar>(i,j);
-//        }
-//    }
 
-    qDebug("66666666");
+//    qDebug("66666666");
 
-    ip->calGLCM(img, vec, ImageProcess::GLCM_HORIZONTAL);
-    ip->getGLCMFeatures(vec, features);
-    double energy_hor = features.energy;
-    double entropy_hor = features.entropy;
-    double constrast_hor = features.constrast;
-    double idMoment_hor = features.idMoment;
-    qDebug()<<"energy_hor"<<features.energy;
-    qDebug()<<"entropy_hor"<<features.entropy;
-    qDebug()<<"constrast_hor"<<features.constrast;
-    qDebug()<<"idMoment_hor"<<features.idMoment<<endl;
+//    ip->calGLCM(img, vec, ImageProcess::GLCM_HORIZONTAL);
+//    ip->getGLCMFeatures(vec, features);
+//    double energy_hor = features.energy;
+//    double entropy_hor = features.entropy;
+//    double constrast_hor = features.constrast;
+//    double idMoment_hor = features.idMoment;
+//    qDebug()<<"energy_hor"<<features.energy;
+//    qDebug()<<"entropy_hor"<<features.entropy;
+//    qDebug()<<"constrast_hor"<<features.constrast;
+//    qDebug()<<"idMoment_hor"<<features.idMoment<<endl;
 
-    ip->calGLCM(img, vec, ImageProcess::GLCM_VERTICAL);
-    ip->getGLCMFeatures(vec, features);
-    double energy_ver = features.energy;
-    double entropy_ver = features.entropy;
-    double constrast_ver = features.constrast;
-    double idMoment_ver = features.idMoment;
-    qDebug()<<"energy_ver"<<features.energy;
-    qDebug()<<"entropy_ver"<<features.entropy;
-    qDebug()<<"constrast_ver"<<features.constrast;
-    qDebug()<<"idMoment_ver"<<features.idMoment<<endl;
+//    ip->calGLCM(img, vec, ImageProcess::GLCM_VERTICAL);
+//    ip->getGLCMFeatures(vec, features);
+//    double energy_ver = features.energy;
+//    double entropy_ver = features.entropy;
+//    double constrast_ver = features.constrast;
+//    double idMoment_ver = features.idMoment;
+//    qDebug()<<"energy_ver"<<features.energy;
+//    qDebug()<<"entropy_ver"<<features.entropy;
+//    qDebug()<<"constrast_ver"<<features.constrast;
+//    qDebug()<<"idMoment_ver"<<features.idMoment<<endl;
 
-    ip->calGLCM(img, vec, ImageProcess::GLCM_ANGLE_45);
-    ip->getGLCMFeatures(vec, features);
-    double energy_45 = features.energy;
-    double entropy_45 = features.entropy;
-    double constrast_45 = features.constrast;
-    double idMoment_45 = features.idMoment;
-    qDebug()<<"energy_45"<<features.energy;
-    qDebug()<<"entropy_45"<<features.entropy;
-    qDebug()<<"constrast_45"<<features.constrast;
-    qDebug()<<"idMoment_45"<<features.idMoment<<endl;
+//    ip->calGLCM(img, vec, ImageProcess::GLCM_ANGLE_45);
+//    ip->getGLCMFeatures(vec, features);
+//    double energy_45 = features.energy;
+//    double entropy_45 = features.entropy;
+//    double constrast_45 = features.constrast;
+//    double idMoment_45 = features.idMoment;
+//    qDebug()<<"energy_45"<<features.energy;
+//    qDebug()<<"entropy_45"<<features.entropy;
+//    qDebug()<<"constrast_45"<<features.constrast;
+//    qDebug()<<"idMoment_45"<<features.idMoment<<endl;
 
-    ip->calGLCM(img, vec, ImageProcess::GLCM_ANGLE_135);
-    ip->getGLCMFeatures(vec, features);
-    double energy_135 = features.energy;
-    double entropy_135 = features.entropy;
-    double constrast_135 = features.constrast;
-    double idMoment_135 = features.idMoment;
-    qDebug()<<"energy_135"<<features.energy;
-    qDebug()<<"entropy_135"<<features.entropy;
-    qDebug()<<"constrast_135"<<features.constrast;
-    qDebug()<<"idMoment_135"<<features.idMoment<<endl;
+//    ip->calGLCM(img, vec, ImageProcess::GLCM_ANGLE_135);
+//    ip->getGLCMFeatures(vec, features);
+//    double energy_135 = features.energy;
+//    double entropy_135 = features.entropy;
+//    double constrast_135 = features.constrast;
+//    double idMoment_135 = features.idMoment;
+//    qDebug()<<"energy_135"<<features.energy;
+//    qDebug()<<"entropy_135"<<features.entropy;
+//    qDebug()<<"constrast_135"<<features.constrast;
+//    qDebug()<<"idMoment_135"<<features.idMoment<<endl;
 
-    double energy_anverage = (energy_hor+energy_ver+energy_45+energy_135)/4;
-    double entropy_anverage = (entropy_hor+entropy_ver+entropy_45+entropy_135)/4;
-    double constrast_anverage = (constrast_hor+constrast_ver+constrast_45+constrast_135)/4;
-    double idMoment_anverage = (idMoment_hor+idMoment_ver+idMoment_45+idMoment_135)/4;
-    qDebug()<<"energy_anverage"<< energy_anverage;
-    qDebug()<<"entropy_anverage"<< entropy_anverage;
-    qDebug()<<"constrast_anverage"<< constrast_anverage;
-    qDebug()<<"idMoment_anverage"<< idMoment_anverage<<endl;
+//    double energy_anverage = (energy_hor+energy_ver+energy_45+energy_135)/4;
+//    double entropy_anverage = (entropy_hor+entropy_ver+entropy_45+entropy_135)/4;
+//    double constrast_anverage = (constrast_hor+constrast_ver+constrast_45+constrast_135)/4;
+//    double idMoment_anverage = (idMoment_hor+idMoment_ver+idMoment_45+idMoment_135)/4;
+//    qDebug()<<"energy_anverage"<< energy_anverage;
+//    qDebug()<<"entropy_anverage"<< entropy_anverage;
+//    qDebug()<<"constrast_anverage"<< constrast_anverage;
+//    qDebug()<<"idMoment_anverage"<< idMoment_anverage<<endl;
 
-    qDebug("GLCM DONE!");
+//    qDebug("GLCM DONE!");
 
 /***SIFT*******************************************************/
-    qDebug(">>>>SIFT START>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-    // SIFT特征点检测
-    int minHessian = 100;
-    Ptr<SIFT> detector = SIFT::create(minHessian);//和surf的区别：只是SURF→SIFT
+//    qDebug(">>>>SIFT START>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+//    // SIFT特征点检测
+//    int minHessian = 100;
+//    Ptr<SIFT> detector = SIFT::create(minHessian);//和surf的区别：只是SURF→SIFT
 
-    vector<KeyPoint> keypoints;
-    detector->detect(img, keypoints, Mat());//找出关键点
+//    vector<KeyPoint> keypoints;
+//    detector->detect(img, keypoints, Mat());//找出关键点
 
-    // 绘制关键点
-    Mat keypoint_img;
-    drawKeypoints(img, keypoints, keypoint_img, Scalar::all(-1), DrawMatchesFlags::DEFAULT);
-    imshow("KeyPoints Image", keypoint_img);
+//    // 绘制关键点
+//    Mat keypoint_img;
+//    drawKeypoints(img, keypoints, keypoint_img, Scalar::all(-1), DrawMatchesFlags::DEFAULT);
+//    imshow("KeyPoints Image", keypoint_img);
 
-    qDebug("SIFT DONE!");
+//    qDebug("SIFT DONE!");
 /*************************************************************/
 
     if (engine.rootObjects().isEmpty())

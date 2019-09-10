@@ -164,9 +164,9 @@ void ImageProcess::getHistogram()
     for(int i=0; i<hisSize[0]; i++)
     {
         qDebug()<< i;
-        qDebug()<<"B"<< outputRGB[0].at<float>(i);
+        qDebug()<<"R"<< outputRGB[2].at<float>(i);
         qDebug()<<"G"<< outputRGB[1].at<float>(i);
-        qDebug()<<"R"<< outputRGB[2].at<float>(i)<<endl;
+        qDebug()<<"B"<< outputRGB[0].at<float>(i)<<endl;
     }
 }
 
@@ -184,18 +184,18 @@ void ImageProcess::displayHistogram()
     for(int i=0; i<hisSize[0]; i++)
     {
         int val = saturate_cast<int>(outputRGB[0].at<float>(i));
-        rectangle(rgbHist[0], Point(i*2+10, rgbHist[0].rows), Point((i+1)*2+10, rgbHist[0].rows-val), Scalar(0,0,255), 1, 8);
+        rectangle(rgbHist[0], Point(i*2+10, rgbHist[0].rows), Point((i+1)*2+10, rgbHist[0].rows-val), Scalar(255,0,0), 1, 8);
 
         val = saturate_cast<int>(outputRGB[1].at<float>(i));
         rectangle(rgbHist[1], Point(i*2+10, rgbHist[1].rows), Point((i+1)*2+10, rgbHist[1].rows-val), Scalar(0,255,0), 1, 8);
 
         val = saturate_cast<int>(outputRGB[2].at<float>(i));
-        rectangle(rgbHist[2], Point(i*2+10, rgbHist[2].rows), Point((i+1)*2+10, rgbHist[2].rows-val), Scalar(255,0,0), 1, 8);
+        rectangle(rgbHist[2], Point(i*2+10, rgbHist[2].rows), Point((i+1)*2+10, rgbHist[2].rows-val), Scalar(0,0,255), 1, 8);
     }
 
-    imshow("R", rgbHist[0]);
+    imshow("R", rgbHist[2]);
     imshow("G", rgbHist[1]);
-    imshow("B", rgbHist[2]);
+    imshow("B", rgbHist[0]);
 }
 
 /***灰度共生矩阵**********************************************/
