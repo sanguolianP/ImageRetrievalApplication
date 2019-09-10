@@ -25,11 +25,11 @@ RESOURCES += qml.qrc \
     images.qrc
 
 /*引入opencv路径和库**************************************************************/
-INCLUDEPATH +=  $$PWD/OpenCV-MinGW-Build-OpenCV-4.1.0-x64/include\
-                $$PWD/OpenCV-MinGW-Build-OpenCV-4.1.0-x64/include\opencv2\
-                $$PWD/OpenCV-MinGW-Build-OpenCV-4.1.0-x64/include\opencv
+INCLUDEPATH +=  $$PWD/OpenCV-4.1.0-withcontrib-MinGW-x64/include\
+                $$PWD/OpenCV-4.1.0-withcontrib-MinGW-x64/include\opencv2\
+                $$PWD/OpenCV-4.1.0-withcontrib-MinGW-x64/include\opencv
 
-LIBS += -L $$PWD/OpenCV-MinGW-Build-OpenCV-4.1.0-x64/x64/mingw/lib/libopencv_*.a
+LIBS += -L $$PWD/OpenCV-4.1.0-withcontrib-MinGW-x64/x64/mingw/lib/libopencv_*.a
 
 /*******************************************************************************/
 
