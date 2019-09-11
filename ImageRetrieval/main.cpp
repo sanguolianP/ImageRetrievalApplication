@@ -4,6 +4,10 @@
 #include <QApplication>
 #include <vector>
 
+#include <QFile>
+#include <QString>
+const QString FILE_PATH_SAVECSV("../test.csv");
+
 #include "myimageprovider.h"
 #include "imageprocess.h"
 
@@ -48,6 +52,20 @@ int main(int argc, char *argv[])
 
     imshow("qImage2cvMat", img);
 
+    QString line0("0,aaa,000\n");
+    QString line1("1,bb,123456,999,888,777\n");
+    QString line2("2,ccccccccccc,4567890000045232\n");
+    QFile csvFile(FILE_PATH_SAVECSV);
+
+    if(csvFile.open(QIODevice::ReadWrite))
+    {
+        csvFile.write(line0.toUtf8());
+        csvFile.write(line1.toUtf8());
+        csvFile.write(line2.toUtf8());
+        csvFile.close();
+    }
+
+    qDebug("dwqwaee");
 /***ColorHistogram*******************************************/
 //    qDebug(">>>>HIST START>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 //    ip->splitChannels(img);
@@ -136,20 +154,20 @@ int main(int argc, char *argv[])
 //    qDebug("GLCM DONE!");
 
 /***SIFT*******************************************************/
-    qDebug(">>>>SIFT START>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-    // SIFT特征点检测
-    int minHessian = 100;
-    Ptr<SIFT> detector = SIFT::create(minHessian);
+//    qDebug(">>>>SIFT START>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+//    // SIFT特征点检测
+//    int minHessian = 100;
+//    Ptr<SIFT> detector = SIFT::create(minHessian);
 
-    vector<KeyPoint> keypoints;
-    detector->detect(img, keypoints, Mat());//找出关键点
+//    vector<KeyPoint> keypoints;
+//    detector->detect(img, keypoints, Mat());//找出关键点
 
-    // 绘制关键点
-    Mat keypoint_img;
-    drawKeypoints(img, keypoints, keypoint_img, Scalar::all(-1), DrawMatchesFlags::DEFAULT);
-    imshow("KeyPoints Image", keypoint_img);
+//    // 绘制关键点
+//    Mat keypoint_img;
+//    drawKeypoints(img, keypoints, keypoint_img, Scalar::all(-1), DrawMatchesFlags::DEFAULT);
+//    imshow("KeyPoints Image", keypoint_img);
 
-    qDebug("SIFT DONE!");
+//    qDebug("SIFT DONE!");
 /*************************************************************/
 
     if (engine.rootObjects().isEmpty())

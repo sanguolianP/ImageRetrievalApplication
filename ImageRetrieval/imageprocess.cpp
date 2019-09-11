@@ -415,11 +415,11 @@ void ImageProcess::getGLCMFeatures(VecGLCM &vecGLCM, GLCMFeatures &features)
 
 
 
+/***FeatureStore部分****************************************/
 
 
 
-
-
+/***CalcDistance部分****************************************/
 
 
 
