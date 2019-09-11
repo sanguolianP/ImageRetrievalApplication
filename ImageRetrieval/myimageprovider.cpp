@@ -23,7 +23,7 @@ QPixmap MyImageProvider::requestPixmap(const QString &id, QSize *size, const QSi
 
         if(imageGlobal.isNull())
         {
-            img = QImage("E:/proj/Github/ImageRetrievalApplication/ImageRetrieval/qml/images/MainInterface/left/image.png");
+            img = QImage("../lena.jpg");
         }else {
             img = imageGlobal;
         }

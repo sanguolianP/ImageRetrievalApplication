@@ -35,8 +35,6 @@ int main(int argc, char *argv[])
 //    imshow("Image", img);
 //    qDebug("222222222");
 
-
-
     ImageProcess *ip;
 
     ip = new ImageProcess();
@@ -51,22 +49,24 @@ int main(int argc, char *argv[])
     imshow("qImage2cvMat", img);
 
 /***ColorHistogram*******************************************/
-    qDebug(">>>>HIST START>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-    ip->splitChannels(img);
-    ip->getHistogram();
-    ip->displayHistogram();
+//    qDebug(">>>>HIST START>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+//    ip->splitChannels(img);
+//    ip->getHistogram();
+//    ip->displayHistogram();
 
-    qDebug("Hist DONE!");
+//    qDebug("Hist DONE!");
 
 /***GLCM****************************************************/
 //    qDebug(">>>>GLCM START>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 //    VecGLCM vec;
 //    GLCMFeatures features;
+
 //    ip->initGLCM(vec,16);
 
 //    qDebug()<<vec;
 //    qDebug("1111111111");
 //    qDebug()<<img.channels();
+
 
 //    cvtColor(img, img, COLOR_RGB2GRAY);
 
@@ -136,20 +136,20 @@ int main(int argc, char *argv[])
 //    qDebug("GLCM DONE!");
 
 /***SIFT*******************************************************/
-//    qDebug(">>>>SIFT START>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-//    // SIFT特征点检测
-//    int minHessian = 100;
-//    Ptr<SIFT> detector = SIFT::create(minHessian);//和surf的区别：只是SURF→SIFT
+    qDebug(">>>>SIFT START>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    // SIFT特征点检测
+    int minHessian = 100;
+    Ptr<SIFT> detector = SIFT::create(minHessian);
 
-//    vector<KeyPoint> keypoints;
-//    detector->detect(img, keypoints, Mat());//找出关键点
+    vector<KeyPoint> keypoints;
+    detector->detect(img, keypoints, Mat());//找出关键点
 
-//    // 绘制关键点
-//    Mat keypoint_img;
-//    drawKeypoints(img, keypoints, keypoint_img, Scalar::all(-1), DrawMatchesFlags::DEFAULT);
-//    imshow("KeyPoints Image", keypoint_img);
+    // 绘制关键点
+    Mat keypoint_img;
+    drawKeypoints(img, keypoints, keypoint_img, Scalar::all(-1), DrawMatchesFlags::DEFAULT);
+    imshow("KeyPoints Image", keypoint_img);
 
-//    qDebug("SIFT DONE!");
+    qDebug("SIFT DONE!");
 /*************************************************************/
 
     if (engine.rootObjects().isEmpty())

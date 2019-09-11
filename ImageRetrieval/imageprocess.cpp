@@ -20,6 +20,7 @@ ImageProcess::~ImageProcess()
 
 }
 
+//打开图像
 QImage ImageProcess::openImage()
 {
     qDebug("open");
@@ -40,7 +41,7 @@ QImage ImageProcess::openImage()
             }
         }
 }
-
+//
 QImage ImageProcess::processImage()
 {
 
@@ -48,12 +49,11 @@ QImage ImageProcess::processImage()
 //    qDebug("processed");
     return imageRes;
 }
-
+//获取全局图像的宽和高
 int ImageProcess::getGlobalWidth()
 {
     return imageGlobal.width();
 }
-
 int ImageProcess::getGlobalHeight()
 {
     return imageGlobal.height();
@@ -65,12 +65,12 @@ void ImageProcess::openImageCV(QString imgName)
 {
 
 }
-
 void ImageProcess::cvShow(QString title, Mat img)
 {
 //    imshow(title, img);
 }
 
+//QImage转 Mat格式
 Mat ImageProcess::qImage2cvMat(QImage img)
 {
     qDebug("qImage2cvMat");
@@ -94,7 +94,7 @@ Mat ImageProcess::qImage2cvMat(QImage img)
     qDebug("qImage2cvMat End!");
     return imgMat;
 }
-
+//Mat转 QImage格式
 QImage ImageProcess::cvMat2qImage(Mat img)
 {
     qDebug("cvMat2qImage");
@@ -147,7 +147,8 @@ QImage ImageProcess::cvMat2qImage(Mat img)
 
 }
 
-/***颜色直方图***********************************************/
+
+/***颜色直方图********************************************颜色***/
 //分离RGB通道
 void ImageProcess::splitChannels(Mat image)
 {
@@ -198,7 +199,8 @@ void ImageProcess::displayHistogram()
     imshow("B", rgbHist[0]);
 }
 
-/***灰度共生矩阵**********************************************/
+
+/***灰度共生矩阵*******************************************纹理***/
 //初始化共生矩阵
 void ImageProcess::initGLCM(VecGLCM &vecGLCM, int size)
 {
@@ -219,7 +221,7 @@ void ImageProcess::initGLCM(VecGLCM &vecGLCM, int size)
     }else{qDebug("size need equre graylevel!");}
 }
 
-//得到不同角度的共生矩阵
+//得到水平的共生矩阵
 void ImageProcess::getHorizontalGLCM(VecGLCM &src, VecGLCM &dst, int imgWidth, int imgHeight)
 {
     int width = imgWidth;
@@ -236,6 +238,7 @@ void ImageProcess::getHorizontalGLCM(VecGLCM &src, VecGLCM &dst, int imgWidth, i
     qDebug()<<dst;
 }
 
+//得到垂直的共生矩阵
 void ImageProcess::getVerticalGLCM(VecGLCM &src, VecGLCM &dst, int imgWidth, int imgHeight)
 {
     int width = imgWidth;
@@ -251,6 +254,7 @@ void ImageProcess::getVerticalGLCM(VecGLCM &src, VecGLCM &dst, int imgWidth, int
     }
 }
 
+//得到45°的共生矩阵
 void ImageProcess::get45GLCM(VecGLCM &src, VecGLCM &dst, int imgWidth, int imgHeight)
 {
     int width = imgWidth;
@@ -266,6 +270,7 @@ void ImageProcess::get45GLCM(VecGLCM &src, VecGLCM &dst, int imgWidth, int imgHe
     }
 }
 
+//得到135°的共生矩阵
 void ImageProcess::get135GLCM(VecGLCM &src, VecGLCM &dst, int imgWidth, int imgHeight)
 {
     int width = imgWidth;
@@ -358,7 +363,7 @@ void ImageProcess::calGLCM(Mat inputImage, VecGLCM &vecGLCM, int angle)
     }else{qDebug("channel need be one!");}
 }
 
-//由灰度共生矩阵得到特征
+//由灰度共生矩阵计算得到特征
 void ImageProcess::getGLCMFeatures(VecGLCM &vecGLCM, GLCMFeatures &features)
 {
     //求矩阵值的总和
@@ -405,7 +410,7 @@ void ImageProcess::getGLCMFeatures(VecGLCM &vecGLCM, GLCMFeatures &features)
 }
 
 
-
+/***边缘提取*******************************************形状***/
 
 
 
