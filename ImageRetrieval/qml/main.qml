@@ -195,6 +195,11 @@ Window {
         id:vLinkWindow;
         visible: false;
     }
+    Show_Image
+    {
+        id:imageInformation;
+        visible: false;
+    }
 
 
 }

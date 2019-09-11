@@ -11,6 +11,7 @@ Rectangle{
     property var sPressedImage: "";
     property var sNormalImage: "";
     property var sHoverImage: "";
+    property var sButtoncolor: "";
 
     property var nIndex: 0;
 
@@ -53,7 +54,8 @@ Rectangle{
             {
                 lefttool_Button.state = "hover";
             }
-            lefttool_Button.color = "#352e57";
+          //  lefttool_Button.color = "#352e57";
+            lefttool_Button.color = sButtoncolor;
             /* state === "normal" ? state = "hover" : state = "pressed"; */
         }
         onExited:

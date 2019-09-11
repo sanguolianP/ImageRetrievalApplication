@@ -15,5 +15,6 @@
         <file>qml/ColorSquare.qml</file>
         <file>qml/ChooseRect.qml</file>
         <file>qml/Link_data.qml</file>
+        <file>qml/Show_Image.qml</file>
     </qresource>
 </RCC>

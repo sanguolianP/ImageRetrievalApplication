@@ -80,7 +80,7 @@ Rectangle {
     Rectangle
     {
         anchors.fill: gridArea;
-        color: "#aaaaaa";
+        color: "transparent";
     }
     GridLayout
     {
@@ -121,126 +121,268 @@ Rectangle {
 //            height: 100;
             Layout.fillWidth: true;
             Layout.fillHeight: true;
-            color: "#eeeeee";
+            color: "transparent";
+            Image
+          //  Rectangle
+            {
+                id: searchImage_0;
+                source: "images/MainInterface/left/image.png";
+                width: 170;
+                height: 160;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                anchors.verticalCenter: parent.verticalCenter;
+              //  anchors.fill:searchImage_1;
+              //  color: "#0000ff";
+//                Image {
+//                    id: searchImage_1;
+//                    source: "images/MainInterface/left/image.png";
+
+//                }
+                MouseArea
+                {
+                    acceptedButtons: "LeftButton";
+                    width: parent.width;
+                    height: parent.height;
+                    onClicked:imageInformation.visible=true;
+                }
+            }
         }
 
         Rectangle
         {
             Layout.fillWidth: true;
             Layout.fillHeight: true;
-            color: "#eeeeee";
-            Rectangle
+            color: "transparent";
+            Image
+        //    Rectangle
             {
+                id: searchImage_1;
+                source: "images/MainInterface/left/image.png";
                 width: 170;
                 height: 160;
                 anchors.horizontalCenter: parent.horizontalCenter;
                 anchors.verticalCenter: parent.verticalCenter;
-                color: "#0000ff";
-            }
-        }
-        Rectangle
-        {
-            Layout.fillWidth: true;
-            Layout.fillHeight: true;
-            color: "#eeeeee";
-            Rectangle
-            {
-                width: 170;
-                height: 160;
-                anchors.horizontalCenter: parent.horizontalCenter;
-                anchors.verticalCenter: parent.verticalCenter;
-                color: "#0000ff";
-            }
-        }
-        Rectangle
-        {
-            Layout.fillWidth: true;
-            Layout.fillHeight: true;
-            color: "#eeeeee";
-            Rectangle
-            {
-                width: 170;
-                height: 160;
-                anchors.horizontalCenter: parent.horizontalCenter;
-                anchors.verticalCenter: parent.verticalCenter;
-                color: "#0000ff";
-            }
-        }
-        Rectangle
-        {
-            Layout.fillWidth: true;
-            Layout.fillHeight: true;
-            color: "#eeeeee";
-            Rectangle
-            {
-                width: 170;
-                height: 160;
-                anchors.horizontalCenter: parent.horizontalCenter;
-                anchors.verticalCenter: parent.verticalCenter;
-                color: "#0000ff";
-            }
-        }
-        Rectangle
-        {
-            Layout.fillWidth: true;
-            Layout.fillHeight: true;
-            color: "#eeeeee";
-            Rectangle
-            {
-                width: 170;
-                height: 160;
-                anchors.horizontalCenter: parent.horizontalCenter;
-                anchors.verticalCenter: parent.verticalCenter;
-                color: "#0000ff";
-            }
-        }
-        Rectangle
-        {
-            Layout.fillWidth: true;
-            Layout.fillHeight: true;
-            color: "#eeeeee";
-            Rectangle
-            {
-                width: 170;
-                height: 160;
-                anchors.horizontalCenter: parent.horizontalCenter;
-                anchors.verticalCenter: parent.verticalCenter;
-                color: "#0000ff";
-            }
-        }
-        Rectangle
-        {
-            Layout.fillWidth: true;
-            Layout.fillHeight: true;
-            color: "#eeeeee";
-            Rectangle
-            {
-                width: 170;
-                height: 160;
-                anchors.horizontalCenter: parent.horizontalCenter;
-                anchors.verticalCenter: parent.verticalCenter;
-                color: "#0000ff";
-            }
-        }
-        Rectangle
-        {
-            Layout.fillWidth: true;
-            Layout.fillHeight: true;
-            color: "#eeeeee";
-            Rectangle
-            {
-                width: 170;
-                height: 160;
-                anchors.horizontalCenter: parent.horizontalCenter;
-                anchors.verticalCenter: parent.verticalCenter;
-                color: "#0000ff";
-            }
-        }
+              //  anchors.fill:searchImage_1;
+              //  color: "#0000ff";
+//                Image {
+//                    id: searchImage_1;
+//                    source: "images/MainInterface/left/image.png";
 
+//                }
+                MouseArea
+                {
+                    acceptedButtons: "LeftButton";
+                    width: parent.width;
+                    height: parent.height;
+                    onClicked:imageInformation.visible=true;
+                }
+            }
+        }
+        Rectangle
+        {
+            Layout.fillWidth: true;
+            Layout.fillHeight: true;
+            color: "transparent";
+            Image
+            {
+                id: searchImage_2;
+                source: "images/MainInterface/left/image.png";
+                width: 170;
+                height: 160;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                anchors.verticalCenter: parent.verticalCenter;
+               // color: "#0000ff";
+//                anchors.fill:searchImage_2;
+//                Image {
+//                    id: searchImage_2;
+//                    source: "images/MainInterface/left/image.png";
 
+//                }
+                MouseArea
+                {
+                    acceptedButtons: "LeftButton";
+                    width: parent.width;
+                    height: parent.height;
+                    onClicked:imageInformation.visible=true;
+                }
+            }
+        }
+        Rectangle
+        {
+            Layout.fillWidth: true;
+            Layout.fillHeight: true;
+            color: "transparent";
+            Image
+            {
+                id: searchImage_3;
+                source: "images/MainInterface/left/image.png";
 
+                width: 170;
+                height: 160;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                anchors.verticalCenter: parent.verticalCenter;
+                // color: "#0000ff";
+//                 anchors.fill:searchImage_3;
+//                 Image {
+//                     id: searchImage_3;
+//                     source: "images/MainInterface/left/image.png";
 
+//                 }
+                MouseArea
+                {
+                    acceptedButtons: "LeftButton";
+                    width: parent.width;
+                    height: parent.height;
+                    onClicked:imageInformation.visible=true;
+                }
+            }
+        }
+        Rectangle
+        {
+            Layout.fillWidth: true;
+            Layout.fillHeight: true;
+            color: "transparent";
+            Image
+            {
+                id: searchImage_4;
+                source: "images/MainInterface/left/image.png";
+                width: 170;
+                height: 160;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                anchors.verticalCenter: parent.verticalCenter;
+                // color: "#0000ff";
+//                 anchors.fill:searchImage_4;
+//                 Image {
+//                     id: searchImage_4;
+//                     source: "images/MainInterface/left/image.png";
 
+//                 }
+                MouseArea
+                {
+                    acceptedButtons: "LeftButton";
+                    width: parent.width;
+                    height: parent.height;
+                    onClicked:imageInformation.visible=true;
+                }
+            }
+        }
+        Rectangle
+        {
+            Layout.fillWidth: true;
+            Layout.fillHeight: true;
+            color: "transparent";
+            Image
+            {
+                id: searchImage_5;
+                source: "images/MainInterface/left/image.png";
+                width: 170;
+                height: 160;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                anchors.verticalCenter: parent.verticalCenter;
+                // color: "#0000ff";
+//                 anchors.fill:searchImage_5;
+//                 Image {
+//                     id: searchImage_5;
+//                     source: "images/MainInterface/left/image.png";
+
+//                 }
+                MouseArea
+                {
+                    acceptedButtons: "LeftButton";
+                    width: parent.width;
+                    height: parent.height;
+                    onClicked:imageInformation.visible=true;
+                }
+            }
+        }
+        Rectangle
+        {
+            Layout.fillWidth: true;
+            Layout.fillHeight: true;
+            color: "transparent";
+            Image
+            {
+                id: searchImage_6;
+                source: "images/MainInterface/left/image.png";
+                width: 170;
+                height: 160;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                anchors.verticalCenter: parent.verticalCenter;
+                // color: "#0000ff";
+//                 anchors.fill:searchImage_6;
+//                 Image {
+//                     id: searchImage_6;
+//                     source: "images/MainInterface/left/image.png";
+
+//                 }
+                MouseArea
+                {
+                    acceptedButtons: "LeftButton";
+                    width: parent.width;
+                    height: parent.height;
+                    onClicked:imageInformation.visible=true;
+                }
+            }
+        }
+        Rectangle
+        {
+            Layout.fillWidth: true;
+            Layout.fillHeight: true;
+            color: "transparent";
+            Image
+            {
+                id: searchImage_7;
+                source: "images/MainInterface/left/image.png";
+
+                width: 170;
+                height: 160;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                anchors.verticalCenter: parent.verticalCenter;
+                // color: "#0000ff";
+//                 anchors.fill:searchImage_7;
+//                 Image {
+//                     id: searchImage_7;
+//                     source: "images/MainInterface/left/image.png";
+
+//                 }
+                MouseArea
+                {
+                    acceptedButtons: "LeftButton";
+                    width: parent.width;
+                    height: parent.height;
+                    onClicked:imageInformation.visible=true;
+                }
+            }
+        }
+        Rectangle
+        {
+            Layout.fillWidth: true;
+            Layout.fillHeight: true;
+            color: "transparent";
+            Image
+            {
+                id: searchImage_8;
+                width: 170;
+                height: 160;
+                anchors.horizontalCenter: parent.horizontalCenter;
+                anchors.verticalCenter: parent.verticalCenter;
+                // color: "#0000ff";
+                source: "images/MainInterface/left/image.png";
+//                 anchors.fill:searchImage_8;
+//                 Image {
+//                     id: searchImage_8;
+//                     source: "images/MainInterface/left/image.png";
+
+//                 }
+                MouseArea
+                {
+                    acceptedButtons: "LeftButton";
+                    width: parent.width;
+                    height: parent.height;
+                    onClicked:imageInformation.visible=true;
+                }
+            }
+        }
 
 
 
