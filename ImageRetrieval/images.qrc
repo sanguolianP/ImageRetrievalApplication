@@ -49,5 +49,15 @@
         <file>qml/images/PaintPanel/erase.png</file>
         <file>qml/images/PaintPanel/pen.png</file>
         <file>qml/images/MainInterface/right/background.png</file>
+        <file>qml/images/MainInterface/right/Larger_Image.png</file>
+        <file>qml/images/MainInterface/right/Larger_ImagePress.png</file>
+        <file>qml/images/MainInterface/right/left.png</file>
+        <file>qml/images/MainInterface/right/leftPress.png</file>
+        <file>qml/images/MainInterface/right/right.png</file>
+        <file>qml/images/MainInterface/right/rightPress.png</file>
+        <file>qml/images/MainInterface/right/rotate_Image.png</file>
+        <file>qml/images/MainInterface/right/rotate_ImagePress.png</file>
+        <file>qml/images/MainInterface/right/Smaller_Image.png</file>
+        <file>qml/images/MainInterface/right/Smaller_ImagePress.png</file>
     </qresource>
 </RCC>

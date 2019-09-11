@@ -77,6 +77,7 @@ Rectangle {
             width: 33;
             height: 33;
             anchors.verticalCenter: parent.verticalCenter;
+            sButtoncolor: "#352e57";
 
             sPressedImage: "images/MainInterface/left/paint.png";
             sNormalImage: "images/MainInterface/left/paint.png";
@@ -95,7 +96,7 @@ Rectangle {
             width: 33;
             height: 33;
             anchors.verticalCenter: parent.verticalCenter;
-
+            sButtoncolor: "#352e57";
             sPressedImage: "images/MainInterface/left/zoomIn.png";
             sNormalImage: "images/MainInterface/left/zoomIn.png";
             sHoverImage: "images/MainInterface/left/zoomIn.png";
@@ -109,6 +110,7 @@ Rectangle {
             width: 33;
             height: 33;
             anchors.verticalCenter: parent.verticalCenter;
+            sButtoncolor: "#352e57";
 
             sPressedImage: "images/MainInterface/left/zoomOut.png";
             sNormalImage: "images/MainInterface/left/zoomOut.png";
@@ -123,6 +125,7 @@ Rectangle {
             width: 33;
             height: 33;
             anchors.verticalCenter: parent.verticalCenter;
+            sButtoncolor: "#352e57";
 
             sPressedImage: "images/MainInterface/left/rotate.png";
             sNormalImage: "images/MainInterface/left/rotate.png";
@@ -146,6 +149,7 @@ Rectangle {
             width: 33;
             height: 33;
             anchors.verticalCenter: parent.verticalCenter;
+            sButtoncolor: "#352e57";
 
             sPressedImage: "images/MainInterface/left/rectChoose.png";
             sNormalImage: "images/MainInterface/left/rectChoose.png";
