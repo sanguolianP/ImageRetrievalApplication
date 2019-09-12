@@ -11,7 +11,12 @@
 using namespace std;
 
 #include "opencv2/opencv.hpp"
+#include "opencv2/xfeatures2d.hpp"
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/xfeatures2d/nonfree.hpp>
 using namespace cv;
+using namespace cv::xfeatures2d;
 
 typedef vector<vector<int> > VecGLCM;
 typedef struct _GCLMFeatures
@@ -100,6 +105,13 @@ public:
     //计算135°灰度共生矩阵
     void get135GLCM(VecGLCM& src, VecGLCM& dst, int imgWidth, int imgHeight);
 
+    //canny边缘检测
+    Mat CannyThreshold(Mat src);
+    void CannyMatch(Mat src, Mat src2);
+    //sift关键点检测
+    void SiftKeypoints(Mat src);
+    //基于sift的BruteForce Match
+    void BFKeypointsCalc(Mat src, Mat src2);
 //    void debugFeatures();
 
 private:

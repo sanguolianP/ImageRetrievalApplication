@@ -411,6 +411,167 @@ void ImageProcess::getGLCMFeatures(VecGLCM &vecGLCM, GLCMFeatures &features)
 
 
 /***边缘提取*******************************************形状***/
+Mat ImageProcess::CannyThreshold(Mat src)
+{
+    int ratio = 3;
+    int kernel_size = 3;
+    int lowThreshold = 100;
+    Mat src_gray, detected_edges;
+    //int max_lowThreshold = 100;
+    //dst.create( src.size(), src.type() );
+    cvtColor( src, src_gray, COLOR_BGR2GRAY );
+    //dst.create( src_gray.size(), src_gray.type() );
+    blur( src_gray, detected_edges, Size(3,3) );
+    Canny( detected_edges, detected_edges, lowThreshold, lowThreshold*ratio, kernel_size );
+    //dst = Scalar::all(0);
+    imshow("detect", detected_edges);
+    //src.copyTo( dst, detected_edges);
+    //qDebug()<<dst.channels()<<endl;
+    qDebug()<<detected_edges.channels()<<endl;
+    return detected_edges;
+}
+
+void ImageProcess::CannyMatch(Mat src, Mat src2)//,Mat src2
+{
+    //MatchShapes(detected_edges)
+    double matching = matchShapes(CannyThreshold(src), CannyThreshold(src2), 1, 0);
+    qDebug() << matching << endl;
+}
+
+void ImageProcess::SiftKeypoints(Mat src)
+{
+    // SIFT特征点检测
+    int minHessian = 100;
+    Ptr<SIFT> detector = SIFT::create(minHessian);//和surf的区别：只是SURF→SIFT
+    vector<KeyPoint> keypoints;
+    detector->detect(src, keypoints, Mat());//找出关键点
+
+    // 绘制关键点
+    Mat keypoint_img;
+    drawKeypoints(src, keypoints, keypoint_img, Scalar::all(-1), DrawMatchesFlags::DEFAULT);
+    imshow("KeyPoints Image", keypoint_img);
+}
+
+void ImageProcess::BFKeypointsCalc(Mat src, Mat src2)
+{
+    int minHessian = 500;    //the number of keypoints
+    Ptr<SIFT> detector = SIFT::create(minHessian);
+    vector<KeyPoint> keypoints1, keypoints2;
+    Mat descriptors1,descriptors2;
+    detector->detectAndCompute(src, Mat(), keypoints1, descriptors1);
+    detector->detectAndCompute(src2, Mat(), keypoints2, descriptors2);
+
+    qDebug() << "# keypoints of img1 :" << keypoints1.size() << endl;
+    qDebug() << "# keypoints of img2 :" << keypoints2.size() << endl;
+
+
+    BFMatcher bfmatcher(NORM_L2, true);
+    vector<DMatch> matches;
+    bfmatcher.match(descriptors1, descriptors2, matches);
+
+    qDebug() << "# matches : " << matches.size() << endl;
+
+    //show it on an image
+    Mat output;
+    drawMatches(src, keypoints1, src2, keypoints2, matches, output);
+    imshow("matches result",output);
+
+    //计算匹配结果中距离最大和距离最小值
+    float min_dist = matches[0].distance, max_dist = matches[0].distance;
+    for (int m = 0; m < matches.size(); m++)
+    {
+        if (matches[m].distance<min_dist)
+        {
+            min_dist = matches[m].distance;
+        }
+        if (matches[m].distance>max_dist)
+        {
+            max_dist = matches[m].distance;
+        }
+    }
+    cout << "min dist=" << min_dist << endl;
+    cout << "max dist=" << max_dist << endl;
+
+    //筛选出较好的匹配点
+    vector<DMatch> goodMatches;
+    for (int m = 0; m < matches.size(); m++)
+    {
+        if (matches[m].distance < 0.6*max_dist)
+        {
+            goodMatches.push_back(matches[m]);
+        }
+    }
+    cout << "The number of good matches:" <<goodMatches.size()<< endl;
+    //画出匹配结果
+    Mat img_out;
+    //红色连接的是匹配的特征点数，绿色连接的是未匹配的特征点数
+    //matchColor – Color of matches (lines and connected keypoints). If matchColor==Scalar::all(-1) , the color is generated randomly.
+    //singlePointColor – Color of single keypoints(circles), which means that keypoints do not have the matches.If singlePointColor == Scalar::all(-1), the color is generated randomly.
+    //CV_RGB(0, 255, 0)存储顺序为R-G-B,表示绿色
+    drawMatches(src, keypoints1, src2, keypoints2, goodMatches, img_out); //Scalar::all(-1), CV_RGB(0, 0, 255), Mat(), 2);
+    imshow("good Matches",img_out);
+
+    //RANSAC匹配过程
+    vector<DMatch> m_Matches;
+    m_Matches = goodMatches;
+    int ptCount = goodMatches.size();
+    if (ptCount < 10)
+    {
+        cout << "Don't find enough match points" << endl;
+      //  return 0;
+    }
+
+    //坐标转换为float类型
+    vector <KeyPoint> RAN_KP1, RAN_KP2;
+    //size_t是标准C库中定义的，应为unsigned int，在64位系统中为long unsigned int,在C++中为了适应不同的平台，增加可移植性。
+    for (size_t i = 0; i < m_Matches.size(); i++)
+    {
+        RAN_KP1.push_back(keypoints1[goodMatches[i].queryIdx]);
+        RAN_KP2.push_back(keypoints2[goodMatches[i].trainIdx]);
+        //RAN_KP1是要存储img01中能与img02匹配的点
+        //goodMatches存储了这些匹配点对的img01和img02的索引值
+    }
+    //坐标变换
+    vector <Point2f> p01, p02;
+    for (size_t i = 0; i < m_Matches.size(); i++)
+    {
+        p01.push_back(RAN_KP1[i].pt);
+        p02.push_back(RAN_KP2[i].pt);
+    }
+    /*vector <Point2f> img1_corners(4);
+        img1_corners[0] = Point(0,0);
+        img1_corners[1] = Point(img_1.cols,0);
+        img1_corners[2] = Point(img_1.cols, img_1.rows);
+        img1_corners[3] = Point(0, img_1.rows);
+        vector <Point2f> img2_corners(4);*/
+    //求转换矩阵
+    //Mat m_homography;
+    //vector<uchar> m;
+    //m_homography = findHomography(p01, p02, RANSAC);//寻找匹配图像
+    //求基础矩阵 Fundamental,3*3的基础矩阵
+    vector<uchar> RansacStatus;
+    Mat Fundamental = findFundamentalMat(p01, p02, RansacStatus, FM_RANSAC);
+    //重新定义关键点RR_KP和RR_matches来存储新的关键点和基础矩阵，通过RansacStatus来删除误匹配点
+    vector <KeyPoint> RR_KP1, RR_KP2;
+    vector <DMatch> RR_matches;
+    int index = 0;
+    for (size_t i = 0; i < m_Matches.size(); i++)
+    {
+        if (RansacStatus[i] != 0)
+        {
+            RR_KP1.push_back(RAN_KP1[i]);
+            RR_KP2.push_back(RAN_KP2[i]);
+            m_Matches[i].queryIdx = index;
+            m_Matches[i].trainIdx = index;
+            RR_matches.push_back(m_Matches[i]);
+            index++;
+        }
+    }
+    cout << "RANSAC: " <<RR_matches.size()<< endl;
+    Mat img_RR_matches;
+    drawMatches(src, RR_KP1, src2, RR_KP2, RR_matches, img_RR_matches);
+    imshow("After RANSAC",img_RR_matches);
+}
 
 
 
