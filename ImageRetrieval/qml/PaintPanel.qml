@@ -7,7 +7,7 @@ Window{
     id: vPaint;
     width: 640
     height: 480
-    visible: true
+    visible: false
     color: "white";
     //flags: Qt.FramelessWindowHint
     //Rectangle{
@@ -123,9 +123,9 @@ Window{
             // anchors.topMargin: 10;
             width: 70;
             height: 50;
-            sPressedImage: "image/surePress.png";
-            sHoverImage: "image/surePress.png";
-            sNormalImage: "image/sure.png";
+            sPressedImage: "images/PaintPanel/surePress.png";
+            sHoverImage: "images/PaintPanel/surePress.png";
+            sNormalImage: "images/PaintPanel/sure.png";
             state: "normal";
             onRetrievalButtonIndexBack: {
                 //  canvas.
@@ -133,12 +133,6 @@ Window{
                 //   vPaint.close();
             }
         }
-
-//        MouseArea{
-//            anchors.fill:parent;
-//            drag.target: vpaintcanvas;
-//            drag.axis:"XAndYAxis";
-//        }
     }
 }//Window
 

@@ -59,5 +59,7 @@
         <file>qml/images/MainInterface/right/rotate_ImagePress.png</file>
         <file>qml/images/MainInterface/right/Smaller_Image.png</file>
         <file>qml/images/MainInterface/right/Smaller_ImagePress.png</file>
+        <file>qml/images/PaintPanel/sure.png</file>
+        <file>qml/images/PaintPanel/surePress.png</file>
     </qresource>
 </RCC>

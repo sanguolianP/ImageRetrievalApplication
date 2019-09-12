@@ -12,6 +12,8 @@ Rectangle{
     property var sNormalImage: "";
     property var sHoverImage: "";
     property var sButtoncolor: "";
+    property var sTextText: "";
+    property var nTextSize: 12;
 
     property var nIndex: 0;
 
@@ -26,6 +28,25 @@ Rectangle{
 
         anchors.fill: parent;
         source: sNormalImage;
+    }
+    Text
+    {
+        id: vButtonText;
+
+        x: 0;
+        y: 0;
+        width: parent.width;
+        height: parent.height;
+        horizontalAlignment: Text.AlignHCenter;
+        verticalAlignment: Text.AlignVCenter;
+        wrapMode: Text.WordWrap;
+        color: "white";/*color: "black";*/
+        font.family: "微软雅黑";
+        font.pixelSize: nTextSize;
+        font.letterSpacing: 1;
+        font.bold: true;
+        text: sTextText;
+
     }
 
 

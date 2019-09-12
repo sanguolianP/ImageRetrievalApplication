@@ -98,5 +98,39 @@ Row{
                 if (pageNavigation.nCurPage*pageNavigation.nPageSize <= pageNavigation.nCout) pageNavigation.nCurPage++;
             }
         }
+
+        Rectangle
+        {
+            id:choosepage;
+            anchors.left: nextPage.right;
+            anchors.leftMargin: 15
+            height: 24
+            width: 30
+            TextInput
+            {
+                id:vTextinput;
+                height: 15;
+                width: 20;
+                font.pixelSize: 12
+                anchors.verticalCenter: parent.verticalCenter
+            }
+            LeftToolButton
+            {
+                anchors.left:vTextinput.right;
+                anchors.leftMargin: 20
+                height: 24;
+                width: 50;
+                sPressedImage: "images/MainInterface/right/go.png";
+                sHoverImage: "images/MainInterface/right/go.png";
+                sNormalImage: "images/MainInterface/right/goDisable.png";
+                state: "normal";
+                sTextText: "Go >";
+                onBack:
+                {
+                    vTextinput.editingFinished();
+
+                }
+            }
+        }
     }
 }
