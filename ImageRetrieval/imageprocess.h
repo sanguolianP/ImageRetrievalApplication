@@ -83,7 +83,9 @@ public:
 /***颜色直方图***********************************************/
     void splitChannels(Mat image);
     void getHistogram();
+    Mat HSVHist(Mat src);
     void displayHistogram();
+    double compareColorHis(Mat h1, Mat h2);
 
 /***灰度共生矩阵**********************************************/
     //计算灰度共生矩阵
