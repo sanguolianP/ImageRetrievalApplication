@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 
     qDebug()<<ip->hisWidth;
 
-    imageGlobal = QImage("../data/carpet7.jpg");
+    imageGlobal = QImage("../data/carpet5.jpg");
     //相对路径是相对于.exe来说的，所以图片应该放在bin目录下，../表示上一级目录
 
     Mat img = ip->qImage2cvMat(imageGlobal);
@@ -53,6 +53,9 @@ int main(int argc, char *argv[])
 
     qDebug()<<endl<<ip->filenameMap;
 
+    Mat img2 = imread("../data/carpet4.jpg");
+    //Mat hhh = HSVHist(img);
+    ip->compareColorHis(ip->HSVHist(img), ip->HSVHist(img2));
     //imshow("qImage2cvMat", img);
 
 //    QString line0("0,aaa,000\n");

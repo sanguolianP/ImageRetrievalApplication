@@ -170,8 +170,43 @@ void ImageProcess::getHistogram()
         qDebug()<<"G"<< outputRGB[1].at<float>(i);
         qDebug()<<"B"<< outputRGB[0].at<float>(i)<<endl;
     }
+    //return outputRGB[0];
 }
 
+//HSV直方图
+Mat ImageProcess::HSVHist(Mat src)
+{
+    Mat srcHSV, HHist;
+    cvtColor(src, srcHSV, COLOR_BGR2HSV);
+    //h,s对应的bin的数目分别是50，60，即是把h范围是（0，255）的数分成50份分别统计每一份中的像素数。
+    int h_bins=50;int s_bins=60;
+    int histSize[]={h_bins,s_bins};
+    float h_ranges[]={0,256};
+    float s_ranges[]={0,180};
+    const float* ranges[]={h_ranges,s_ranges};
+    //只计算了h，s两个通道，所以channels是0和1
+    int channels[]={0,1};
+    calcHist(&srcHSV, 1, channels, Mat(), HHist, 2, histSize, ranges);
+    normalize(HHist, HHist, 0, 1, NORM_MINMAX, -1, Mat());
+    return HHist;
+}
+
+double ImageProcess::compareColorHis(Mat h1, Mat h2)//输入即为HSV直方图
+{
+    double h1_h2 = 0;
+    /*
+     * compare_method
+     * 0Correlation  ~1better    √
+     * 1Chi-Square   ~0better
+     * 2Intersection > better
+     * 3Bhattacharyya~0better    √
+     */
+
+    int compare_method=3;
+    h1_h2=compareHist(h1,h2,compare_method);
+    qDebug() << "Bhattacharyya distance" << h1_h2<<endl;
+    return h1_h2;
+}
 //显示直方图
 void ImageProcess::displayHistogram()
 {
@@ -453,18 +488,19 @@ void ImageProcess::SiftKeypoints(Mat src)
     imshow("KeyPoints Image", keypoint_img);
 }
 
-void ImageProcess::BFKeypointsCalc(Mat src, Mat src2, bool RANSAC)
+void ImageProcess::BFKeypointsCalc(Mat src, Mat src2, bool RANSAC)//RANSAC是否用ransac筛选
 {
     int minHessian = 150;    //the number of keypoints
     Ptr<SIFT> detector = SIFT::create(minHessian);
+    //CV_WRAP KeyPoint() : pt(0,0), size(0), angle(-1), response(0), octave(0), class_id(-1) {}
     vector<KeyPoint> keypoints1, keypoints2;
     Mat descriptors1,descriptors2;
+    //size of descpritor (描述点数，128)
     detector->detectAndCompute(src, Mat(), keypoints1, descriptors1);
     detector->detectAndCompute(src2, Mat(), keypoints2, descriptors2);
 
     qDebug() << "# keypoints of img1 :" << keypoints1.size() << endl;
     qDebug() << "# keypoints of img2 :" << keypoints2.size() << endl;
-
 
     BFMatcher bfmatcher(NORM_L2, true);
     vector<DMatch> matches;
