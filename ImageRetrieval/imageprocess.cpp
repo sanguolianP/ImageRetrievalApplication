@@ -12,7 +12,8 @@ ImageProcess::ImageProcess()
     ranges = &range[0];
 
     grayLevel = 16;
-
+    fnmapIndex  =0;
+    ImageFilterList << "*.bmp" << "*.jpg" << "*.png"<<"*.tif";
 }
 
 ImageProcess::~ImageProcess()
@@ -582,6 +583,34 @@ void ImageProcess::BFKeypointsCalc(Mat src, Mat src2, bool RANSAC)
 
 
 /***FeatureStore部分****************************************/
+void ImageProcess::searchFolder(QString path)
+{
+    QDir dir(path);
+
+//    dir.setNameFilters(ImageFilterList);
+    qDebug()<<dir<<endl;
+    foreach(QFileInfo mfile, dir.entryInfoList())
+    {
+        if(mfile.isFile())
+        {
+            QString filter = mfile.suffix();
+            if(filter!="jpg" && filter!="png" && filter!="bmp")
+            {
+                qDebug("NOT PIC");
+                continue;
+            }
+            qDebug()<<" File: "<< mfile.fileName();
+            filenameMap.insert(fnmapIndex, mfile.fileName());
+            fnmapIndex++;
+        }else
+        {
+            if(mfile.fileName()=="." || mfile.fileName()=="..")
+                continue;
+            qDebug()<<"Entry Dir: "<< mfile.absoluteFilePath();
+            searchFolder(mfile.absoluteFilePath());
+        }
+    }
+}
 
 
 

@@ -49,6 +49,10 @@ int main(int argc, char *argv[])
     Mat img = ip->qImage2cvMat(imageGlobal);
     Mat img2 = imread("../data/carpet8.jpg");
 
+    ip->searchFolder("../qml");
+
+    qDebug()<<endl<<ip->filenameMap;
+
     //imshow("qImage2cvMat", img);
 
 //    QString line0("0,aaa,000\n");

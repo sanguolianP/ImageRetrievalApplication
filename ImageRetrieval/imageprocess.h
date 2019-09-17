@@ -6,6 +6,8 @@
 #include <QDebug>
 #include <QtQuick>
 #include <QApplication>
+#include <QString>
+#include <QMap>
 
 #include <vector>
 using namespace std;
@@ -71,6 +73,10 @@ public:
         GLCM_ANGLE_135  = 3   //135°
     };
 
+    QMap<int, QString> filenameMap;
+    int fnmapIndex;
+    QStringList ImageFilterList;
+
 public:
     //打开显示图片
     void openImageCV(QString imgName);
@@ -113,6 +119,13 @@ public:
     //基于sift的BruteForce Match
     void BFKeypointsCalc(Mat src, Mat src2, bool RANSAC);
 //    void debugFeatures();
+
+
+    void searchFolder(QString path);
+
+
+
+
 
 private:
     int grayLevel;//共生矩阵灰度级
