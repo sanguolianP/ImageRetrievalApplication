@@ -10,6 +10,8 @@
 #include <QMap>
 
 #include <vector>
+#include <iostream>
+#include <fstream>
 using namespace std;
 
 #include "opencv2/opencv.hpp"
@@ -55,6 +57,7 @@ public:
 
 public:
 
+//    ImageProcess imgPro;
     QImage imageRes;
 
     //颜色直方图
@@ -75,7 +78,8 @@ public:
 
     QMap<int, QString> filenameMap;
     int fnmapIndex;
-    QStringList ImageFilterList;
+
+
 
 public:
     //打开显示图片
@@ -125,9 +129,9 @@ public:
 
     void searchFolder(QString path);
 
+    void featureExtraction(QString path);
 
-
-
+    void matToCSV(QString filename, Mat fm);
 
 private:
     int grayLevel;//共生矩阵灰度级

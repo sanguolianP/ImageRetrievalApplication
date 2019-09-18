@@ -13,7 +13,6 @@ ImageProcess::ImageProcess()
 
     grayLevel = 16;
     fnmapIndex  =0;
-    ImageFilterList << "*.bmp" << "*.jpg" << "*.png"<<"*.tif";
 }
 
 ImageProcess::~ImageProcess()
@@ -204,7 +203,7 @@ double ImageProcess::compareColorHis(Mat h1, Mat h2)//输入即为HSV直方图
 
     int compare_method=3;
     h1_h2=compareHist(h1,h2,compare_method);
-    qDebug() << "Bhattacharyya distance" << h1_h2<<endl;
+    qDebug() <<endl<< "Bhattacharyya distance：" << h1_h2<<endl;
     return h1_h2;
 }
 //显示直方图
@@ -648,8 +647,33 @@ void ImageProcess::searchFolder(QString path)
     }
 }
 
+void ImageProcess::featureExtraction(QString path)
+{
+    QMapIterator<int, QString> i(filenameMap);
+    while(i.hasNext())
+    {
+        qDebug()<<i.next().key()<<": "<<i.value()<<endl
+                  ;
+        QString fullpathName = path + "/" + i.value();
+        QImage temp = QImage(fullpathName);
+        Mat img = qImage2cvMat(temp);
+        Mat hhh = HSVHist(img);
 
+        QString csvName = fullpathName+".csv";
+        matToCSV(csvName, hhh);
 
+        qDebug()<<endl<<hhh.rows<<" "<<hhh.cols<<endl;
+        cout<<hhh<<endl;
+    }
+}
+
+void ImageProcess::matToCSV(QString filename, Mat fm)
+{
+    ofstream myfile;
+    myfile.open(filename.toStdString());
+    myfile<< cv::format(fm, Formatter::FMT_CSV) << endl;
+    myfile.close();
+}
 /***CalcDistance部分****************************************/
 
 

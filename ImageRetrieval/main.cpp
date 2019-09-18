@@ -49,12 +49,12 @@ int main(int argc, char *argv[])
     Mat img = ip->qImage2cvMat(imageGlobal);
 //    Mat img2 = imread("../data/carpet8.jpg");
 
-    ip->searchFolder("../qml");
-
-    qDebug()<<endl<<ip->filenameMap;
+    ip->searchFolder("../data");
+//    qDebug()<<endl<<ip->filenameMap;
+    ip->featureExtraction("../data");
 
     Mat img2 = imread("../data/carpet4.jpg");
-    //Mat hhh = HSVHist(img);
+//    Mat hhh = ip->HSVHist(img);
     ip->compareColorHis(ip->HSVHist(img), ip->HSVHist(img2));
     //imshow("qImage2cvMat", img);
 
