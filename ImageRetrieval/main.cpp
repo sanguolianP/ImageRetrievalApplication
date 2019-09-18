@@ -51,7 +51,9 @@ int main(int argc, char *argv[])
 
     ip->searchFolder("../data");
 //    qDebug()<<endl<<ip->filenameMap;
-    ip->featureExtraction("../data");
+//    ip->featureExtraction("../data");
+
+    ip->CSVToMat("../data/carpet2.jpg.csv");
 
     Mat img2 = imread("../data/carpet4.jpg");
 //    Mat hhh = ip->HSVHist(img);

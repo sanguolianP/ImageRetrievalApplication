@@ -674,6 +674,19 @@ void ImageProcess::matToCSV(QString filename, Mat fm)
     myfile<< cv::format(fm, Formatter::FMT_CSV) << endl;
     myfile.close();
 }
+
+Mat ImageProcess::CSVToMat(QString csvfilename)
+{
+    Ptr<ml::TrainData> train_data;
+    train_data = ml::TrainData::loadFromCSV(csvfilename.toStdString(), 1);
+    Mat m = train_data->getTrainSamples();
+    cout<<endl<<"m"<<m;
+//    cvtColor(m,m, COLOR_HSV2RGB_FULL);
+//    normalize(m, m, COLOR_RGB2HSV);
+//    imshow("CSV2NAT", m);
+    return m;
+}
+
 /***CalcDistance部分****************************************/
 
 
