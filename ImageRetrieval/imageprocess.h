@@ -124,7 +124,7 @@ public:
     //sift关键点检测
     void SiftKeypoints(Mat src);
     //基于sift的BruteForce Match
-    void BFKeypointsCalc(Mat src, Mat src2, bool RANSAC);
+    void BFKeypointsCalc(Mat src, Mat src2, int KpNum, bool RANSAC);
 //    void debugFeatures();
 
 

@@ -487,10 +487,10 @@ void ImageProcess::SiftKeypoints(Mat src)
     imshow("KeyPoints Image", keypoint_img);
 }
 
-void ImageProcess::BFKeypointsCalc(Mat src, Mat src2, bool RANSAC)//RANSAC是否用ransac筛选
+void ImageProcess::BFKeypointsCalc(Mat src, Mat src2, int KpNum, bool RANSAC)//RANSAC是否用ransac筛选
 {
-    int minHessian = 150;    //the number of keypoints
-    Ptr<SIFT> detector = SIFT::create(minHessian);
+    //int minHessian = 150;    //the number of keypoints
+    Ptr<SIFT> detector = SIFT::create(KpNum);
     //CV_WRAP KeyPoint() : pt(0,0), size(0), angle(-1), response(0), octave(0), class_id(-1) {}
     vector<KeyPoint> keypoints1, keypoints2;
     Mat descriptors1,descriptors2;
@@ -671,16 +671,16 @@ void ImageProcess::matToCSV(QString filename, Mat fm)
 {
     ofstream myfile;
     myfile.open(filename.toStdString());
-    myfile<< cv::format(fm, Formatter::FMT_CSV) << endl;
+    myfile<< format(fm, Formatter::FMT_CSV) << endl;
     myfile.close();
 }
 
 Mat ImageProcess::CSVToMat(QString csvfilename)
 {
     Ptr<ml::TrainData> train_data;
-    train_data = ml::TrainData::loadFromCSV(csvfilename.toStdString(), 1);
+    train_data = ml::TrainData::loadFromCSV(csvfilename.toStdString(), 0);
     Mat m = train_data->getTrainSamples();
-    cout<<endl<<"m"<<m;
+//    cout<<endl<<"m"<<m;
 //    cvtColor(m,m, COLOR_HSV2RGB_FULL);
 //    normalize(m, m, COLOR_RGB2HSV);
 //    imshow("CSV2NAT", m);

@@ -169,7 +169,7 @@ int main(int argc, char *argv[])
 /***SIFT*******************************************************/
 //    qDebug(">>>>SIFT START>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 //    ip->SiftKeypoints(img);
-//    ip->BFKeypointsCalc(img,img2,0);
+//    ip->BFKeypointsCalc(img,img2,150,0);
 //    qDebug("SIFT DONE!");
 /*************************************************************/
 
