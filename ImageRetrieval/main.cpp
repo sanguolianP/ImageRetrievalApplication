@@ -51,9 +51,9 @@ int main(int argc, char *argv[])
 
 //    ip->CSVToMat("../data/carpet2.jpg.csv");
 
-    Mat img2 = imread("../data/carpet4.jpg");
+//    Mat img2 = imread("../data/carpet4.jpg");
 //    Mat hhh = ip->HSVHist(img);
-    ip->compareColorHis(ip->HSVHist(img), ip->HSVHist(img2));
+//    ip->compareColorHis(ip->HSVHist(img), ip->HSVHist(img2));
     //imshow("qImage2cvMat", img);
 
 
@@ -66,10 +66,10 @@ int main(int argc, char *argv[])
 //    qDebug("Hist DONE!");
 
 /***GLCM****************************************************/
-    ip->genVecGLCM(img);
+//    ip->genVecGLCM(img);
 
 /***Canny******************************************************/
-//    ip->CannyThreshold(img);
+    ip->CannyThreshold(img);
 //    ip->CannyMatch(img,img2);
 
 /***SIFT*******************************************************/

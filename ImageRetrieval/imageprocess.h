@@ -123,7 +123,7 @@ public:
     double compareGLCM(Mat genVec1,Mat genVec2);
 /***canny边缘检测********************************************/
     Mat CannyThreshold(Mat src);
-    void CannyMatch(Mat src, Mat src2);
+    double CannyMatch(Mat src, Mat src2);
 
 /***sift关键点检测********************************************/
     void SiftKeypoints(Mat src);
@@ -140,6 +140,7 @@ public:
 
     Mat CSVToMat(QString csvfilename);
 
+    double FeatureSum(double color, double clw, double gray, double grw, double canny, double cnw);
 private:
     int grayLevel;//共生矩阵灰度级
 

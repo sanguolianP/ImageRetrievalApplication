@@ -190,22 +190,7 @@ Mat ImageProcess::HSVHist(Mat src)
     return HHist;
 }
 
-double ImageProcess::compareColorHis(Mat h1, Mat h2)//输入即为HSV直方图
-{
-    double h1_h2 = 0;
-    /*
-     * compare_method
-     * 0Correlation  ~1better    √
-     * 1Chi-Square   ~0better
-     * 2Intersection > better
-     * 3Bhattacharyya~0better    √
-     */
 
-    int compare_method=3;
-    h1_h2=compareHist(h1,h2,compare_method);
-    qDebug() <<endl<< "Bhattacharyya distance：" << h1_h2<<endl;
-    return h1_h2;
-}
 //显示直方图
 void ImageProcess::displayHistogram()
 {
@@ -551,15 +536,9 @@ Mat ImageProcess::CannyThreshold(Mat src)
     imshow("detect", detected_edges);
     //src.copyTo( dst, detected_edges);
     //qDebug()<<dst.channels()<<endl;
-    qDebug()<<detected_edges.channels()<<endl;
+    //qDebug()<<detected_edges.channels()<<endl;
+    cout<< detected_edges.rows << detected_edges.cols <<endl;
     return detected_edges;
-}
-
-void ImageProcess::CannyMatch(Mat src, Mat src2)//,Mat src2
-{
-    //MatchShapes(detected_edges)
-    double matching = matchShapes(CannyThreshold(src), CannyThreshold(src2), 1, 0);
-    qDebug() << matching << endl;
 }
 
 void ImageProcess::SiftKeypoints(Mat src)
@@ -777,7 +756,41 @@ Mat ImageProcess::CSVToMat(QString csvfilename)
 }
 
 /***CalcDistance部分****************************************/
+//计算Hsv直方图距离
+double ImageProcess::compareColorHis(Mat h1, Mat h2)//输入即为HSV直方图
+{
+    double h1_h2 = 0;
+    /*
+     * compare_method
+     * 0Correlation  ~1better    √
+     * 1Chi-Square   ~0better
+     * 2Intersection > better
+     * 3Bhattacharyya~0better    √
+     */
 
+    int compare_method=3;
+    h1_h2=compareHist(h1,h2,compare_method);
+    qDebug() <<endl<< "Bhattacharyya distance：" << h1_h2<<endl;
+    return h1_h2;
+}
+
+//计算canny边缘距离
+double ImageProcess::CannyMatch(Mat src, Mat src2)
+{
+    //MatchShapes(detected_edges)
+    double matching = matchShapes(CannyThreshold(src), CannyThreshold(src2), 1, 0);
+    //qDebug() << matching << endl;
+    return matching;
+}
+
+//计算sift匹配特征点数
+
+//特征距离加权求和
+double ImageProcess::FeatureSum(double color, double clw, double gray, double grw, double canny, double cnw)//, double siftkp)
+{
+    double sortVal = color * clw + gray * grw + canny * cnw;
+    return sortVal;
+}
 
 
 
