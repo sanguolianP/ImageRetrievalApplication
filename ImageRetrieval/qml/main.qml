@@ -23,8 +23,7 @@ Window {
 
     title: qsTr("Image Retrieval")
 
-    flags: Qt.CursorShape |  Qt.WindowSystemMenuHint  |  Qt.WindowMinimizeButtonHint | Qt.Window;
-//|Qt.FramelessWindowHint
+    flags: Qt.CursorShape |  Qt.WindowSystemMenuHint  |  Qt.WindowMinimizeButtonHint | Qt.Window|Qt.FramelessWindowHint;
 
     TitleBar
     {

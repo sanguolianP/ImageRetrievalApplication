@@ -117,11 +117,15 @@ public:
     void get45GLCM(VecGLCM& src, VecGLCM& dst, int imgWidth, int imgHeight);
     //计算135°灰度共生矩阵
     void get135GLCM(VecGLCM& src, VecGLCM& dst, int imgWidth, int imgHeight);
-
-    //canny边缘检测
+    //生成GLCM各参数综合的特征向量
+    Mat genVecGLCM(Mat inputImg);
+    //计算两图GLCM的距离
+    double compareGLCM(Mat genVec1,Mat genVec2);
+/***canny边缘检测********************************************/
     Mat CannyThreshold(Mat src);
     void CannyMatch(Mat src, Mat src2);
-    //sift关键点检测
+
+/***sift关键点检测********************************************/
     void SiftKeypoints(Mat src);
     //基于sift的BruteForce Match
     void BFKeypointsCalc(Mat src, Mat src2, int KpNum, bool RANSAC);

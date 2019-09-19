@@ -270,7 +270,7 @@ void ImageProcess::getHorizontalGLCM(VecGLCM &src, VecGLCM &dst, int imgWidth, i
             dst[rows][cols]++;
         }
     }
-    qDebug()<<dst;
+    qDebug()<<"HorVec: "<<endl<<dst;
 }
 
 //得到垂直的共生矩阵
@@ -287,6 +287,7 @@ void ImageProcess::getVerticalGLCM(VecGLCM &src, VecGLCM &dst, int imgWidth, int
             dst[rows][cols]++;
         }
     }
+    qDebug()<<"VerVec: "<<endl<<dst;
 }
 
 //得到45°的共生矩阵
@@ -303,6 +304,7 @@ void ImageProcess::get45GLCM(VecGLCM &src, VecGLCM &dst, int imgWidth, int imgHe
             dst[rows][cols]++;
         }
     }
+    qDebug()<<"45Vec: "<<endl<<dst;
 }
 
 //得到135°的共生矩阵
@@ -319,6 +321,7 @@ void ImageProcess::get135GLCM(VecGLCM &src, VecGLCM &dst, int imgWidth, int imgH
             dst[rows][cols]++;
         }
     }
+    qDebug()<<"135Vec: "<<endl<<dst;
 }
 
 //计算灰度共生矩阵
@@ -326,30 +329,33 @@ void ImageProcess::calGLCM(Mat inputImage, VecGLCM &vecGLCM, int angle)
 {
     if(inputImage.channels()==1)
     {
-        Mat src = Mat(inputImage.rows, inputImage.cols, inputImage.channels());
+//        Mat src = Mat(inputImage.rows, inputImage.cols, inputImage.channels());
 
-        int height = src.rows;
-        int width  = src.cols;
+        int height = inputImage.rows;
+        int width  = inputImage.cols;
         int maxGrayLevel =  0;
+
+        qDebug()<<height<<" "<<width;
+//        cout<<"srcVec: "<<endl<<inputImage;
 
         for(int i=0; i<height; i++)
         {
             for(int j=0; j<width; j++)
             {
-                int grayVal = src.at<uchar>(i,j);
+                int grayVal = inputImage.at<uchar>(i,j);
                 if(grayVal > maxGrayLevel)
                 {
                     maxGrayLevel = grayVal;
                 }
             }
         }
-
+        qDebug()<<"maxGrayLevel: "<<maxGrayLevel<<endl;
         maxGrayLevel++;
         VecGLCM tempVec;
 
         tempVec.resize(height);
         for(int i=0; i<height; i++)
-        {tempVec[i].resize(height);}
+        {tempVec[i].resize(width);}
 
         if(maxGrayLevel > 16)
         {
@@ -357,10 +363,9 @@ void ImageProcess::calGLCM(Mat inputImage, VecGLCM &vecGLCM, int angle)
             {
                 for(int j=0; j<width; j++)
                 {
-                    int tempVal = src.at<uchar>(i,j);
+                    int tempVal = inputImage.at<uchar>(i,j);
                     tempVal /= grayLevel;
                     tempVec[i][j] = tempVal;
-//                    qDebug()<<tempVec[i][j]<<" ";
                 }
             }
             if(angle == GLCM_HORIZONTAL)
@@ -379,7 +384,7 @@ void ImageProcess::calGLCM(Mat inputImage, VecGLCM &vecGLCM, int angle)
             {
                 for(int j=0; j<width; j++)
                 {
-                    int tempVal = src.at<uchar>(i,j);
+                    int tempVal = inputImage.at<uchar>(i,j);
                     tempVec[i][j] = tempVal;
                 }
             }
@@ -413,6 +418,7 @@ void ImageProcess::getGLCMFeatures(VecGLCM &vecGLCM, GLCMFeatures &features)
 
     vector<vector<double> > temp;
     temp.resize(grayLevel);
+
     for(int i=0; i<grayLevel; i++)
     {
         temp[i].resize(grayLevel);
@@ -444,6 +450,89 @@ void ImageProcess::getGLCMFeatures(VecGLCM &vecGLCM, GLCMFeatures &features)
 
 }
 
+Mat ImageProcess::genVecGLCM(Mat inputImg)
+{
+    qDebug(">>>>GLCM START>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    VecGLCM vec;
+    GLCMFeatures features;
+
+    initGLCM(vec,16);
+
+    qDebug()<<"initVec: "<<endl<<vec;
+    qDebug()<<"originChannels: "<<inputImg.channels();
+
+    cvtColor(inputImg, inputImg, COLOR_RGB2GRAY);
+
+    qDebug()<<"SOLOChannels: "<<inputImg.channels();
+    qDebug()<<"ImageSize: "<<inputImg.rows<<"   "<<inputImg.cols;
+
+    imshow("oneChannel", inputImg);
+
+    calGLCM(inputImg, vec, ImageProcess::GLCM_HORIZONTAL);
+    getGLCMFeatures(vec, features);
+    double energy_hor = features.energy;
+    double entropy_hor = features.entropy;
+    double constrast_hor = features.constrast;
+    double idMoment_hor = features.idMoment;
+    qDebug()<<"energy_hor "<<features.energy;
+    qDebug()<<"entropy_hor "<<features.entropy;
+    qDebug()<<"constrast_hor "<<features.constrast;
+    qDebug()<<"idMoment_hor "<<features.idMoment<<endl;
+
+    calGLCM(inputImg, vec, ImageProcess::GLCM_VERTICAL);
+    getGLCMFeatures(vec, features);
+    double energy_ver = features.energy;
+    double entropy_ver = features.entropy;
+    double constrast_ver = features.constrast;
+    double idMoment_ver = features.idMoment;
+    qDebug()<<"energy_ver "<<features.energy;
+    qDebug()<<"entropy_ver "<<features.entropy;
+    qDebug()<<"constrast_ver "<<features.constrast;
+    qDebug()<<"idMoment_ver "<<features.idMoment<<endl;
+
+    calGLCM(inputImg, vec, ImageProcess::GLCM_ANGLE_45);
+    getGLCMFeatures(vec, features);
+    double energy_45 = features.energy;
+    double entropy_45 = features.entropy;
+    double constrast_45 = features.constrast;
+    double idMoment_45 = features.idMoment;
+    qDebug()<<"energy_45 "<<features.energy;
+    qDebug()<<"entropy_45 "<<features.entropy;
+    qDebug()<<"constrast_45 "<<features.constrast;
+    qDebug()<<"idMoment_45 "<<features.idMoment<<endl;
+
+    calGLCM(inputImg, vec, ImageProcess::GLCM_ANGLE_135);
+    getGLCMFeatures(vec, features);
+    double energy_135 = features.energy;
+    double entropy_135 = features.entropy;
+    double constrast_135 = features.constrast;
+    double idMoment_135 = features.idMoment;
+    qDebug()<<"energy_135 "<<features.energy;
+    qDebug()<<"entropy_135 "<<features.entropy;
+    qDebug()<<"constrast_135 "<<features.constrast;
+    qDebug()<<"idMoment_135 "<<features.idMoment<<endl;
+
+    double energy_anverage = (energy_hor+energy_ver+energy_45+energy_135)/4;
+    double entropy_anverage = (entropy_hor+entropy_ver+entropy_45+entropy_135)/4;
+    double constrast_anverage = (constrast_hor+constrast_ver+constrast_45+constrast_135)/4;
+    double idMoment_anverage = (idMoment_hor+idMoment_ver+idMoment_45+idMoment_135)/4;
+    qDebug()<<"energy_anverage "<< energy_anverage;
+    qDebug()<<"entropy_anverage "<< entropy_anverage;
+    qDebug()<<"constrast_anverage "<< constrast_anverage;
+    qDebug()<<"idMoment_anverage "<< idMoment_anverage<<endl;
+
+    qDebug("GLCM DONE!");
+
+    Mat genVec = (Mat_<float>(1, 4) << energy_anverage, entropy_anverage, constrast_anverage, idMoment_anverage);
+    cout<<"GEN VEC: "<<genVec<<endl;
+
+    return genVec;
+}
+
+double ImageProcess::compareGLCM(Mat genVec1, Mat genVec2)
+{
+
+}
 
 /***边缘提取*******************************************形状***/
 Mat ImageProcess::CannyThreshold(Mat src)
