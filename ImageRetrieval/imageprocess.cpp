@@ -446,14 +446,15 @@ Mat ImageProcess::genVecGLCM(Mat inputImg)
     qDebug()<<"initVec: "<<endl<<vec;
     qDebug()<<"originChannels: "<<inputImg.channels();
 
-    cvtColor(inputImg, inputImg, COLOR_RGB2GRAY);
+    Mat srcCpoy = inputImg.clone();
+    cvtColor(srcCpoy, srcCpoy, COLOR_RGB2GRAY);
 
-    qDebug()<<"SOLOChannels: "<<inputImg.channels();
-    qDebug()<<"ImageSize: "<<inputImg.rows<<"   "<<inputImg.cols;
+    qDebug()<<"SOLOChannels: "<<srcCpoy.channels();
+    qDebug()<<"ImageSize: "<<srcCpoy.rows<<"   "<<srcCpoy.cols;
 
-    imshow("oneChannel", inputImg);
+    imshow("oneChannel", srcCpoy);
 
-    calGLCM(inputImg, vec, ImageProcess::GLCM_HORIZONTAL);
+    calGLCM(srcCpoy, vec, ImageProcess::GLCM_HORIZONTAL);
     getGLCMFeatures(vec, features);
     double energy_hor = features.energy;
     double entropy_hor = features.entropy;
@@ -464,7 +465,7 @@ Mat ImageProcess::genVecGLCM(Mat inputImg)
     qDebug()<<"constrast_hor "<<features.constrast;
     qDebug()<<"idMoment_hor "<<features.idMoment<<endl;
 
-    calGLCM(inputImg, vec, ImageProcess::GLCM_VERTICAL);
+    calGLCM(srcCpoy, vec, ImageProcess::GLCM_VERTICAL);
     getGLCMFeatures(vec, features);
     double energy_ver = features.energy;
     double entropy_ver = features.entropy;
@@ -475,7 +476,7 @@ Mat ImageProcess::genVecGLCM(Mat inputImg)
     qDebug()<<"constrast_ver "<<features.constrast;
     qDebug()<<"idMoment_ver "<<features.idMoment<<endl;
 
-    calGLCM(inputImg, vec, ImageProcess::GLCM_ANGLE_45);
+    calGLCM(srcCpoy, vec, ImageProcess::GLCM_ANGLE_45);
     getGLCMFeatures(vec, features);
     double energy_45 = features.energy;
     double entropy_45 = features.entropy;
@@ -486,7 +487,7 @@ Mat ImageProcess::genVecGLCM(Mat inputImg)
     qDebug()<<"constrast_45 "<<features.constrast;
     qDebug()<<"idMoment_45 "<<features.idMoment<<endl;
 
-    calGLCM(inputImg, vec, ImageProcess::GLCM_ANGLE_135);
+    calGLCM(srcCpoy, vec, ImageProcess::GLCM_ANGLE_135);
     getGLCMFeatures(vec, features);
     double energy_135 = features.energy;
     double entropy_135 = features.entropy;
@@ -508,15 +509,11 @@ Mat ImageProcess::genVecGLCM(Mat inputImg)
 
     qDebug("GLCM DONE!");
 
-    Mat genVec = (Mat_<float>(1, 4) << energy_anverage, entropy_anverage, constrast_anverage, idMoment_anverage);
+    Mat genVec = (Mat_<float>(1, 4) << energy_anverage, entropy_anverage,
+                  constrast_anverage, idMoment_anverage);
     cout<<"GEN VEC: "<<genVec<<endl;
 
     return genVec;
-}
-
-double ImageProcess::compareGLCM(Mat genVec1, Mat genVec2)
-{
-
 }
 
 /***边缘提取*******************************************形状***/
@@ -703,7 +700,12 @@ void ImageProcess::searchFolder(QString path)
                 continue;
             }
             qDebug()<<" File: "<< mfile.fileName();
-            filenameMap.insert(fnmapIndex, mfile.fileName());
+            fm.filePath = path;
+            fm.originId = fnmapIndex;
+            fm.fileName = mfile.baseName();
+            fm.fileSuffix = mfile.suffix();
+            fileMap.insert(fnmapIndex,fm);
+//            filenameMap.insert(fnmapIndex, mfile.fileName());
             fnmapIndex++;
         }else
         {
@@ -715,23 +717,65 @@ void ImageProcess::searchFolder(QString path)
     }
 }
 
+void ImageProcess::debugMap()
+{
+    QMapIterator<int, FILEMAP> i(fileMap);
+   while(i.hasNext())
+   {
+       qDebug()<<i.next().key()<<"    ";
+       qDebug()<<i.value().originId<<" ";
+       qDebug()<<i.value().filePath<<" ";
+       qDebug()<<i.value().fileName<<" ";
+       qDebug()<<i.value().fileSuffix<<" ";
+       qDebug()<<i.value().finalFeatureDis<<" "<<endl;
+   }
+}
+
 void ImageProcess::featureExtraction(QString path)
 {
-    QMapIterator<int, QString> i(filenameMap);
+    QMapIterator<int, FILEMAP> i(fileMap);
     while(i.hasNext())
     {
-        qDebug()<<i.next().key()<<": "<<i.value()<<endl
+        qDebug()<<i.next().key()<<"    ";
+        qDebug()<<i.value().originId<<" ";
+        qDebug()<<i.value().filePath<<" ";
+        qDebug()<<i.value().fileName<<" ";
+        qDebug()<<i.value().fileSuffix<<" ";
+        qDebug()<<i.value().finalFeatureDis<<" "<<endl;
                   ;
-        QString fullpathName = path + "/" + i.value();
+        QString fullpathName = path + "/" + i.value().fileName + "." + i.value().fileSuffix;
         QImage temp = QImage(fullpathName);
         Mat img = qImage2cvMat(temp);
+
+        //提取直方图特征并存入CSV
         Mat hhh = HSVHist(img);
-
-        QString csvName = fullpathName+".csv";
-        matToCSV(csvName, hhh);
-
+        QString csvNameHist = path + "/CSV/HIST_" + i.value().fileName + ".csv";
+        matToCSV(csvNameHist, hhh);
         qDebug()<<endl<<hhh.rows<<" "<<hhh.cols<<endl;
         cout<<hhh<<endl;
+
+        //提取灰度共生矩阵特征并存入CSV
+        Mat glcmMat = genVecGLCM(img);
+        QString csvNameGLCM = path + "/CSV/GLCM_" + i.value().fileName + ".csv";
+        matToCSV(csvNameGLCM, glcmMat);
+
+        //提取Canny边缘特征并存入CSV
+        Mat canMat = CannyThreshold(img);
+        QString csvNameCanny = path + "/CSV/CANNY_" + i.value().fileName + ".csv";
+        matToCSV(csvNameCanny, canMat);
+
+//        //判断文件是否存在，若不存在则生成CSV
+//        QString csvNameHist = path + "/CSV/HIST_" + i.value().fileName + ".csv";
+//        QFileInfo fileInfo1(csvNameHist);
+//        if(fileInfo1.exists())
+//        {
+//            qDebug("File Already Exists!");
+//        }else
+//        {
+//            Mat hhh = HSVHist(img);
+//            matToCSV(csvNameHist, hhh);
+//        }
+
     }
 }
 
@@ -773,7 +817,16 @@ double ImageProcess::compareColorHis(Mat h1, Mat h2)//输入即为HSV直方图
     qDebug() <<endl<< "Bhattacharyya distance：" << h1_h2<<endl;
     return h1_h2;
 }
+//计算灰度共生矩阵各参数综合向量距离
+double ImageProcess::compareGLCM(Mat genVec1, Mat genVec2)
+{
+    double gv1_gv2 = 0;
 
+    int compare_method = 1;
+    gv1_gv2 = compareHist(genVec1,genVec2,compare_method);
+    qDebug() <<endl<< "Chi-Square distance：" << gv1_gv2<<endl;
+    return gv1_gv2;
+}
 //计算canny边缘距离
 double ImageProcess::CannyMatch(Mat src, Mat src2)
 {
@@ -786,7 +839,8 @@ double ImageProcess::CannyMatch(Mat src, Mat src2)
 //计算sift匹配特征点数
 
 //特征距离加权求和
-double ImageProcess::FeatureSum(double color, double clw, double gray, double grw, double canny, double cnw)//, double siftkp)
+double ImageProcess::FeatureSum(double color, double clw, double gray, double grw,
+                                double canny, double cnw)//, double siftkp)
 {
     double sortVal = color * clw + gray * grw + canny * cnw;
     return sortVal;

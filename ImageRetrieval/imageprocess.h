@@ -40,7 +40,23 @@ typedef struct _GCLMFeatures
 
 }GLCMFeatures;
 
+typedef struct FileMap
+{
+    FileMap()
+        :originId(0)
+        ,filePath("")
+        ,fileName("")
+        ,fileSuffix("")
+        ,finalFeatureDis(0.0)
+    {}
 
+    int originId;
+    QString filePath;
+    QString fileName;
+    QString fileSuffix;
+    double finalFeatureDis;
+
+}FILEMAP;
 
 class ImageProcess: public QQuickItem
 {
@@ -77,7 +93,8 @@ public:
         GLCM_ANGLE_135  = 3   //135°
     };
 
-    QMap<int, QString> filenameMap;
+    FILEMAP fm;
+    QMap<int, FILEMAP> fileMap;
     int fnmapIndex;
 
 
@@ -133,7 +150,7 @@ public:
 
 
     void searchFolder(QString path);
-
+    void debugMap();
     void featureExtraction(QString path);
 
     void matToCSV(QString filename, Mat fm);
@@ -141,6 +158,9 @@ public:
     Mat CSVToMat(QString csvfilename);
 
     double FeatureSum(double color, double clw, double gray, double grw, double canny, double cnw);
+
+
+
 private:
     int grayLevel;//共生矩阵灰度级
 

@@ -37,24 +37,18 @@ int main(int argc, char *argv[])
 
     ImageProcess *ip = new ImageProcess();
 
-    qDebug()<<ip->hisWidth;
-
     imageGlobal = QImage("../data/carpet5.jpg");
     //相对路径是相对于.exe来说的，所以图片应该放在bin目录下，../表示上一级目录
 
     Mat img = ip->qImage2cvMat(imageGlobal);
-//    Mat img2 = imread("../data/carpet8.jpg");
+    Mat img2 = imread("../data/carpet4.jpg");
 
-//    ip->searchFolder("../data");
-//    qDebug()<<endl<<ip->filenameMap;
+
+    ip->searchFolder("../data");
+//    ip->debugMap();
 //    ip->featureExtraction("../data");
 
 //    ip->CSVToMat("../data/carpet2.jpg.csv");
-
-//    Mat img2 = imread("../data/carpet4.jpg");
-//    Mat hhh = ip->HSVHist(img);
-//    ip->compareColorHis(ip->HSVHist(img), ip->HSVHist(img2));
-    //imshow("qImage2cvMat", img);
 
 
 
@@ -65,11 +59,15 @@ int main(int argc, char *argv[])
 //    ip->displayHistogram();
 //    qDebug("Hist DONE!");
 
+//    ip->compareColorHis(ip->HSVHist(img), ip->HSVHist(img2));
+
 /***GLCM****************************************************/
-//    ip->genVecGLCM(img);
+//    Mat GLCMimg1 = ip->genVecGLCM(img);
+//    Mat GLCMimg2 = ip->genVecGLCM(img2);
+//    ip->compareGLCM(GLCMimg1, GLCMimg2);
 
 /***Canny******************************************************/
-    ip->CannyThreshold(img);
+//    ip->CannyThreshold(img);
 //    ip->CannyMatch(img,img2);
 
 /***SIFT*******************************************************/
