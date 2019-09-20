@@ -790,13 +790,30 @@ void ImageProcess::matToCSV(QString filename, Mat fm)
 Mat ImageProcess::CSVToMat(QString csvfilename)
 {
     Ptr<ml::TrainData> train_data;
-    train_data = ml::TrainData::loadFromCSV(csvfilename.toStdString(), 0);
+    train_data = ml::TrainData::loadFromCSV(csvfilename.toStdString(), 0,-2,0);
     Mat m = train_data->getTrainSamples();
 //    cout<<endl<<"m"<<m;
 //    cvtColor(m,m, COLOR_HSV2RGB_FULL);
 //    normalize(m, m, COLOR_RGB2HSV);
 //    imshow("CSV2NAT", m);
     return m;
+}
+
+void ImageProcess::saveCurrentFeature(QImage currentImage)
+{
+    Mat imgCurr = qImage2cvMat(currentImage);
+
+    Mat hhh = HSVHist(imgCurr);
+    QString csvNameHist = "1currentHIST.csv";
+    matToCSV(csvNameHist, hhh);
+
+    Mat glcmMat = genVecGLCM(imgCurr);
+    QString csvNameGLCM = "1currentGLCM.csv";
+    matToCSV(csvNameGLCM, glcmMat);
+
+    Mat canMat = CannyThreshold(imgCurr);
+    QString csvNameCanny = "1currentCANNY.csv";
+    matToCSV(csvNameCanny, canMat);
 }
 
 /***CalcDistance部分****************************************/
@@ -846,7 +863,64 @@ double ImageProcess::FeatureSum(double color, double clw, double gray, double gr
     return sortVal;
 }
 
+void ImageProcess::calcDistance(QString path, double alpha, double beta, double gamma)
+{
+    qDebug("提取当前待检索图像的特征*************************************");
+    //提取当前待检索图像的特征
+    Mat imgCurr = qImage2cvMat(imageGlobal);
+    Mat hhh = HSVHist(imgCurr);
+    Mat glcmMat = genVecGLCM(imgCurr);
+    Mat canMat = CannyThreshold(imgCurr);
 
+    qDebug("遍历Map*************************************");
+    QMapIterator<int, FILEMAP> j(fileMap);
+    while(j.hasNext())
+    {
+        qDebug()<<j.next().key()<<"    ";
+        qDebug()<<j.value().originId<<" ";
+        qDebug()<<j.value().filePath<<" ";
+        qDebug()<<j.value().fileName<<" ";
+        qDebug()<<j.value().fileSuffix<<" ";
+        qDebug()<<j.value().finalFeatureDis<<" "<<endl;
+
+        //提取CSV并存入临时的Mat
+        QString csvNameHist = path + "/CSV/HIST_" + j.value().fileName + ".csv";
+        Mat histMapTemp = CSVToMat(csvNameHist);
+
+
+        QString csvNameGLCM = path + "/CSV/GLCM_" + j.value().fileName + ".csv";
+        Mat glcmMapTemp = CSVToMat(csvNameGLCM);
+
+        cout<<glcmMapTemp<<endl;
+
+        QString csvNameCanny = path + "/CSV/CANNY_" + j.value().fileName + ".csv";
+        Mat cannyMapTemp = CSVToMat(csvNameCanny);
+
+        qDebug()<<"hhh.channels"<<hhh.channels()<<endl;
+        qDebug()<<"glcmMat.channels"<<glcmMat.channels()<<endl;
+        qDebug()<<"canMat.channels"<<canMat.channels()<<endl;
+        qDebug()<<"histMapTemp.channels"<<histMapTemp.channels()<<endl;
+        qDebug()<<"glcmMapTemp.channels"<<glcmMapTemp.channels()<<endl;
+        qDebug()<<"cannyMapTemp.channels"<<cannyMapTemp.channels()<<endl;
+
+        qDebug("计算距离*************************************");
+        //和待检索图像做比较计算距离
+        cout<<histMapTemp.rows<<" "<<histMapTemp.cols<<endl;
+        cout<<hhh.rows<<" "<<hhh.cols;
+        qDebug("histDis start");
+        double histDis = compareColorHis(hhh, histMapTemp);
+        qDebug("histDis done");
+        double glcmDis = compareGLCM(glcmMat, glcmMapTemp);
+        qDebug("glcmDis done");
+        double cannyDis = CannyMatch(canMat, cannyMapTemp);
+        qDebug("cannyDis done");
+
+
+        double finalDis = FeatureSum(histDis,alpha, glcmDis,beta, cannyDis,gamma);
+
+        fileMap[j.next().key()].finalFeatureDis = finalDis;
+    }
+}
 
 
 

@@ -45,12 +45,13 @@ int main(int argc, char *argv[])
 
 
     ip->searchFolder("../data");
-//    ip->debugMap();
+    ip->debugMap();
 //    ip->featureExtraction("../data");
 
 //    ip->CSVToMat("../data/carpet2.jpg.csv");
+    ip->calcDistance("../data", 1.0, 1.0, 1.0);
 
-
+    ip->debugMap();
 
 /***ColorHistogram*******************************************/
 //    qDebug(">>>>HIST START>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");

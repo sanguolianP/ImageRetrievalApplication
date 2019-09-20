@@ -93,6 +93,7 @@ public:
         GLCM_ANGLE_135  = 3   //135°
     };
 
+    FILEMAP fmCurrent;
     FILEMAP fm;
     QMap<int, FILEMAP> fileMap;
     int fnmapIndex;
@@ -125,7 +126,6 @@ public:
     //get、set共生矩阵灰度级
     void setGrayLevel(int gl);
     int getGrayLevel();
-
     //计算水平灰度共生矩阵
     void getHorizontalGLCM(VecGLCM& src, VecGLCM& dst, int imgWidth, int imgHeight);
     //计算垂直灰度共生矩阵
@@ -138,6 +138,7 @@ public:
     Mat genVecGLCM(Mat inputImg);
     //计算两图GLCM的距离
     double compareGLCM(Mat genVec1,Mat genVec2);
+
 /***canny边缘检测********************************************/
     Mat CannyThreshold(Mat src);
     double CannyMatch(Mat src, Mat src2);
@@ -148,17 +149,20 @@ public:
     void BFKeypointsCalc(Mat src, Mat src2, int KpNum, bool RANSAC);
 //    void debugFeatures();
 
-
+/***特征提取和存储********************************************/
     void searchFolder(QString path);
     void debugMap();
     void featureExtraction(QString path);
 
-    void matToCSV(QString filename, Mat fm);
+    void saveCurrentFeature(QImage currentImage);
 
+    void matToCSV(QString filename, Mat fm);
     Mat CSVToMat(QString csvfilename);
 
     double FeatureSum(double color, double clw, double gray, double grw, double canny, double cnw);
 
+/***计算距离并排序********************************************/
+    void calcDistance(QString path, double alpha, double beta, double gamma);
 
 
 private:
