@@ -719,20 +719,7 @@ void ImageProcess::searchFolder(QString path)
 
 void ImageProcess::debugMap()
 {
-    QMapIterator<int, FILEMAP> i(fileMap);
-   while(i.hasNext())
-   {
-       qDebug()<<i.next().key()<<"    ";
-       qDebug()<<i.value().originId<<" ";
-       qDebug()<<i.value().filePath<<" ";
-       qDebug()<<i.value().fileName<<" ";
-       qDebug()<<i.value().fileSuffix<<" ";
-       qDebug()<<i.value().finalFeatureDis<<" "<<endl;
-   }
-}
-
-void ImageProcess::featureExtraction(QString path)
-{
+    qDebug("FILE MAP: ************************************");
     QMapIterator<int, FILEMAP> i(fileMap);
     while(i.hasNext())
     {
@@ -742,7 +729,22 @@ void ImageProcess::featureExtraction(QString path)
         qDebug()<<i.value().fileName<<" ";
         qDebug()<<i.value().fileSuffix<<" ";
         qDebug()<<i.value().finalFeatureDis<<" "<<endl;
-                  ;
+    }
+}
+
+void ImageProcess::featureExtraction(QString path)
+{
+    QMapIterator<int, FILEMAP> i(fileMap);
+    while(i.hasNext())
+    {
+//        qDebug()<<i.next().key()<<"    ";
+//        qDebug()<<i.value().originId<<" ";
+//        qDebug()<<i.value().filePath<<" ";
+//        qDebug()<<i.value().fileName<<" ";
+//        qDebug()<<i.value().fileSuffix<<" ";
+//        qDebug()<<i.value().finalFeatureDis<<" "<<endl;
+
+        i.next();
         QString fullpathName = path + "/" + i.value().fileName + "." + i.value().fileSuffix;
         QImage temp = QImage(fullpathName);
         Mat img = qImage2cvMat(temp);
@@ -876,12 +878,14 @@ void ImageProcess::calcDistance(QString path, double alpha, double beta, double 
     QMapIterator<int, FILEMAP> j(fileMap);
     while(j.hasNext())
     {
-        qDebug()<<j.next().key()<<"    ";
-        qDebug()<<j.value().originId<<" ";
-        qDebug()<<j.value().filePath<<" ";
-        qDebug()<<j.value().fileName<<" ";
-        qDebug()<<j.value().fileSuffix<<" ";
-        qDebug()<<j.value().finalFeatureDis<<" "<<endl;
+//        qDebug()<<j.next().key()<<"    ";
+//        qDebug()<<j.value().originId<<" ";
+//        qDebug()<<j.value().filePath<<" ";
+//        qDebug()<<j.value().fileName<<" ";
+//        qDebug()<<j.value().fileSuffix<<" ";
+//        qDebug()<<j.value().finalFeatureDis<<" "<<endl;
+
+        j.next();
 
         //提取CSV并存入临时的Mat
         QString csvNameHist = path + "/CSV/HIST_" + j.value().fileName + ".csv";
@@ -913,9 +917,30 @@ void ImageProcess::calcDistance(QString path, double alpha, double beta, double 
     }
 }
 
+void ImageProcess::rank()
+{
+    rankRes.clear();
 
+    QMapIterator<int, FILEMAP> k(fileMap);
+    while(k.hasNext())
+    {
+        k.next();
+//        QString fpn = k.value().fileName;
+        QString fpn = k.value().filePath + "/" + k.value().fileName + "." + k.value().fileSuffix;
+        rankRes.insert(k.value().finalFeatureDis, fpn);
+    }
+}
 
-
+void ImageProcess::DebugRankMap()
+{
+    qDebug("FINAL DISTANCE RANK: ************************************");
+    QMapIterator<double, QString> i(rankRes);
+    while(i.hasNext())
+    {
+        qDebug()<<i.next().key()<<"    ";
+        qDebug()<<i.value()<<endl;
+    }
+}
 
 
 

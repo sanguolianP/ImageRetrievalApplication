@@ -98,6 +98,7 @@ public:
     QMap<int, FILEMAP> fileMap;
     int fnmapIndex;
 
+    QMap<double, QString> rankRes;
 
 
 public:
@@ -163,7 +164,8 @@ public:
 
 /***计算距离并排序********************************************/
     void calcDistance(QString path, double alpha, double beta, double gamma);
-
+    void rank();
+    void DebugRankMap();
 
 private:
     int grayLevel;//共生矩阵灰度级
