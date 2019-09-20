@@ -68,8 +68,12 @@ int main(int argc, char *argv[])
 //    ip->compareGLCM(GLCMimg1, GLCMimg2);
 
 /***Canny******************************************************/
+//    qDebug()<<"img.channels"<<img.channels()<<endl;
+//    qDebug()<<"img2.channels"<<img2.channels()<<endl;
 //    ip->CannyThreshold(img);
 //    ip->CannyMatch(img,img2);
+//    qDebug()<<"img.channels"<<img.channels()<<endl;
+//    qDebug()<<"img2.channels"<<img2.channels()<<endl;
 
 /***SIFT*******************************************************/
 //    qDebug(">>>>SIFT START>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");

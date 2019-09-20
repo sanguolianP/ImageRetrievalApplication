@@ -848,7 +848,7 @@ double ImageProcess::compareGLCM(Mat genVec1, Mat genVec2)
 double ImageProcess::CannyMatch(Mat src, Mat src2)
 {
     //MatchShapes(detected_edges)
-    double matching = matchShapes(CannyThreshold(src), CannyThreshold(src2), 1, 0);
+    double matching = matchShapes(src, src2, 1, 0);
     //qDebug() << matching << endl;
     return matching;
 }
@@ -887,26 +887,15 @@ void ImageProcess::calcDistance(QString path, double alpha, double beta, double 
         QString csvNameHist = path + "/CSV/HIST_" + j.value().fileName + ".csv";
         Mat histMapTemp = CSVToMat(csvNameHist);
 
-
         QString csvNameGLCM = path + "/CSV/GLCM_" + j.value().fileName + ".csv";
         Mat glcmMapTemp = CSVToMat(csvNameGLCM);
-
-        cout<<glcmMapTemp<<endl;
 
         QString csvNameCanny = path + "/CSV/CANNY_" + j.value().fileName + ".csv";
         Mat cannyMapTemp = CSVToMat(csvNameCanny);
 
-        qDebug()<<"hhh.channels"<<hhh.channels()<<endl;
-        qDebug()<<"glcmMat.channels"<<glcmMat.channels()<<endl;
-        qDebug()<<"canMat.channels"<<canMat.channels()<<endl;
-        qDebug()<<"histMapTemp.channels"<<histMapTemp.channels()<<endl;
-        qDebug()<<"glcmMapTemp.channels"<<glcmMapTemp.channels()<<endl;
-        qDebug()<<"cannyMapTemp.channels"<<cannyMapTemp.channels()<<endl;
 
         qDebug("计算距离*************************************");
         //和待检索图像做比较计算距离
-        cout<<histMapTemp.rows<<" "<<histMapTemp.cols<<endl;
-        cout<<hhh.rows<<" "<<hhh.cols;
         qDebug("histDis start");
         double histDis = compareColorHis(hhh, histMapTemp);
         qDebug("histDis done");
@@ -918,7 +907,9 @@ void ImageProcess::calcDistance(QString path, double alpha, double beta, double 
 
         double finalDis = FeatureSum(histDis,alpha, glcmDis,beta, cannyDis,gamma);
 
-        fileMap[j.next().key()].finalFeatureDis = finalDis;
+        qDebug()<<"finalDis: "<<finalDis<<endl;
+        fileMap[j.key()].finalFeatureDis = finalDis;
+
     }
 }
 
