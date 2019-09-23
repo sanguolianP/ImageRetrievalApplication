@@ -452,7 +452,7 @@ Mat ImageProcess::genVecGLCM(Mat inputImg)
     qDebug()<<"SOLOChannels: "<<srcCpoy.channels();
     qDebug()<<"ImageSize: "<<srcCpoy.rows<<"   "<<srcCpoy.cols;
 
-    imshow("oneChannel", srcCpoy);
+//    imshow("oneChannel", srcCpoy);
 
     calGLCM(srcCpoy, vec, ImageProcess::GLCM_HORIZONTAL);
     getGLCMFeatures(vec, features);
@@ -530,7 +530,7 @@ Mat ImageProcess::CannyThreshold(Mat src)
     blur( src_gray, detected_edges, Size(3,3) );
     Canny( detected_edges, detected_edges, lowThreshold, lowThreshold*ratio, kernel_size );
     //dst = Scalar::all(0);
-    imshow("detect", detected_edges);
+    //imshow("detect", detected_edges);
     //src.copyTo( dst, detected_edges);
     //qDebug()<<dst.channels()<<endl;
     //qDebug()<<detected_edges.channels()<<endl;
@@ -801,6 +801,23 @@ Mat ImageProcess::CSVToMat(QString csvfilename)
     return m;
 }
 
+void ImageProcess::saveMat(Mat m, String path, String filename)
+{
+    String complepath = path + "/" + filename + ".xml";
+    FileStorage fs(complepath, FileStorage::WRITE);
+    fs<<filename<<m;
+    fs.release();
+}
+
+Mat ImageProcess::readMat(string path, string filename)
+{
+    string complepath = path + "/" + filename + ".xml";
+    FileStorage fs(complepath, FileStorage::READ);
+    Mat m;
+    fs[filename] >> m;
+    return m;
+}
+
 void ImageProcess::saveCurrentFeature(QImage currentImage)
 {
     Mat imgCurr = qImage2cvMat(currentImage);
@@ -847,7 +864,7 @@ double ImageProcess::compareGLCM(Mat genVec1, Mat genVec2)
     return gv1_gv2;
 }
 //计算canny边缘距离
-double ImageProcess::CannyMatch(Mat src, Mat src2)
+double ImageProcess::CannyMatch(Mat src, Mat src2)//Hu不变距（函数返回值代表相似度大小，完全相同的图像返回值是0，返回值最大是1）
 {
     //MatchShapes(detected_edges)
     double matching = matchShapes(src, src2, 1, 0);
@@ -861,6 +878,10 @@ double ImageProcess::CannyMatch(Mat src, Mat src2)
 double ImageProcess::FeatureSum(double color, double clw, double gray, double grw,
                                 double canny, double cnw)//, double siftkp)
 {
+    double normw = clw + grw + cnw;
+    clw = clw / normw;
+    grw = grw / normw;
+    cnw = cnw / normw;
     double sortVal = color * clw + gray * grw + canny * cnw;
     return sortVal;
 }

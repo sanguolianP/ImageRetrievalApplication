@@ -36,20 +36,20 @@ int main(int argc, char *argv[])
 /*************************************************************************/
     ImageProcess *ip = new ImageProcess();
 
-    imageGlobal = QImage("../data/carpet5.jpg");
+    imageGlobal = QImage("../data2/221118240-0006-001-03.jpg");
     //相对路径是相对于.exe来说的，所以图片应该放在bin目录下，../表示上一级目录
 
     Mat img = ip->qImage2cvMat(imageGlobal);
-    Mat img2 = imread("../data/carpet4.jpg");
+//    Mat img2 = imread("../data2/carpet4.jpg");
 
 
-    ip->searchFolder("../data");
+    ip->searchFolder("../data2");
 
     ip->debugMap();
 
-//    ip->featureExtraction("../data");
+//    ip->featureExtraction("../data2");
 
-    ip->calcDistance("../data", 1.0, 1.0, 1.0);
+    ip->calcDistance("../data2", 1.0, 1.0, 1.0);
 
     ip->debugMap();
 

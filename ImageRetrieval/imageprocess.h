@@ -159,6 +159,8 @@ public:
 
     void matToCSV(QString filename, Mat fm);
     Mat CSVToMat(QString csvfilename);
+    void saveMat(Mat m, String path, String filename);
+    Mat readMat(string path, string filename);
 
     double FeatureSum(double color, double clw, double gray, double grw, double canny, double cnw);
 
