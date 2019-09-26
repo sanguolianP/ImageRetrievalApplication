@@ -71,6 +71,7 @@ public:
     Q_INVOKABLE QImage processImage();
     Q_INVOKABLE int getGlobalWidth();
     Q_INVOKABLE int getGlobalHeight();
+    Q_INVOKABLE QString getImgPath(int ith);
 
 public:
 
@@ -168,6 +169,7 @@ public:
     void calcDistance(QString path, double alpha, double beta, double gamma);
     void rank();
     void DebugRankMap();
+
 
 private:
     int grayLevel;//共生矩阵灰度级

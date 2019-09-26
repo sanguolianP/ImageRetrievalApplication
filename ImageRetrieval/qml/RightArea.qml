@@ -126,7 +126,7 @@ Rectangle {
           //  Rectangle
             {
                 id: searchImage_0;
-                source: "images/MainInterface/left/image.png";
+                source: "image://imgProvider/0";
                 width: 170;
                 height: 160;
                 anchors.horizontalCenter: parent.horizontalCenter;
@@ -157,7 +157,7 @@ Rectangle {
         //    Rectangle
             {
                 id: searchImage_1;
-                source: "images/MainInterface/left/image.png";
+                source: "image://imgProvider/1";
                 width: 170;
                 height: 160;
                 anchors.horizontalCenter: parent.horizontalCenter;
@@ -186,7 +186,7 @@ Rectangle {
             Image
             {
                 id: searchImage_2;
-                source: "images/MainInterface/left/image.png";
+                source: "image://imgProvider/2";
                 width: 170;
                 height: 160;
                 anchors.horizontalCenter: parent.horizontalCenter;
@@ -215,8 +215,7 @@ Rectangle {
             Image
             {
                 id: searchImage_3;
-                source: "images/MainInterface/left/image.png";
-
+                source: "image://imgProvider/3";
                 width: 170;
                 height: 160;
                 anchors.horizontalCenter: parent.horizontalCenter;
@@ -245,7 +244,7 @@ Rectangle {
             Image
             {
                 id: searchImage_4;
-                source: "images/MainInterface/left/image.png";
+                source: "image://imgProvider/4";
                 width: 170;
                 height: 160;
                 anchors.horizontalCenter: parent.horizontalCenter;
@@ -274,7 +273,7 @@ Rectangle {
             Image
             {
                 id: searchImage_5;
-                source: "images/MainInterface/left/image.png";
+                source: "image://imgProvider/5";
                 width: 170;
                 height: 160;
                 anchors.horizontalCenter: parent.horizontalCenter;
@@ -303,7 +302,7 @@ Rectangle {
             Image
             {
                 id: searchImage_6;
-                source: "images/MainInterface/left/image.png";
+                source: "image://imgProvider/6";
                 width: 170;
                 height: 160;
                 anchors.horizontalCenter: parent.horizontalCenter;
@@ -332,8 +331,7 @@ Rectangle {
             Image
             {
                 id: searchImage_7;
-                source: "images/MainInterface/left/image.png";
-
+                source: "image://imgProvider/7";
                 width: 170;
                 height: 160;
                 anchors.horizontalCenter: parent.horizontalCenter;
@@ -367,7 +365,7 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter;
                 anchors.verticalCenter: parent.verticalCenter;
                 // color: "#0000ff";
-                source: "images/MainInterface/left/image.png";
+                source: "image://imgProvider/8";
 //                 anchors.fill:searchImage_8;
 //                 Image {
 //                     id: searchImage_8;

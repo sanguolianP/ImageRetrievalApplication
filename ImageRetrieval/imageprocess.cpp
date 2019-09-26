@@ -955,7 +955,7 @@ void ImageProcess::rank()
 void ImageProcess::DebugRankMap()
 {
     qDebug("FINAL DISTANCE RANK: ************************************");
-    QMapIterator<double, QString> i(rankRes);
+    QMapIterator<double, QString> i(rankRes);//key:distance value:path
     while(i.hasNext())
     {
         qDebug()<<i.next().key()<<"    ";
@@ -963,6 +963,22 @@ void ImageProcess::DebugRankMap()
     }
 }
 
+QString ImageProcess::getImgPath(int ith)
+{
+    QMap<double, QString>::Iterator  it;
+    int index_it;
+    QString desPath;
+    //QMapIterator<double, QString> ith(rankRes);
+    for(it = rankRes.begin(), index_it = 0; it != rankRes.end(); ++it,index_it++)
+    {
+        //qDebug()<<"key:"<<it.key()<<"value:"<<it.value()<<endl;
+        if (index_it == ith){
+            desPath = it.value();
+            break;
+       }
+    }
+    return desPath;
+}
 
 
 
