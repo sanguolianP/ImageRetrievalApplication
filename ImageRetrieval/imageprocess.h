@@ -146,9 +146,9 @@ public:
     double CannyMatch(Mat src, Mat src2);
 
 /***sift关键点检测********************************************/
-    void SiftKeypoints(Mat src);
+    Mat SiftKeypoints(Mat src, int KpNum);
     //基于sift的BruteForce Match
-    void BFKeypointsCalc(Mat src, Mat src2, int KpNum, bool RANSAC);
+    int BFKeypointsCalc(Mat descriptors1, Mat descriptors2, bool RANSAC);
 //    void debugFeatures();
 
 /***特征提取和存储********************************************/

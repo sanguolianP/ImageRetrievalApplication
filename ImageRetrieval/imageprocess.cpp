@@ -538,61 +538,47 @@ Mat ImageProcess::CannyThreshold(Mat src)
     return detected_edges;
 }
 
-void ImageProcess::SiftKeypoints(Mat src)
-{
-    // SIFT特征点检测
-    int minHessian = 100;
-    Ptr<SIFT> detector = SIFT::create(minHessian);//和surf的区别：只是SURF→SIFT
-    vector<KeyPoint> keypoints;
-    detector->detect(src, keypoints, Mat());//找出关键点
-    //qDebug()<< keypoints[0].pt.x<<keypoints[0].pt.y<<keypoints[0].size<<keypoints[0].angle<<endl;
-    // 绘制关键点
-    Mat keypoint_img;
-    drawKeypoints(src, keypoints, keypoint_img, Scalar::all(-1), DrawMatchesFlags::DEFAULT);
-    imshow("KeyPoints Image", keypoint_img);
-}
-
-void ImageProcess::BFKeypointsCalc(Mat src, Mat src2, int KpNum, bool RANSAC)//RANSAC是否用ransac筛选
+Mat ImageProcess::SiftKeypoints(Mat src, int KpNum)
 {
     //int minHessian = 150;    //the number of keypoints
     Ptr<SIFT> detector = SIFT::create(KpNum);
     //CV_WRAP KeyPoint() : pt(0,0), size(0), angle(-1), response(0), octave(0), class_id(-1) {}
-    vector<KeyPoint> keypoints1, keypoints2;
-    Mat descriptors1,descriptors2;
+    vector<KeyPoint> keypoints;
+    Mat descriptors;
     //size of descpritor (描述点数，128)
-    detector->detectAndCompute(src, Mat(), keypoints1, descriptors1);
-    detector->detectAndCompute(src2, Mat(), keypoints2, descriptors2);
+    detector->detectAndCompute(src, Mat(), keypoints, descriptors);
+    return descriptors;
+}
 
-    qDebug() << "# keypoints of img1 :" << keypoints1.size() << endl;
-    qDebug() << "# keypoints of img2 :" << keypoints2.size() << endl;
-
+int ImageProcess::BFKeypointsCalc(Mat descriptors1, Mat descriptors2, bool RANSAC)//RANSAC是否用ransac筛选
+{
     BFMatcher bfmatcher(NORM_L2, true);
     vector<DMatch> matches;
     bfmatcher.match(descriptors1, descriptors2, matches);
-
-    qDebug() << "# matches : " << matches.size() << endl;
+    int matchNum = matches.size();
+//    qDebug() << "# matches : " << matches.size() << endl;
 
     //show it on an image
-    Mat output;
-    drawMatches(src, keypoints1, src2, keypoints2, matches, output);
-    imshow("matches result",output);
+//    Mat output;
+//    drawMatches(src, keypoints1, src2, keypoints2, matches, output);
+//    imshow("matches result",output);
 
     //计算匹配结果中距离最大和距离最小值
-    float min_dist = matches[0].distance, max_dist = matches[0].distance;
+//    float min_dist = matches[0].distance, max_dist = matches[0].distance;
 
-    for (int m = 0; m < matches.size(); m++)
-    {
-        if (matches[m].distance<min_dist)
-        {
-            min_dist = matches[m].distance;
-        }
-        if (matches[m].distance>max_dist)
-        {
-            max_dist = matches[m].distance;
-        }
-    }
-    cout << "min dist=" << min_dist << endl;
-    cout << "max dist=" << max_dist << endl;
+//    for (int m = 0; m < matches.size(); m++)
+//    {
+//        if (matches[m].distance<min_dist)
+//        {
+//            min_dist = matches[m].distance;
+//        }
+//        if (matches[m].distance>max_dist)
+//        {
+//            max_dist = matches[m].distance;
+//        }
+//    }
+//    cout << "min dist=" << min_dist << endl;
+//    cout << "max dist=" << max_dist << endl;
 
     if(RANSAC == 1)
     {
@@ -605,15 +591,15 @@ void ImageProcess::BFKeypointsCalc(Mat src, Mat src2, int KpNum, bool RANSAC)//R
                 goodMatches.push_back(matches[m]);
             }
         }
-        cout << "The number of good matches:" <<goodMatches.size()<< endl;
+//        cout << "The number of good matches:" <<goodMatches.size()<< endl;
         //画出匹配结果
-        Mat img_out;
-        //红色连接的是匹配的特征点数，绿色连接的是未匹配的特征点数
-        //matchColor – Color of matches (lines and connected keypoints). If matchColor==Scalar::all(-1) , the color is generated randomly.
-        //singlePointColor – Color of single keypoints(circles), which means that keypoints do not have the matches.If singlePointColor == Scalar::all(-1), the color is generated randomly.
-        //CV_RGB(0, 255, 0)存储顺序为R-G-B,表示绿色
-        drawMatches(src, keypoints1, src2, keypoints2, goodMatches, img_out); //Scalar::all(-1), CV_RGB(0, 0, 255), Mat(), 2);
-        imshow("good Matches",img_out);
+//        Mat img_out;
+//        //红色连接的是匹配的特征点数，绿色连接的是未匹配的特征点数
+//        //matchColor – Color of matches (lines and connected keypoints). If matchColor==Scalar::all(-1) , the color is generated randomly.
+//        //singlePointColor – Color of single keypoints(circles), which means that keypoints do not have the matches.If singlePointColor == Scalar::all(-1), the color is generated randomly.
+//        //CV_RGB(0, 255, 0)存储顺序为R-G-B,表示绿色
+//        drawMatches(src, keypoints1, src2, keypoints2, goodMatches, img_out); //Scalar::all(-1), CV_RGB(0, 0, 255), Mat(), 2);
+//        imshow("good Matches",img_out);
 
         //RANSAC匹配过程
         vector<DMatch> m_Matches;
@@ -671,14 +657,16 @@ void ImageProcess::BFKeypointsCalc(Mat src, Mat src2, int KpNum, bool RANSAC)//R
                 index++;
             }
         }
-        cout << "RANSAC: " <<RR_matches.size()<< endl;
-        Mat img_RR_matches;
-        drawMatches(src, RR_KP1, src2, RR_KP2, RR_matches, img_RR_matches);
-        imshow("After RANSAC",img_RR_matches);
+        matchNum = RR_matches.size();
+//        cout << "RANSAC: " <<RR_matches.size()<< endl;
+//        Mat img_RR_matches;
+//        drawMatches(src, RR_KP1, src2, RR_KP2, RR_matches, img_RR_matches);
+//        imshow("After RANSAC",img_RR_matches);
     }
     else {
         qDebug() << "NO RANSAC" <<endl;
     }
+    return matchNum;
 }
 
 

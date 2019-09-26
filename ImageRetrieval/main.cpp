@@ -43,23 +43,23 @@ int main(int argc, char *argv[])
     Mat img2 = imread("../data2/carpet4.jpg");
 
 
-        ip->searchFolder("../data");
+    ip->searchFolder("../data");
 
-        ip->debugMap();
+    ip->debugMap();
 
-    //    ip->featureExtraction("../data2");
+//    ip->featureExtraction("../data2");
 
-        ip->calcDistance("../data", 1.0, 1.0, 1.0);
+    ip->calcDistance("../data", 1.0, 1.0, 1.0);
 
-        ip->debugMap();
+    ip->debugMap();
 
-        ip->rank();
+    ip->rank();
 
-//        ip->DebugRankMap();
-//        qDebug()<<ip->rankRes<<endl;
-//    for(int i =1;i<=5;i++){
-//        qDebug()<<ip->getImgPath(i)<<endl;
-//    }
+    ip->DebugRankMap();
+    //        qDebug()<<ip->rankRes<<endl;
+    for(int i =0;i<=5;i++){
+        qDebug()<<ip->getImgPath(i)<<endl;
+    }
 
 /***ColorHistogram*******************************************/
 //    qDebug(">>>>HIST START>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
