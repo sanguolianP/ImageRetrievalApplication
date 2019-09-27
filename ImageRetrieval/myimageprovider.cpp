@@ -34,7 +34,40 @@ QPixmap MyImageProvider::requestPixmap(const QString &id, QSize *size, const QSi
     }else
     {
         int ith = id.toInt();
+//        QString oneImgPath;
+//        switch (ith) {
+//        case 0:
+//            oneImgPath = "../10/0.jpg" ;
+//            break;
+//        case 1:
+//            oneImgPath = "../10/221118240-0045-001-01.jpg" ;
+//            break;
+//        case 2:
+//            oneImgPath = "../10/3.jpg" ;
+//            break;
+//        case 3:
+//            oneImgPath = "../10/221118240-0046-001-01.jpg" ;
+//            break;
+//        case 4:
+//            oneImgPath = "../10/221118240-0067-001-02.jpg" ;
+//            break;
+//        case 5:
+//            oneImgPath = "../10/4.jpg" ;
+//            break;
+//        case 6:
+//            oneImgPath = "../10/221118240-0050-001-01.jpg" ;
+//            break;
+//        case 7:
+//            oneImgPath = "../10/6.jpg" ;
+//            break;
+//        case 8:
+//            oneImgPath = "../10/221118240-0063-002-01.jpg" ;
+//            break;
+
+//        }
         QString oneImgPath = ip->getImgPath(ith);
+//        qDebug()<< oneImgPath<<endl;
+//
         QImage img2 = QImage(oneImgPath);
         pixmap = QPixmap::fromImage(img2);
 

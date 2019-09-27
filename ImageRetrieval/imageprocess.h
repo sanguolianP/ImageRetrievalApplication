@@ -99,7 +99,7 @@ public:
     QMap<int, FILEMAP> fileMap;
     int fnmapIndex;
 
-    QMap<double, QString> rankRes;
+    Q_INVOKABLE QMap<double, QString> rankRes;
 
 
 public:
@@ -152,8 +152,8 @@ public:
 //    void debugFeatures();
 
 /***特征提取和存储********************************************/
-    void searchFolder(QString path);
-    void debugMap();
+    Q_INVOKABLE void searchFolder(QString path);
+    Q_INVOKABLE void debugMap();
     void featureExtraction(QString path);
 
     void saveCurrentFeature(QImage currentImage);
@@ -166,8 +166,8 @@ public:
     double FeatureSum(double color, double clw, double gray, double grw, double canny, double cnw);
 
 /***计算距离并排序********************************************/
-    void calcDistance(QString path, double alpha, double beta, double gamma);
-    void rank();
+    Q_INVOKABLE void calcDistance(QString path, double alpha, double beta, double gamma);
+    Q_INVOKABLE void rank();
     void DebugRankMap();
 
 

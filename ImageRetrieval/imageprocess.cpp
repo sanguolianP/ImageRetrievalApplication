@@ -437,20 +437,20 @@ void ImageProcess::getGLCMFeatures(VecGLCM &vecGLCM, GLCMFeatures &features)
 
 Mat ImageProcess::genVecGLCM(Mat inputImg)
 {
-    qDebug(">>>>GLCM START>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+//    qDebug(">>>>GLCM START>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     VecGLCM vec;
     GLCMFeatures features;
 
     initGLCM(vec,16);
 
-    qDebug()<<"initVec: "<<endl<<vec;
-    qDebug()<<"originChannels: "<<inputImg.channels();
+//    qDebug()<<"initVec: "<<endl<<vec;
+//    qDebug()<<"originChannels: "<<inputImg.channels();
 
     Mat srcCpoy = inputImg.clone();
     cvtColor(srcCpoy, srcCpoy, COLOR_RGB2GRAY);
 
-    qDebug()<<"SOLOChannels: "<<srcCpoy.channels();
-    qDebug()<<"ImageSize: "<<srcCpoy.rows<<"   "<<srcCpoy.cols;
+//    qDebug()<<"SOLOChannels: "<<srcCpoy.channels();
+//    qDebug()<<"ImageSize: "<<srcCpoy.rows<<"   "<<srcCpoy.cols;
 
 //    imshow("oneChannel", srcCpoy);
 
@@ -460,10 +460,10 @@ Mat ImageProcess::genVecGLCM(Mat inputImg)
     double entropy_hor = features.entropy;
     double constrast_hor = features.constrast;
     double idMoment_hor = features.idMoment;
-    qDebug()<<"energy_hor "<<features.energy;
-    qDebug()<<"entropy_hor "<<features.entropy;
-    qDebug()<<"constrast_hor "<<features.constrast;
-    qDebug()<<"idMoment_hor "<<features.idMoment<<endl;
+//    qDebug()<<"energy_hor "<<features.energy;
+//    qDebug()<<"entropy_hor "<<features.entropy;
+//    qDebug()<<"constrast_hor "<<features.constrast;
+//    qDebug()<<"idMoment_hor "<<features.idMoment<<endl;
 
     calGLCM(srcCpoy, vec, ImageProcess::GLCM_VERTICAL);
     getGLCMFeatures(vec, features);
@@ -471,10 +471,10 @@ Mat ImageProcess::genVecGLCM(Mat inputImg)
     double entropy_ver = features.entropy;
     double constrast_ver = features.constrast;
     double idMoment_ver = features.idMoment;
-    qDebug()<<"energy_ver "<<features.energy;
-    qDebug()<<"entropy_ver "<<features.entropy;
-    qDebug()<<"constrast_ver "<<features.constrast;
-    qDebug()<<"idMoment_ver "<<features.idMoment<<endl;
+//    qDebug()<<"energy_ver "<<features.energy;
+//    qDebug()<<"entropy_ver "<<features.entropy;
+//    qDebug()<<"constrast_ver "<<features.constrast;
+//    qDebug()<<"idMoment_ver "<<features.idMoment<<endl;
 
     calGLCM(srcCpoy, vec, ImageProcess::GLCM_ANGLE_45);
     getGLCMFeatures(vec, features);
@@ -482,10 +482,10 @@ Mat ImageProcess::genVecGLCM(Mat inputImg)
     double entropy_45 = features.entropy;
     double constrast_45 = features.constrast;
     double idMoment_45 = features.idMoment;
-    qDebug()<<"energy_45 "<<features.energy;
-    qDebug()<<"entropy_45 "<<features.entropy;
-    qDebug()<<"constrast_45 "<<features.constrast;
-    qDebug()<<"idMoment_45 "<<features.idMoment<<endl;
+//    qDebug()<<"energy_45 "<<features.energy;
+//    qDebug()<<"entropy_45 "<<features.entropy;
+//    qDebug()<<"constrast_45 "<<features.constrast;
+//    qDebug()<<"idMoment_45 "<<features.idMoment<<endl;
 
     calGLCM(srcCpoy, vec, ImageProcess::GLCM_ANGLE_135);
     getGLCMFeatures(vec, features);
@@ -493,25 +493,25 @@ Mat ImageProcess::genVecGLCM(Mat inputImg)
     double entropy_135 = features.entropy;
     double constrast_135 = features.constrast;
     double idMoment_135 = features.idMoment;
-    qDebug()<<"energy_135 "<<features.energy;
-    qDebug()<<"entropy_135 "<<features.entropy;
-    qDebug()<<"constrast_135 "<<features.constrast;
-    qDebug()<<"idMoment_135 "<<features.idMoment<<endl;
+//    qDebug()<<"energy_135 "<<features.energy;
+//    qDebug()<<"entropy_135 "<<features.entropy;
+//    qDebug()<<"constrast_135 "<<features.constrast;
+//    qDebug()<<"idMoment_135 "<<features.idMoment<<endl;
 
     double energy_anverage = (energy_hor+energy_ver+energy_45+energy_135)/4;
     double entropy_anverage = (entropy_hor+entropy_ver+entropy_45+entropy_135)/4;
     double constrast_anverage = (constrast_hor+constrast_ver+constrast_45+constrast_135)/4;
     double idMoment_anverage = (idMoment_hor+idMoment_ver+idMoment_45+idMoment_135)/4;
-    qDebug()<<"energy_anverage "<< energy_anverage;
-    qDebug()<<"entropy_anverage "<< entropy_anverage;
-    qDebug()<<"constrast_anverage "<< constrast_anverage;
-    qDebug()<<"idMoment_anverage "<< idMoment_anverage<<endl;
+//    qDebug()<<"energy_anverage "<< energy_anverage;
+//    qDebug()<<"entropy_anverage "<< entropy_anverage;
+//    qDebug()<<"constrast_anverage "<< constrast_anverage;
+//    qDebug()<<"idMoment_anverage "<< idMoment_anverage<<endl;
 
-    qDebug("GLCM DONE!");
+//    qDebug("GLCM DONE!");
 
     Mat genVec = (Mat_<float>(1, 4) << energy_anverage, entropy_anverage,
                   constrast_anverage, idMoment_anverage);
-    cout<<"GEN VEC: "<<genVec<<endl;
+//    cout<<"GEN VEC: "<<genVec<<endl;
 
     return genVec;
 }
@@ -534,7 +534,7 @@ Mat ImageProcess::CannyThreshold(Mat src)
     //src.copyTo( dst, detected_edges);
     //qDebug()<<dst.channels()<<endl;
     //qDebug()<<detected_edges.channels()<<endl;
-    cout<< detected_edges.rows << detected_edges.cols <<endl;
+//    cout<< detected_edges.rows << detected_edges.cols <<endl;
     return detected_edges;
 }
 
@@ -564,19 +564,19 @@ int ImageProcess::BFKeypointsCalc(Mat descriptors1, Mat descriptors2, bool RANSA
 //    imshow("matches result",output);
 
     //计算匹配结果中距离最大和距离最小值
-//    float min_dist = matches[0].distance, max_dist = matches[0].distance;
+    float min_dist = matches[0].distance, max_dist = matches[0].distance;
 
-//    for (int m = 0; m < matches.size(); m++)
-//    {
-//        if (matches[m].distance<min_dist)
-//        {
-//            min_dist = matches[m].distance;
-//        }
-//        if (matches[m].distance>max_dist)
-//        {
-//            max_dist = matches[m].distance;
-//        }
-//    }
+    for (int m = 0; m < matches.size(); m++)
+    {
+        if (matches[m].distance<min_dist)
+        {
+            min_dist = matches[m].distance;
+        }
+        if (matches[m].distance>max_dist)
+        {
+            max_dist = matches[m].distance;
+        }
+    }
 //    cout << "min dist=" << min_dist << endl;
 //    cout << "max dist=" << max_dist << endl;
 
@@ -612,6 +612,7 @@ int ImageProcess::BFKeypointsCalc(Mat descriptors1, Mat descriptors2, bool RANSA
         }
 
         //坐标转换为float类型
+        /*
         vector <KeyPoint> RAN_KP1, RAN_KP2;
         //size_t是标准C库中定义的，应为unsigned int，在64位系统中为long unsigned int,在C++中为了适应不同的平台，增加可移植性。
         for (size_t i = 0; i < m_Matches.size(); i++)
@@ -628,12 +629,12 @@ int ImageProcess::BFKeypointsCalc(Mat descriptors1, Mat descriptors2, bool RANSA
             p01.push_back(RAN_KP1[i].pt);
             p02.push_back(RAN_KP2[i].pt);
         }
-        /*vector <Point2f> img1_corners(4);
-            img1_corners[0] = Point(0,0);
-            img1_corners[1] = Point(img_1.cols,0);
-            img1_corners[2] = Point(img_1.cols, img_1.rows);
-            img1_corners[3] = Point(0, img_1.rows);
-            vector <Point2f> img2_corners(4);*/
+//        vector <Point2f> img1_corners(4);
+//            img1_corners[0] = Point(0,0);
+//            img1_corners[1] = Point(img_1.cols,0);
+//            img1_corners[2] = Point(img_1.cols, img_1.rows);
+//            img1_corners[3] = Point(0, img_1.rows);
+//            vector <Point2f> img2_corners(4);
         //求转换矩阵
         //Mat m_homography;
         //vector<uchar> m;
@@ -657,7 +658,8 @@ int ImageProcess::BFKeypointsCalc(Mat descriptors1, Mat descriptors2, bool RANSA
                 index++;
             }
         }
-        matchNum = RR_matches.size();
+        */
+        matchNum = ptCount;
 //        cout << "RANSAC: " <<RR_matches.size()<< endl;
 //        Mat img_RR_matches;
 //        drawMatches(src, RR_KP1, src2, RR_KP2, RR_matches, img_RR_matches);
@@ -848,7 +850,7 @@ double ImageProcess::compareGLCM(Mat genVec1, Mat genVec2)
 
     int compare_method = 1;
     gv1_gv2 = compareHist(genVec1,genVec2,compare_method);
-    qDebug() <<endl<< "Chi-Square distance：" << gv1_gv2<<endl;
+//    qDebug() <<endl<< "Chi-Square distance：" << gv1_gv2<<endl;
     return gv1_gv2;
 }
 //计算canny边缘距离
@@ -876,14 +878,14 @@ double ImageProcess::FeatureSum(double color, double clw, double gray, double gr
 
 void ImageProcess::calcDistance(QString path, double alpha, double beta, double gamma)
 {
-    qDebug("提取当前待检索图像的特征*************************************");
+//    qDebug("提取当前待检索图像的特征*************************************");
     //提取当前待检索图像的特征
     Mat imgCurr = qImage2cvMat(imageGlobal);
     Mat hhh = HSVHist(imgCurr);
     Mat glcmMat = genVecGLCM(imgCurr);
     Mat canMat = CannyThreshold(imgCurr);
 
-    qDebug("遍历Map*************************************");
+//    qDebug("遍历Map*************************************");
     QMapIterator<int, FILEMAP> j(fileMap);
     while(j.hasNext())
     {
@@ -907,20 +909,20 @@ void ImageProcess::calcDistance(QString path, double alpha, double beta, double 
         Mat cannyMapTemp = CSVToMat(csvNameCanny);
 
 
-        qDebug("计算距离*************************************");
+//        qDebug("计算距离*************************************");
         //和待检索图像做比较计算距离
-        qDebug("histDis start");
+//        qDebug("histDis start");
         double histDis = compareColorHis(hhh, histMapTemp);
-        qDebug("histDis done");
+//        qDebug("histDis done");
         double glcmDis = compareGLCM(glcmMat, glcmMapTemp);
-        qDebug("glcmDis done");
+//        qDebug("glcmDis done");
         double cannyDis = CannyMatch(canMat, cannyMapTemp);
-        qDebug("cannyDis done");
+//        qDebug("cannyDis done");
 
 
         double finalDis = FeatureSum(histDis,alpha, glcmDis,beta, cannyDis,gamma);
 
-        qDebug()<<"finalDis: "<<finalDis<<endl;
+//        qDebug()<<"finalDis: "<<finalDis<<endl;
         fileMap[j.key()].finalFeatureDis = finalDis;
 
     }
@@ -967,12 +969,6 @@ QString ImageProcess::getImgPath(int ith)
     }
     return desPath;
 }
-
-
-
-
-
-
 
 
 

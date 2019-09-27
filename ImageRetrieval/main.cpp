@@ -36,30 +36,30 @@ int main(int argc, char *argv[])
 /*************************************************************************/
     ImageProcess *ip = new ImageProcess();
 
-    imageGlobal = QImage("../data/carpet4.jpg");
+    imageGlobal = QImage("../10/1.jpg");
     //相对路径是相对于.exe来说的，所以图片应该放在bin目录下，../表示上一级目录
 
     Mat img = ip->qImage2cvMat(imageGlobal);
-    Mat img2 = imread("../data2/carpet4.jpg");
+    Mat img2 = imread("../data/carpet1.jpg");
 
 
-    ip->searchFolder("../data");
+//    ip->searchFolder("../10");
 
-    ip->debugMap();
+//    ip->debugMap();
 
-//    ip->featureExtraction("../data2");
+////    ip->featureExtraction("../10");
 
-    ip->calcDistance("../data", 1.0, 1.0, 1.0);
+//    ip->calcDistance("../10", 1.0, 1.0, 1.0);
 
-    ip->debugMap();
+//    ip->debugMap();
 
-    ip->rank();
+//    ip->rank();
 
-    ip->DebugRankMap();
-    //        qDebug()<<ip->rankRes<<endl;
-    for(int i =0;i<=5;i++){
-        qDebug()<<ip->getImgPath(i)<<endl;
-    }
+//    ip->DebugRankMap();
+//    //        qDebug()<<ip->rankRes<<endl;
+//    for(int i =0;i<10;i++){
+//        qDebug()<<ip->getImgPath(i)<<endl;
+//    }
 
 /***ColorHistogram*******************************************/
 //    qDebug(">>>>HIST START>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
 /***SIFT*******************************************************/
 //    qDebug(">>>>SIFT START>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 //    ip->SiftKeypoints(img);
-//    ip->BFKeypointsCalc(img,img2,150,0);
+//    qDebug()<<ip->BFKeypointsCalc(ip->SiftKeypoints(img,150), ip->SiftKeypoints(img2,150),0);
 //    qDebug("SIFT DONE!");
 
 /*************************************************************************/

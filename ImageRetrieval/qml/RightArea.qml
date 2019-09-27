@@ -385,6 +385,27 @@ Rectangle {
 
 
     }
+    Timer
+    {
+        interval: 100;
+        running: true;
+        repeat: true;
+        onTriggered:
+        {
+           // imageMain.source = "";
+//            imageMain.source = "image://imgProvider/hello"
+////                console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<Fresh");
+//            imageItem.processImage();
+////                console.log("---------------------------Fresh");
+////                console.log(imageMain.width +" "+ imageMain.height);
+//            if(imageItem.getGlobalWidth()!==0)
+//            {
+//                mainImageWidth = imageItem.getGlobalWidth();
+//                mainImageHeight = imageItem.getGlobalHeight();
+//            }
+
+        }
+    }
 
 
 }
