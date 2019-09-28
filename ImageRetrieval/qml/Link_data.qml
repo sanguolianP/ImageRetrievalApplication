@@ -1,5 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Window 2.12
+import Imagepro 1.1
+
 Window{
 
 
@@ -105,6 +107,10 @@ Window{
             }
             }
 
+            ImageProItem
+            {
+                id: imageItemDB;
+            }
             RetrievalButton{
                 anchors.horizontalCenter: parent.horizontalCenter;
                 anchors.top: parent.top;
@@ -120,8 +126,7 @@ Window{
 
                 onRetrievalButtonIndexBack:
                 {
-
-
+                    imageItemDB.connectDB();
                 }
         }
         }

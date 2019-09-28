@@ -107,6 +107,9 @@ public:
     void openImageCV(QString imgName);
     void cvShow(QString title, Mat img);
 
+    Q_INVOKABLE void connectDB();
+    Q_INVOKABLE void retrieval();
+
     //图像格式转换
     Mat qImage2cvMat(QImage img);
     QImage cvMat2qImage(Mat img);

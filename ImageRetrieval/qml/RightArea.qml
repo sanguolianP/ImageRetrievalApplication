@@ -111,33 +111,63 @@ Rectangle {
         rowSpacing: 50;
         columnSpacing: 50;
 
-
 //        Layout.alignment: Qt.AlignVCenter;
+
+
+        Timer
+        {
+            interval: 1000;
+            running: true;
+            repeat: true;
+            onTriggered:
+            {
+                searchImage_0.source = "";
+                searchImage_0.source = "image://imgProvider/0";
+
+                searchImage_1.source = "";
+                searchImage_1.source = "image://imgProvider/1";
+
+                searchImage_2.source = "";
+                searchImage_2.source = "image://imgProvider/2";
+
+                searchImage_3.source = "";
+                searchImage_3.source = "image://imgProvider/3";
+
+                searchImage_4.source = "";
+                searchImage_4.source = "image://imgProvider/4";
+
+                searchImage_5.source = "";
+                searchImage_5.source = "image://imgProvider/5";
+
+                searchImage_6.source = "";
+                searchImage_6.source = "image://imgProvider/6";
+
+                searchImage_7.source = "";
+                searchImage_7.source = "image://imgProvider/7";
+
+                searchImage_8.source = "";
+                searchImage_8.source = "image://imgProvider/8";
+            }
+        }
 
         Rectangle
         {
-//            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter;
-//            width: 100;
-//            height: 100;
+
             Layout.fillWidth: true;
             Layout.fillHeight: true;
             color: "transparent";
             Image
-          //  Rectangle
             {
                 id: searchImage_0;
-                source: "image://imgProvider/0";
+
                 width: 170;
                 height: 160;
                 anchors.horizontalCenter: parent.horizontalCenter;
                 anchors.verticalCenter: parent.verticalCenter;
-              //  anchors.fill:searchImage_1;
-              //  color: "#0000ff";
-//                Image {
-//                    id: searchImage_1;
-//                    source: "images/MainInterface/left/image.png";
 
-//                }
+                cache: false;
+                source: "image://imgProvider/0";
+
                 MouseArea
                 {
                     acceptedButtons: "LeftButton";
@@ -154,21 +184,17 @@ Rectangle {
             Layout.fillHeight: true;
             color: "transparent";
             Image
-        //    Rectangle
             {
                 id: searchImage_1;
-                source: "image://imgProvider/1";
+
                 width: 170;
                 height: 160;
                 anchors.horizontalCenter: parent.horizontalCenter;
                 anchors.verticalCenter: parent.verticalCenter;
-              //  anchors.fill:searchImage_1;
-              //  color: "#0000ff";
-//                Image {
-//                    id: searchImage_1;
-//                    source: "images/MainInterface/left/image.png";
 
-//                }
+                cache: false;
+                source: "image://imgProvider/1";
+
                 MouseArea
                 {
                     acceptedButtons: "LeftButton";
@@ -186,18 +212,15 @@ Rectangle {
             Image
             {
                 id: searchImage_2;
-                source: "image://imgProvider/2";
+
                 width: 170;
                 height: 160;
                 anchors.horizontalCenter: parent.horizontalCenter;
                 anchors.verticalCenter: parent.verticalCenter;
-               // color: "#0000ff";
-//                anchors.fill:searchImage_2;
-//                Image {
-//                    id: searchImage_2;
-//                    source: "images/MainInterface/left/image.png";
 
-//                }
+                cache: false;
+                source: "image://imgProvider/2";
+
                 MouseArea
                 {
                     acceptedButtons: "LeftButton";
@@ -215,18 +238,15 @@ Rectangle {
             Image
             {
                 id: searchImage_3;
-                source: "image://imgProvider/3";
+
                 width: 170;
                 height: 160;
                 anchors.horizontalCenter: parent.horizontalCenter;
                 anchors.verticalCenter: parent.verticalCenter;
-                // color: "#0000ff";
-//                 anchors.fill:searchImage_3;
-//                 Image {
-//                     id: searchImage_3;
-//                     source: "images/MainInterface/left/image.png";
 
-//                 }
+                cache: false;
+                source: "image://imgProvider/3";
+
                 MouseArea
                 {
                     acceptedButtons: "LeftButton";
@@ -244,18 +264,15 @@ Rectangle {
             Image
             {
                 id: searchImage_4;
-                source: "image://imgProvider/4";
+
                 width: 170;
                 height: 160;
                 anchors.horizontalCenter: parent.horizontalCenter;
                 anchors.verticalCenter: parent.verticalCenter;
-                // color: "#0000ff";
-//                 anchors.fill:searchImage_4;
-//                 Image {
-//                     id: searchImage_4;
-//                     source: "images/MainInterface/left/image.png";
 
-//                 }
+                cache: false;
+                source: "image://imgProvider/4";
+
                 MouseArea
                 {
                     acceptedButtons: "LeftButton";
@@ -273,18 +290,15 @@ Rectangle {
             Image
             {
                 id: searchImage_5;
-                source: "image://imgProvider/5";
+
                 width: 170;
                 height: 160;
                 anchors.horizontalCenter: parent.horizontalCenter;
                 anchors.verticalCenter: parent.verticalCenter;
-                // color: "#0000ff";
-//                 anchors.fill:searchImage_5;
-//                 Image {
-//                     id: searchImage_5;
-//                     source: "images/MainInterface/left/image.png";
 
-//                 }
+                cache: false;
+                source: "image://imgProvider/5";
+
                 MouseArea
                 {
                     acceptedButtons: "LeftButton";
@@ -302,18 +316,15 @@ Rectangle {
             Image
             {
                 id: searchImage_6;
-                source: "image://imgProvider/6";
+
                 width: 170;
                 height: 160;
                 anchors.horizontalCenter: parent.horizontalCenter;
                 anchors.verticalCenter: parent.verticalCenter;
-                // color: "#0000ff";
-//                 anchors.fill:searchImage_6;
-//                 Image {
-//                     id: searchImage_6;
-//                     source: "images/MainInterface/left/image.png";
 
-//                 }
+                cache: false;
+                source: "image://imgProvider/6";
+
                 MouseArea
                 {
                     acceptedButtons: "LeftButton";
@@ -331,18 +342,15 @@ Rectangle {
             Image
             {
                 id: searchImage_7;
-                source: "image://imgProvider/7";
+
                 width: 170;
                 height: 160;
                 anchors.horizontalCenter: parent.horizontalCenter;
                 anchors.verticalCenter: parent.verticalCenter;
-                // color: "#0000ff";
-//                 anchors.fill:searchImage_7;
-//                 Image {
-//                     id: searchImage_7;
-//                     source: "images/MainInterface/left/image.png";
 
-//                 }
+                cache: false;
+                source: "image://imgProvider/7";
+
                 MouseArea
                 {
                     acceptedButtons: "LeftButton";
@@ -360,18 +368,15 @@ Rectangle {
             Image
             {
                 id: searchImage_8;
+
                 width: 170;
                 height: 160;
                 anchors.horizontalCenter: parent.horizontalCenter;
                 anchors.verticalCenter: parent.verticalCenter;
-                // color: "#0000ff";
-                source: "image://imgProvider/8";
-//                 anchors.fill:searchImage_8;
-//                 Image {
-//                     id: searchImage_8;
-//                     source: "images/MainInterface/left/image.png";
 
-//                 }
+                cache: false;
+                source: "image://imgProvider/8";
+
                 MouseArea
                 {
                     acceptedButtons: "LeftButton";
@@ -385,27 +390,7 @@ Rectangle {
 
 
     }
-    Timer
-    {
-        interval: 100;
-        running: true;
-        repeat: true;
-        onTriggered:
-        {
-           // imageMain.source = "";
-//            imageMain.source = "image://imgProvider/hello"
-////                console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<Fresh");
-//            imageItem.processImage();
-////                console.log("---------------------------Fresh");
-////                console.log(imageMain.width +" "+ imageMain.height);
-//            if(imageItem.getGlobalWidth()!==0)
-//            {
-//                mainImageWidth = imageItem.getGlobalWidth();
-//                mainImageHeight = imageItem.getGlobalHeight();
-//            }
 
-        }
-    }
 
 
 }

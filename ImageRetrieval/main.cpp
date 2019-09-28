@@ -40,8 +40,6 @@ int main(int argc, char *argv[])
     //相对路径是相对于.exe来说的，所以图片应该放在bin目录下，../表示上一级目录
 
     Mat img = ip->qImage2cvMat(imageGlobal);
-    Mat img2 = imread("../data/carpet1.jpg");
-
 
 //    ip->searchFolder("../10");
 
@@ -51,7 +49,7 @@ int main(int argc, char *argv[])
 
 //    ip->calcDistance("../10", 1.0, 1.0, 1.0);
 
-//    ip->debugMap();
+////    ip->debugMap();
 
 //    ip->rank();
 

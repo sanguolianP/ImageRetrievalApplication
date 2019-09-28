@@ -49,6 +49,26 @@ QImage ImageProcess::processImage()
 //    qDebug("processed");
     return imageRes;
 }
+
+void ImageProcess::connectDB()
+{
+    searchFolder("../10");
+    debugMap();
+//    featureExtraction("../10");
+    qDebug("connect sucess!");
+}
+
+void ImageProcess::retrieval()
+{
+    searchFolder("../10");
+    debugMap();
+//    featureExtraction("../10");
+    qDebug("connect sucess!");
+    calcDistance("../10", 1.0, 1.0, 1.0);
+    rank();
+    DebugRankMap();
+}
+
 //获取全局图像的宽和高
 int ImageProcess::getGlobalWidth()
 {
@@ -488,11 +508,14 @@ Mat ImageProcess::genVecGLCM(Mat inputImg)
 //    qDebug()<<"idMoment_45 "<<features.idMoment<<endl;
 
     calGLCM(srcCpoy, vec, ImageProcess::GLCM_ANGLE_135);
+
     getGLCMFeatures(vec, features);
+
     double energy_135 = features.energy;
     double entropy_135 = features.entropy;
     double constrast_135 = features.constrast;
     double idMoment_135 = features.idMoment;
+
 //    qDebug()<<"energy_135 "<<features.energy;
 //    qDebug()<<"entropy_135 "<<features.entropy;
 //    qDebug()<<"constrast_135 "<<features.constrast;
@@ -512,7 +535,6 @@ Mat ImageProcess::genVecGLCM(Mat inputImg)
     Mat genVec = (Mat_<float>(1, 4) << energy_anverage, entropy_anverage,
                   constrast_anverage, idMoment_anverage);
 //    cout<<"GEN VEC: "<<genVec<<endl;
-
     return genVec;
 }
 
@@ -885,7 +907,8 @@ void ImageProcess::calcDistance(QString path, double alpha, double beta, double 
     Mat glcmMat = genVecGLCM(imgCurr);
     Mat canMat = CannyThreshold(imgCurr);
 
-//    qDebug("遍历Map*************************************");
+
+    qDebug("遍历Map*************************************");
     QMapIterator<int, FILEMAP> j(fileMap);
     while(j.hasNext())
     {
@@ -909,20 +932,20 @@ void ImageProcess::calcDistance(QString path, double alpha, double beta, double 
         Mat cannyMapTemp = CSVToMat(csvNameCanny);
 
 
-//        qDebug("计算距离*************************************");
+        qDebug("计算距离*************************************");
         //和待检索图像做比较计算距离
-//        qDebug("histDis start");
+        qDebug("histDis start");
         double histDis = compareColorHis(hhh, histMapTemp);
-//        qDebug("histDis done");
+        qDebug("histDis done");
         double glcmDis = compareGLCM(glcmMat, glcmMapTemp);
-//        qDebug("glcmDis done");
+        qDebug("glcmDis done");
         double cannyDis = CannyMatch(canMat, cannyMapTemp);
-//        qDebug("cannyDis done");
+        qDebug("cannyDis done");
 
 
         double finalDis = FeatureSum(histDis,alpha, glcmDis,beta, cannyDis,gamma);
 
-//        qDebug()<<"finalDis: "<<finalDis<<endl;
+        qDebug()<<"finalDis: "<<finalDis<<endl;
         fileMap[j.key()].finalFeatureDis = finalDis;
 
     }
@@ -931,6 +954,7 @@ void ImageProcess::calcDistance(QString path, double alpha, double beta, double 
 void ImageProcess::rank()
 {
     rankRes.clear();
+    rankResGlobal.clear();
 
     QMapIterator<int, FILEMAP> k(fileMap);
     while(k.hasNext())
@@ -938,8 +962,12 @@ void ImageProcess::rank()
         k.next();
 //        QString fpn = k.value().fileName;
         QString fpn = k.value().filePath + "/" + k.value().fileName + "." + k.value().fileSuffix;
+
         rankRes.insert(k.value().finalFeatureDis, fpn);
+        rankResGlobal.insert(k.value().finalFeatureDis, fpn);
     }
+
+
 }
 
 void ImageProcess::DebugRankMap()
@@ -959,7 +987,7 @@ QString ImageProcess::getImgPath(int ith)
     int index_it;
     QString desPath;
     //QMapIterator<double, QString> ith(rankRes);
-    for(it = rankRes.begin(), index_it = 0; it != rankRes.end(); ++it,index_it++)
+    for(it = rankResGlobal.begin(), index_it = 0; it != rankResGlobal.end(); ++it,index_it++)
     {
         //qDebug()<<"key:"<<it.key()<<"value:"<<it.value()<<endl;
         if (index_it == ith){

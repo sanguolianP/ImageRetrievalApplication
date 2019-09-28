@@ -184,24 +184,18 @@ Rectangle {
         {
             id: imageMain;
             z: 0.2;
-//            anchors.horizontalCenter: parent.horizontalCenter;
-//            anchors.verticalCenter: parent.verticalCenter;
 
             rotation: rotationAngle;
 
             asynchronous: true;
 
-//            anchors.fill: parent;
             fillMode: Image.PreserveAspectFit;
 
             width: imageArea.width;
             height: imageArea.width * mainImageHeight/mainImageWidth;
 
-//            width: 200;
-//            height: 200;
-
             cache: false;
-//            source: "images/MainInterface/left/image.png";
+
             source: "image://imgProvider/hello";
 
             MouseArea
@@ -514,6 +508,7 @@ Rectangle {
             nIndex: 0;
             onRetrievalButtonIndexBack:
             {
+                imageItem.retrieval();
                 console.log(nIndex);
             }
         }
