@@ -242,7 +242,7 @@ Rectangle {
 
         Timer
         {
-            interval: 100;
+            interval: 1000;
             running: true;
             repeat: true;
             onTriggered:

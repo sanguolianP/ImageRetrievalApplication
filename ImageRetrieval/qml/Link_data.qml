@@ -95,6 +95,7 @@ Window{
                 height: 25;
             TextInput{
 
+                id: urlInput;
                // width:120;
               //  height: 25;
                 font.pixelSize: 20;
@@ -103,6 +104,8 @@ Window{
               //  }
                // inputMask: "http://000.000.000";
                 focus: true;
+
+                text: "../10";
 
             }
             }
@@ -126,7 +129,8 @@ Window{
 
                 onRetrievalButtonIndexBack:
                 {
-                    imageItemDB.connectDB();
+                    console.log(urlInput.text);
+                    imageItemDB.connectDB(urlInput.text);
                 }
         }
         }

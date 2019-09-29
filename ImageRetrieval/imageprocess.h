@@ -94,7 +94,6 @@ public:
         GLCM_ANGLE_135  = 3   //135°
     };
 
-    FILEMAP fmCurrent;
     FILEMAP fm;
     QMap<int, FILEMAP> fileMap;
     int fnmapIndex;
@@ -107,7 +106,7 @@ public:
     void openImageCV(QString imgName);
     void cvShow(QString title, Mat img);
 
-    Q_INVOKABLE void connectDB();
+    Q_INVOKABLE void connectDB(QString path);
     Q_INVOKABLE void retrieval();
 
     //图像格式转换

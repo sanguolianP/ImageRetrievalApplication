@@ -28,18 +28,20 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<ImageProcess>("Imagepro", 1, 1, "ImageProItem");
 
+//    engine.rootContext()->setContextProperty("client", Client);
     engine.addImageProvider(QLatin1String("imgProvider"), new MyImageProvider);
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 
 
 /*************************************************************************/
-    ImageProcess *ip = new ImageProcess();
+//    ImageProcess *ip = new ImageProcess();
 
-    imageGlobal = QImage("../10/1.jpg");
+//    imageGlobal = QImage("../data/carpet7.jpg");
+    imageGlobal = QImage("../10/0.jpg");
     //相对路径是相对于.exe来说的，所以图片应该放在bin目录下，../表示上一级目录
 
-    Mat img = ip->qImage2cvMat(imageGlobal);
+//    Mat img = ip->qImage2cvMat(imageGlobal);
 
 //    ip->searchFolder("../10");
 

@@ -50,21 +50,25 @@ QImage ImageProcess::processImage()
     return imageRes;
 }
 
-void ImageProcess::connectDB()
+void ImageProcess::connectDB(QString path)
 {
-    searchFolder("../10");
+    fileMapGlobal.clear();
+    fnmapIndexGlobal = 0;
+
+    currentPath = path;
+
+    searchFolder(path);
     debugMap();
-//    featureExtraction("../10");
     qDebug("connect sucess!");
+
+//    featureExtraction("../10");
+//    qDebug("featureExtraction sucess!");
 }
 
 void ImageProcess::retrieval()
 {
-    searchFolder("../10");
-    debugMap();
-//    featureExtraction("../10");
-    qDebug("connect sucess!");
-    calcDistance("../10", 1.0, 1.0, 1.0);
+
+    calcDistance(currentPath, 1.0, 1.0, 1.0);
     rank();
     DebugRankMap();
 }
@@ -699,7 +703,7 @@ void ImageProcess::searchFolder(QString path)
 {
     QDir dir(path);
 
-//    dir.setNameFilters(ImageFilterList);
+
     qDebug()<<dir<<endl;
     foreach(QFileInfo mfile, dir.entryInfoList())
     {
@@ -712,13 +716,13 @@ void ImageProcess::searchFolder(QString path)
                 continue;
             }
             qDebug()<<" File: "<< mfile.fileName();
-            fm.filePath = path;
-            fm.originId = fnmapIndex;
-            fm.fileName = mfile.baseName();
-            fm.fileSuffix = mfile.suffix();
-            fileMap.insert(fnmapIndex,fm);
+            fmGlobal.filePath = path;
+            fmGlobal.originId = fnmapIndexGlobal;
+            fmGlobal.fileName = mfile.baseName();
+            fmGlobal.fileSuffix = mfile.suffix();
+            fileMapGlobal.insert(fnmapIndexGlobal,fmGlobal);
 //            filenameMap.insert(fnmapIndex, mfile.fileName());
-            fnmapIndex++;
+            fnmapIndexGlobal++;
         }else
         {
             if(mfile.fileName()=="." || mfile.fileName()=="..")
@@ -732,7 +736,7 @@ void ImageProcess::searchFolder(QString path)
 void ImageProcess::debugMap()
 {
     qDebug("FILE MAP: ************************************");
-    QMapIterator<int, FILEMAP> i(fileMap);
+    QMapIterator<int, FILEMAP> i(fileMapGlobal);
     while(i.hasNext())
     {
         qDebug()<<i.next().key()<<"    ";
@@ -907,48 +911,56 @@ void ImageProcess::calcDistance(QString path, double alpha, double beta, double 
     Mat glcmMat = genVecGLCM(imgCurr);
     Mat canMat = CannyThreshold(imgCurr);
 
-
-    qDebug("遍历Map*************************************");
-    QMapIterator<int, FILEMAP> j(fileMap);
-    while(j.hasNext())
+    if(fileMapGlobal.isEmpty())
     {
-//        qDebug()<<j.next().key()<<"    ";
-//        qDebug()<<j.value().originId<<" ";
-//        qDebug()<<j.value().filePath<<" ";
-//        qDebug()<<j.value().fileName<<" ";
-//        qDebug()<<j.value().fileSuffix<<" ";
-//        qDebug()<<j.value().finalFeatureDis<<" "<<endl;
+        qDebug("Please connect DB first!");
+    }else
+    {
+        qDebug("遍历Map*************************************");
+        QMapIterator<int, FILEMAP> j(fileMapGlobal);
+        while(j.hasNext())
+        {
+//            qDebug()<<j.next().key()<<"    ";
+//            qDebug()<<j.value().originId<<" ";
+//            qDebug()<<j.value().filePath<<" ";
+//            qDebug()<<j.value().fileName<<" ";
+//            qDebug()<<j.value().fileSuffix<<" ";
+//            qDebug()<<j.value().finalFeatureDis<<" "<<endl;
 
-        j.next();
+            j.next();
 
-        //提取CSV并存入临时的Mat
-        QString csvNameHist = path + "/CSV/HIST_" + j.value().fileName + ".csv";
-        Mat histMapTemp = CSVToMat(csvNameHist);
+            //提取CSV并存入临时的Mat
+            QString csvNameHist = path + "/CSV/HIST_" + j.value().fileName + ".csv";
+            Mat histMapTemp = CSVToMat(csvNameHist);
 
-        QString csvNameGLCM = path + "/CSV/GLCM_" + j.value().fileName + ".csv";
-        Mat glcmMapTemp = CSVToMat(csvNameGLCM);
+            QString csvNameGLCM = path + "/CSV/GLCM_" + j.value().fileName + ".csv";
+            Mat glcmMapTemp = CSVToMat(csvNameGLCM);
 
-        QString csvNameCanny = path + "/CSV/CANNY_" + j.value().fileName + ".csv";
-        Mat cannyMapTemp = CSVToMat(csvNameCanny);
-
-
-        qDebug("计算距离*************************************");
-        //和待检索图像做比较计算距离
-        qDebug("histDis start");
-        double histDis = compareColorHis(hhh, histMapTemp);
-        qDebug("histDis done");
-        double glcmDis = compareGLCM(glcmMat, glcmMapTemp);
-        qDebug("glcmDis done");
-        double cannyDis = CannyMatch(canMat, cannyMapTemp);
-        qDebug("cannyDis done");
+            QString csvNameCanny = path + "/CSV/CANNY_" + j.value().fileName + ".csv";
+            Mat cannyMapTemp = CSVToMat(csvNameCanny);
 
 
-        double finalDis = FeatureSum(histDis,alpha, glcmDis,beta, cannyDis,gamma);
+            qDebug("计算距离*************************************");
+            //和待检索图像做比较计算距离
+            qDebug("histDis start");
+            double histDis = compareColorHis(hhh, histMapTemp);
+            qDebug("histDis done");
+            double glcmDis = compareGLCM(glcmMat, glcmMapTemp);
+            qDebug("glcmDis done");
+            double cannyDis = CannyMatch(canMat, cannyMapTemp);
+            qDebug("cannyDis done");
 
-        qDebug()<<"finalDis: "<<finalDis<<endl;
-        fileMap[j.key()].finalFeatureDis = finalDis;
 
+            double finalDis = FeatureSum(histDis,alpha, glcmDis,beta, cannyDis,gamma);
+
+            qDebug()<<"finalDis: "<<finalDis<<endl;
+            fileMapGlobal[j.key()].finalFeatureDis = finalDis;
+
+        }
     }
+
+
+
 }
 
 void ImageProcess::rank()
@@ -956,7 +968,7 @@ void ImageProcess::rank()
     rankRes.clear();
     rankResGlobal.clear();
 
-    QMapIterator<int, FILEMAP> k(fileMap);
+    QMapIterator<int, FILEMAP> k(fileMapGlobal);
     while(k.hasNext())
     {
         k.next();
